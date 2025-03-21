@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruiter Assessment Tool</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Home View -->
+        <div id="home-view" class="view">
+            <div class="card">
+                <div class="card-header">
+                    <img class="callboxlogo" src="Logo - white bg.png" alt="Callbox Logo">
+                    <h1 class="card-title">Recruiter Assessment Tool</h1>
+                    <p class="card-description">Complete the assessment to find the best role matches for you.</p>
+                    <div class="divider"></div>
+                </div>
+                <div class="card-content">
+                    <p class="intro-text">
+                        This tool helps you identify the most suitable roles based on your qualifications,
+                        technical skills, industry experience, education, and years of experience. The assessment will analyze your input and suggest the top 3
+                        best-matching roles.
+                    </p>
+                    <div class="text-center">
+                        <button id="start-assessment-btn" class="btn btn-primary">
+                            <i class="fas fa-play-circle"></i> Start Assessment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Assessment View -->
+        <div id="assessment-view" class="view hidden">
+            <div class="card">
+                <div class="card-header">
+                    <img class="callboxlogo" src="Logo - white bg.png" alt="Callbox Logo">
+                    <h1 class="card-title">Role Assessment</h1>
+                    <p class="card-description">Complete all sections to get role recommendations</p>
+                    <div class="divider"></div>
+                </div>
+                <div class="card-content">
+                    <div class="tabs">
+                        <div class="tabs-list">
+                            <button class="tab-trigger active" data-tab="applicant">
+                                <i class="fas fa-user"></i> Applicant
+                            </button>
+                            <button class="tab-trigger" data-tab="education">
+                                <i class="fas fa-graduation-cap"></i> Education
+                            </button>
+                            <button class="tab-trigger" data-tab="qualifications">
+                                <i class="fas fa-certificate"></i> Qualifications
+                            </button>
+                            <button class="tab-trigger" data-tab="technical">
+                                <i class="fas fa-laptop-code"></i> Technical
+                            </button>
+                            <button class="tab-trigger" data-tab="industry">
+                                <i class="fas fa-industry"></i> Industry
+                            </button>
+                            <button class="tab-trigger" data-tab="experience">
+                                <i class="fas fa-briefcase"></i> Experience
+                            </button>
+                        </div>
+
+                        <!-- Applicant Tab -->
+                        <div id="applicant-tab" class="tab-content active">
+                            <div class="tab-header">
+                                <h2><i class="fas fa-user-circle"></i> Applicant Information</h2>
+                                <p>Enter the applicant's basic information</p>
+                            </div>
+                            <div class="form-container">
+                                <div class="form-group">
+                                    <label for="name">Full Name <span class="required">*</span></label>
+                                    <input type="text" id="name" name="name" placeholder="Enter applicant's full name" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="email">Email Address <span class="required">*</span></label>
+                                    <input type="email" id="email" name="email" placeholder="Enter applicant's email address" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Phone Number</label>
+                                    <input type="tel" id="phone" name="phone" placeholder="Enter applicant's phone number (optional)">
+                                </div>
+                                <div id="applicant-error" class="error-message hidden">
+                                    <i class="fas fa-exclamation-circle"></i> Please fill in all required fields.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Education Tab -->
+                        <div id="education-tab" class="tab-content hidden">
+                            <div class="tab-header">
+                                <h2><i class="fas fa-graduation-cap"></i> Education Level <span class="required">*</span></h2>
+                                <p>Select the highest education level achieved by the candidate</p>
+                            </div>
+                            <div class="form-container">
+                                <div class="radio-group" id="education-options">
+                                    <!-- Education options will be populated by JavaScript -->
+                                </div>
+                                <div id="education-error" class="error-message hidden">
+                                    <i class="fas fa-exclamation-circle"></i> Please select an education level.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Qualifications Tab -->
+                        <div id="qualifications-tab" class="tab-content hidden">
+                            <div class="tab-header">
+                                <h2><i class="fas fa-certificate"></i> Qualifications <span class="required">*</span></h2>
+                                <p>Select all qualifications that apply to the candidate</p>
+                            </div>
+                            <div class="form-container">
+                                <div id="qualifications-container" class="categories-grid">
+                                    <!-- Qualification categories will be populated by JavaScript -->
+                                </div>
+                                <div id="qualifications-error" class="error-message hidden">
+                                    <i class="fas fa-exclamation-circle"></i> Please select at least one qualification.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Technical Tab -->
+                        <div id="technical-tab" class="tab-content hidden">
+                            <div class="tab-header">
+                                <h2><i class="fas fa-laptop-code"></i> Technical Skills <span class="required">*</span></h2>
+                                <p>Select all technical skills that apply to the candidate</p>
+                            </div>
+                            <div class="form-container">
+                                <div id="technical-container" class="categories-grid">
+                                    <!-- Technical skills will be populated by JavaScript -->
+                                </div>
+                                <div id="technical-error" class="error-message hidden">
+                                    <i class="fas fa-exclamation-circle"></i> Please select at least one technical skill.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Industry Tab -->
+                        <div id="industry-tab" class="tab-content hidden">
+                            <div class="tab-header">
+                                <h2><i class="fas fa-industry"></i> Industry & Niche Experience <span class="required">*</span></h2>
+                                <p>Check all industries and niches that the candidate has experience in</p>
+                            </div>
+                            <div class="form-container">
+                                <div id="industry-container" class="industry-grid">
+                                    <!-- Industry options will be populated by JavaScript -->
+                                </div>
+                                <div id="industry-error" class="error-message hidden">
+                                    <i class="fas fa-exclamation-circle"></i> Please select at least one industry.
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Experience Tab -->
+                        <div id="experience-tab" class="tab-content hidden">
+                            <div class="tab-header">
+                                <h2><i class="fas fa-briefcase"></i> Years of Experience <span class="required">*</span></h2>
+                                <p>Select your total relevant work experience</p>
+                            </div>
+                            <div class="form-container">
+                                <div class="radio-group" id="experience-options">
+                                    <!-- Experience options will be populated by JavaScript -->
+                                </div>
+                                <div id="experience-error" class="error-message hidden">
+                                    <i class="fas fa-exclamation-circle"></i> Please select an experience level.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button id="prev-btn" class="btn btn-outline" disabled>
+                        <i class="fas fa-arrow-left"></i> Previous
+                    </button>
+                    <button id="next-btn" class="btn btn-primary">
+                        Next <i class="fas fa-arrow-right"></i>
+                    </button>
+                    <button id="submit-btn" class="btn btn-primary hidden">
+                        <i class="fas fa-check-circle"></i> Submit
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading View -->
+        <div id="loading-view" class="view hidden">
+            <div class="card">
+                <div class="card-content text-center">
+                    <div class="loader"></div>
+                    <p>Calculating results...</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results View (Thank You Message) -->
+        <div id="results-view" class="view hidden">
+            <div class="card">
+                <div class="card-header">
+                    <img class="callboxlogo" src="Logo - white bg.png" alt="Callbox Logo">
+                    <h1 class="card-title"><i class="fas fa-check-circle"></i> Thank You!</h1>
+                    <p class="card-description">Your assessment has been submitted successfully</p>
+                    <div class="divider"></div>
+                </div>
+                <div class="card-content text-center">
+                    <p class="intro-text">
+                        Thank you for completing the Recruiter Assessment Tool. Your responses have been recorded.
+                    </p>
+                    <div id="submission-status" class="success-message hidden">
+                        <i class="fas fa-check-circle"></i> Results have been saved successfully!
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden iframe for form submission -->
+    <iframe id="hidden-iframe" name="hidden-iframe" style="display: none;"></iframe>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
