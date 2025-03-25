@@ -283,9 +283,81 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Education data with point values
   const educationData = [
-    { level: "Completed Courses/Certifications", points: 0.5 },
-    { level: "Bachelor's Degree", points: 1 },
-    { level: "Master's Degree", points: 2 },
+    {
+      level: "Undergraduate Level or Completed Courses/Certifications",
+      points: 0.5,
+      fields: [
+        "Business Administration & Marketing",
+        "Entrepreneurship",
+        "Advertising or Public Relations",
+        "Journalism or Communications",
+        "Economics",
+        "Accounting or Finance",
+        "Human Resources & Organizational Development",
+        "Public Administration",
+        "Psychology",
+        "Management (Sales, Marketing, or Operations)",
+        "Data Science & Statistics",
+        "Information Technology",
+        "Computer Science",
+        "Software Engineering",
+        "Web Development",
+        "Cybersecurity",
+        "Graphic Design or Fine Arts",
+        "Media or Multimedia Arts",
+        "Web Design",
+      ],
+    },
+    {
+      level: "Bachelor's Degree",
+      points: 1,
+      fields: [
+        "Business Administration & Marketing",
+        "Entrepreneurship",
+        "Advertising or Public Relations",
+        "Journalism or Communications",
+        "Economics",
+        "Accounting or Finance",
+        "Human Resources & Organizational Development",
+        "Public Administration",
+        "Psychology",
+        "Management (Sales, Marketing, or Operations)",
+        "Data Science & Statistics",
+        "Information Technology",
+        "Computer Science",
+        "Software Engineering",
+        "Web Development",
+        "Cybersecurity",
+        "Graphic Design or Fine Arts",
+        "Media or Multimedia Arts",
+        "Web Design",
+      ],
+    },
+    {
+      level: "Master's Degree",
+      points: 2,
+      fields: [
+        "Business Administration & Marketing",
+        "Entrepreneurship",
+        "Advertising or Public Relations",
+        "Journalism or Communications",
+        "Economics",
+        "Accounting or Finance",
+        "Human Resources & Organizational Development",
+        "Public Administration",
+        "Psychology",
+        "Management (Sales, Marketing, or Operations)",
+        "Data Science & Statistics",
+        "Information Technology",
+        "Computer Science",
+        "Software Engineering",
+        "Web Development",
+        "Cybersecurity",
+        "Graphic Design or Fine Arts",
+        "Media or Multimedia Arts",
+        "Web Design",
+      ],
+    },
   ]
 
   // Years of experience options with point values
@@ -336,7 +408,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Sales Development Representative": "Prospects for new business, handles objections, and builds sales pipelines.",
     "Social Media Marketer": "Manages social media advertising and community engagement across platforms.",
     "Database Coordinator": "Optimizes database systems and ensures data management best practices.",
-    Researcher: "Conducts market research and collects data for business insights.",
+    "Researcher": "Conducts market research and collects data for business insights.",
     "Data Analyst": "Analyzes data sets, creates visualizations, and develops data models for insights.",
     "Data Profiler": "Segments databases and verifies data accuracy and completeness.",
     "Digital Marketing Manager": "Manages paid advertising campaigns and marketing automation strategies.",
@@ -393,7 +465,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Sales Development Representative": ["Prospecting", "Objection Handling", "List Building"],
     "Social Media Marketer": ["Social Media Advertising", "Community Engagement"],
     "Database Coordinator": ["Data Management", "Database Optimization"],
-    Researcher: ["Market Research", "Data Collection"],
+    "Researcher": ["Market Research", "Data Collection"],
     "Data Analyst": ["Statistical Analysis", "Data Visualization", "Data Modeling"],
     "Data Profiler": ["Database Segmentation", "Data Verification"],
     "Digital Marketing Manager": ["Paid Advertising", "Marketing Automation"],
@@ -465,7 +537,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Content Scheduling Tools (Buffer, Later)",
     ],
     "Database Coordinator": ["Database Management (MySQL, PostgreSQL)", "Data Processing (Excel, Google Sheets)"],
-    Researcher: ["Market Research Platforms (Statista, IBISWorld)", "Survey Tools (Google Forms, Typeform)"],
+    "Researcher": ["Market Research Platforms (Statista, IBISWorld)", "Survey Tools (Google Forms, Typeform)"],
     "Data Analyst": ["Data Visualization Tools (Power BI, Tableau)", "SQL (Intermediate Queries)"],
     "Data Profiler": ["Database Cleaning Tools (OpenRefine, Trifacta)", "CRM Enrichment (Clearbit, ZoomInfo)"],
     "Digital Marketing Manager": [
@@ -582,7 +654,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Database Coordinator": {
       industries: ["Market Research & Business Intelligence", "Call Center / BPO"],
     },
-    Researcher: {
+    "Researcher": {
       industries: ["Market Research & Business Intelligence", "Financial Services"],
     },
     "Data Analyst": {
@@ -1227,24 +1299,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Initialization Functions
-  function initializeEducationOptions() {
-    const educationContainer = document.getElementById("education-options")
-    educationContainer.innerHTML = ""
-
-    educationData.forEach((education, index) => {
-      const radioItem = document.createElement("div")
-      radioItem.className = "radio-item"
-
-      radioItem.innerHTML = `
-                <input type="radio" id="education-${index}" name="education" value="${education.level}">
-                <label for="education-${index}">${education.level}</label>
-            `
-
-      educationContainer.appendChild(radioItem)
-    })
-  }
-
-  function initializeQualifications() {
+function initializeQualifications() {
     const qualificationsContainer = document.getElementById("qualifications-container")
     qualificationsContainer.innerHTML = ""
 
@@ -1361,6 +1416,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
+  ///Eperience
   function initializeExperienceOptions() {
     const experienceContainer = document.getElementById("experience-options")
     experienceContainer.innerHTML = ""
@@ -1439,5 +1495,115 @@ document.addEventListener("DOMContentLoaded", () => {
       experienceContainer.appendChild(categoryDiv)
     })
   }
+
+  //education Options
+  function initializeEducationOptions() {
+    const educationContainer = document.getElementById("education-options");
+    educationContainer.innerHTML = "";
+  
+    let activeCategory = null; // Track the currently active category
+  
+    // Create a category for each education level
+    educationData.forEach((education, index) => {
+      const categoryDiv = document.createElement("div");
+      categoryDiv.className = "category";
+      categoryDiv.dataset.category = education.level;
+  
+      const categoryTitle = document.createElement("h3");
+      categoryTitle.className = "category-title";
+      categoryTitle.textContent = education.level;
+  
+  
+      const categoryItems = document.createElement("div");
+      categoryItems.className = "education-items";
+  
+      // Create fields of study options with checkboxes in a grid
+      const fieldsGrid = document.createElement("div");
+      fieldsGrid.className = "education-grid"; 
+  
+      // Add checkboxes for each field
+      education.fields.forEach((field, fieldIndex) => {
+        const checkboxItem = document.createElement("div");
+        checkboxItem.className = "checkbox-item";
+  
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.id = `field-${index}-${fieldIndex}`;
+        input.name = `education-field-${index}`;
+        input.value = field;
+  
+        const label = document.createElement("label");
+        label.htmlFor = `field-${index}-${fieldIndex}`;
+        label.textContent = field;
+  
+        // Update formData when field is selected
+        input.addEventListener("change", () => {
+          if (!formData.educationFields) {
+            formData.educationFields = [];
+          }
+          
+          if (input.checked) {
+            // Add field to selected fields if not already there
+            if (!formData.educationFields.includes(field)) {
+              formData.educationFields.push(field);
+            }
+          } else {
+            // Remove field from selected fields
+            formData.educationFields = formData.educationFields.filter(f => f !== field);
+          }
+        });
+  
+        checkboxItem.appendChild(input);
+        checkboxItem.appendChild(label);
+        fieldsGrid.appendChild(checkboxItem);
+      });
+  
+      categoryItems.appendChild(fieldsGrid);
+  
+      // Add a hidden radio button for the education level
+      const hiddenRadio = document.createElement("input");
+      hiddenRadio.type = "radio";
+      hiddenRadio.id = `education-${index}`;
+      hiddenRadio.name = "education";
+      hiddenRadio.value = education.level;
+      hiddenRadio.style.display = "none"; // Hide the radio button
+      categoryItems.appendChild(hiddenRadio);
+  
+      // Toggle functionality ensuring only one stays open
+      categoryTitle.addEventListener("click", () => {
+        if (activeCategory && activeCategory !== categoryDiv) {
+          // Collapse the previously active category
+          activeCategory.classList.remove("active");
+          
+          // Uncheck all checkboxes in the previously active category
+          activeCategory.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+            checkbox.checked = false;
+          });
+        }
+        
+        categoryDiv.classList.toggle("active");
+        activeCategory = categoryDiv.classList.contains("active") ? categoryDiv : null;
+        
+        // If this category is now active, select this education level
+        if (categoryDiv.classList.contains("active")) {
+          // Check the hidden radio button
+          hiddenRadio.checked = true;
+          
+          // Update formData
+          formData.education = education.level;
+          formData.educationPoints = education.points;
+          
+          // Reset educationFields array
+          formData.educationFields = [];
+        }
+      });
+  
+      categoryDiv.appendChild(categoryTitle);
+      categoryDiv.appendChild(categoryItems);
+  
+      educationContainer.appendChild(categoryDiv);
+    });
+  }
+
 })
 

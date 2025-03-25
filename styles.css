@@ -3,13 +3,13 @@
   --primary: #063060;
   --primary-hover: #0a4a8f;
   --primary-light: #e6f0fa;
-  --primary-foreground: #ffffff;
+  --primary-foreground: #F7F7F7;
   --secondary: #f1f5f9;
   --secondary-foreground: #1e293b;
   --border: #e2e8f0;
-  --background: #063060;
-  --card: #ffffff;
-  --card-foreground: #1e293b;
+  --background: #014E89;
+  --card: #F7F7F7;
+  --card-foreground: #063060;
   --error: #ef4444;
   --success: #10b981;
   --radius: 0.5rem;
@@ -23,6 +23,10 @@
   box-sizing: border-box;
 }
 
+#home-view {
+  overflow: hidden; /* Prevent the first card from causing overflow */
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
     "Helvetica Neue", sans-serif;
@@ -31,6 +35,7 @@ body {
   background: linear-gradient(135deg, var(--background) 0%, #0a4a8f 100%);
   min-height: 100vh;
   padding: 2rem 1rem;
+  overflow-x: hidden;
 }
 
 .callboxlogo {
@@ -43,6 +48,12 @@ body {
 .container {
   max-width: 1200px;
   margin: 0 auto;
+  display: flex; /* Enable flexbox */
+  flex-direction: column; /* Stack cards vertically */
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  min-height: 90vh;
+  
 }
 
 .hidden {
@@ -64,6 +75,9 @@ body {
   box-shadow: var(--shadow);
   overflow: hidden;
   transition: var(--transition);
+  width: 1200px; /* Explicitly set the card width to 1200px */
+  margin: 0 auto;
+  overflow: hidden;
 }
 
 .card-header {
@@ -86,11 +100,11 @@ body {
 }
 
 .divider {
-  height: 4px;
-  width: 4rem;
-  background-color: #fbbf24;
+  height: 2px;
+  width: 35rem;
+  background-color: #FFCA09;
   border-radius: 9999px;
-  margin: 1rem auto 0;
+  margin: 0.5rem auto 0;
 }
 
 .card-content {
@@ -109,7 +123,7 @@ body {
   max-width: 42rem;
   margin: 0 auto 2rem;
   text-align: center;
-  color: #64748b;
+  color: #231f20;
   line-height: 1.8;
 }
 
@@ -141,14 +155,14 @@ body {
 }
 
 .btn-outline {
-  background-color: transparent;
-  border-color: var(--border);
-  color: var(--card-foreground);
+  background-color: var(--primary);
+  color: var(--primary-foreground);
 }
 
 .btn-outline:hover {
-  background-color: var(--secondary);
-  border-color: #cbd5e0;
+  background-color: var(--primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(6, 48, 96, 0.2);
 }
 
 .btn:disabled {
@@ -283,7 +297,7 @@ body {
 }
 
 .tab-header p {
-  color: #64748b;
+  color: #231f20;
 }
 
 /* Radio and Checkbox Styles */
@@ -374,7 +388,7 @@ body {
 }
 
 .category.active .category-items {
-  max-height: 1000px;
+  max-height: 2000px;
   padding: 1.5rem;
   border-top: 1px solid var(--border);
 }
@@ -786,7 +800,7 @@ body {
 /* Thank you message styling */
 #results-view .card-content .intro-text {
   font-size: 1.125rem;
-  color: #4b5563;
+  color: #231f20;
   margin-bottom: 2rem;
 }
 
@@ -795,3 +809,54 @@ body {
   font-size: 1.25rem;
 }
 
+
+.industry-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+  gap: 10px; /* Space between checkboxes */
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.education-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+  gap: 15px; /* Space between checkboxes */
+  max-width: 6000px; /* Adjust width for better centering */
+  margin: 0 auto; /* Center the grid horizontally */
+  padding: 20px;
+}
+
+.education-item {
+  display: flex;
+  align-items: center; /* Align checkbox and text */
+  gap: 10px; /* Space between checkbox and text */
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.education-category-items {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, padding 0.4s ease;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0.75rem;
+  padding: 0 2.5rem;
+}
+
+.education-items {
+  display: none;
+  padding: 9px;
+}
+
+/* Show education items when active */
+.category.active .education-items {
+  display: block;
+}
