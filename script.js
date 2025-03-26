@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Google Sheet submission URL - Replace with your own Google Apps Script Web App URL
-  const GOOGLE_SHEET_URL =
-    "https://script.google.com/macros/s/AKfycbw2f-jueMhLAD5HQLjyE2lJKbBi8rh5JZUsk9zhx-GciCPTvtaf7CJgRH5S7gNOaywB/exec"
+  const GOOGLE_SHEET_URL ="https://script.google.com/macros/s/AKfycbxbhqcawxfAw42shJxYFwv7vIgbTMnpvj37x4dybpxkwInuUAmxwtFfjYLpU5tA8Xbb/exec"
 
   // Define the list of managerial positions
   const managerialPositions = [
@@ -376,65 +375,6 @@ document.addEventListener("DOMContentLoaded", () => {
     { level: "5+ years", points: 2 },
   ]
 
-  // Role descriptions for results page
-  const roleDescriptions = {
-    "CRM Manager":
-      "Responsible for managing CRM systems, ensuring data quality, and generating reports for business insights.",
-    "Quality Assurance Analyst":
-      "Evaluates call quality, ensures compliance with standards, and provides feedback for improvement.",
-    "Sales Performance and QA Coordinator":
-      "Monitors sales performance metrics and ensures quality standards are maintained across sales teams.",
-    "HR/Finance": "Manages HR functions and financial processes, including payroll and compliance with labor laws.",
-    "HR/Admin Specialist": "Handles employee records, administrative tasks, and supports HR operations.",
-    "HR/Admin Manager":
-      "Oversees HR policies, people management, and administrative functions within the organization.",
-    "HR/Admin and Finance Director":
-      "Leads HR, administrative, and financial planning for the organization at a strategic level.",
-    "Finance Associate": "Manages accounting tasks, financial reporting, and general ledger maintenance.",
-    "Finance Manager (Coordinator)": "Oversees budgeting, forecasting, and financial management processes.",
-    "Operations Manager": "Optimizes business processes, manages projects, and leads operational teams.",
-    "Client Success Manager": "Focuses on customer retention, relationship management, and account growth strategies.",
-    "Production Manager": "Manages workflow, project timelines, and team coordination for production processes.",
-    "Business Development Manager":
-      "Develops sales strategies, manages the sales pipeline, and leads business growth initiatives.",
-    "Business Development Representative": "Qualifies leads, conducts outreach, and supports the sales process.",
-    "Marketing Manager": "Oversees marketing campaigns, analyzes performance metrics, and manages marketing projects.",
-    "Lead Generator": "Identifies and qualifies potential leads through various prospecting methods.",
-    "Social Media Specialist": "Plans content, manages engagement, and implements social media strategies.",
-    "Web Developer": "Builds and maintains websites, focusing on both frontend and backend development.",
-    "SEO Program Manager": "Develops SEO strategies, analyzes website performance, and manages SEO projects.",
-    "SEO Specialist": "Implements on-page and off-page SEO techniques and monitors analytics.",
-    "Quality Assurance Analyst (SEO)": "Ensures marketing compliance and reviews content quality for SEO purposes.",
-    "Sales Development Representative": "Prospects for new business, handles objections, and builds sales pipelines.",
-    "Social Media Marketer": "Manages social media advertising and community engagement across platforms.",
-    "Database Coordinator": "Optimizes database systems and ensures data management best practices.",
-    "Researcher": "Conducts market research and collects data for business insights.",
-    "Data Analyst": "Analyzes data sets, creates visualizations, and develops data models for insights.",
-    "Data Profiler": "Segments databases and verifies data accuracy and completeness.",
-    "Digital Marketing Manager": "Manages paid advertising campaigns and marketing automation strategies.",
-    "Email Marketing Specialist/Associate":
-      "Develops email campaigns, conducts A/B testing, and optimizes email performance.",
-    "Digital Designer": "Creates graphic designs and user interfaces for digital platforms.",
-    "Content Writer": "Develops marketing copy, email content, and other written materials optimized for engagement.",
-    "LinkedIn Champion": "Specializes in LinkedIn outreach and B2B networking strategies.",
-    "Recruitment Coordinator":
-      "Manages the recruitment process, screens applicants, and coordinates hiring activities.",
-    "Recruitment Associate": "Sources talent, screens applicants, and supports the recruitment process.",
-    "Recruitment Branding Specialist": "Develops employer branding and manages social media recruitment efforts.",
-    "Recruitment Database Specialist": "Manages applicant databases and handles recruitment data entry.",
-    "Learning and Development Coordinator":
-      "Develops training programs, evaluates performance, and manages learning initiatives.",
-    "Production Specialist": "Evaluates performance and produces content for training and development.",
-    "Project Manager": "Applies Agile methodologies, manages risks, and leads project teams.",
-    "Software Developer": "Writes code, tests software, and implements technical solutions.",
-    "Business Process Manager": "Maps processes, manages projects, and optimizes business operations.",
-    "IT Manager": "Manages IT infrastructure, ensures cybersecurity, and leads technical teams.",
-    "IT Security Manager": "Detects threats, manages compliance, and mitigates security risks.",
-    "Network Administrator": "Manages network systems, security protocols, and server maintenance.",
-    "Tech Support": "Troubleshoots IT issues and maintains system functionality.",
-    "Non-Voice Tech Support": "Manages LinkedIn profiles and provides technical documentation and support.",
-  }
-
   // Required qualifications for each role
   const roleQualifications = {
     "CRM Manager": ["CRM Software Expertise", "Data Analysis & Reporting"],
@@ -449,11 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Operations Manager": ["Process Optimization", "Project Management", "Team Leadership"],
     "Client Success Manager": ["Customer Retention Strategies", "Account Management"],
     "Production Manager": ["Workflow Management", "Project Management", "Team Leadership"],
-    "Business Development Manager": [
-      "Lead Generation Strategy",
-      "Sales Pipeline Management",
-      "B2B Sales & Negotiation",
-    ],
+    "Business Development Manager": ["Lead Generation Strategy","Sales Pipeline Management","B2B Sales & Negotiation"],
     "Business Development Representative": ["Lead Qualification", "Prospecting"],
     "Marketing Manager": ["Performance Analytics", "PPC Management", "Project Management"],
     "Lead Generator": ["Prospecting", "CRM Management", "List Building"],
@@ -477,11 +413,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Recruitment Associate": ["Talent Sourcing", "Applicant Screening"],
     "Recruitment Branding Specialist": ["Employer Branding", "Social Media Recruitment"],
     "Recruitment Database Specialist": ["Applicant Database Management", "Data Entry"],
-    "Learning and Development Coordinator": [
-      "Training Program Development",
-      "Performance Evaluation",
-      "Project Management",
-    ],
+    "Learning and Development Coordinator": ["Training Program Development","Performance Evaluation","Project Management"],
     "Production Specialist": ["Performance Evaluation", "Content Production"],
     "Project Manager": ["Agile & Scrum Methodologies", "Risk Management", "Project Management", "Team Leadership"],
     "Software Developer": ["Coding & Programming", "Software Testing"],
@@ -496,26 +428,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Technical skills for each role
   const roleTechnicalSkills = {
     "CRM Manager": ["CRM platforms (Salesforce, HubSpot)", "Data Reporting Tools (Power BI, Tableau)"],
-    "Quality Assurance Analyst": [
-      "QA Software (Call Listening Tools, QA Scorecards)",
-      "Google Sheets/Excel (Pivot Tables, Data Validation)",
-    ],
-    "Sales Performance and QA Coordinator": [
-      "Sales Analytics Tools (HubSpot, Gong.io)",
-      "Performance Tracking Software (Power BI, Salesforce Analytics)",
-    ],
+    "Quality Assurance Analyst": ["QA Software (Call Listening Tools, QA Scorecards)","Google Sheets/Excel (Pivot Tables, Data Validation)"],
+    "Sales Performance and QA Coordinator": ["Sales Analytics Tools (HubSpot, Gong.io)","Performance Tracking Software (Power BI, Salesforce Analytics)"],
     "HR/Finance": ["Payroll Systems (ADP, QuickBooks)", "HRIS (BambooHR, Workday)"],
-    "HR/Admin Specialist": [
-      "RMS (SAP SuccessFactors, Workday)",
-      "Document Management Systems (Google Drive, SharePoint)",
-    ],
+    "HR/Admin Specialist": ["RMS (SAP SuccessFactors, Workday)","Document Management Systems (Google Drive, SharePoint)"],
     "HR/Admin Manager": ["Compliance Software (HRIS, OSHA Compliance Tools)", "ATS (Greenhouse, Lever)"],
     "HR/Admin and Finance Director": ["ERP Systems", "Financial Planning Software (NetSuite, QuickBooks)"],
     "Finance Associate": ["Accounting Software (Xero, QuickBooks)", "Excel (Financial Modeling, Macros)"],
-    "Finance Manager (Coordinator)": [
-      "Budgeting Tools (SAP, NetSuite)",
-      "Financial Reporting Software (Power BI, Tableau)",
-    ],
+    "Finance Manager (Coordinator)": ["Budgeting Tools (SAP, NetSuite)","Financial Reporting Software (Power BI, Tableau)"],
     "Operations Manager": ["Project Management Tools (Asana, Monday.com)", "ERP Systems (SAP, NetSuite)"],
     "Client Success Manager": ["CRM (Salesforce, Zendesk)", "Customer Support Tools (Intercom, Freshdesk)"],
     "Production Manager": ["Workflow Management (ClickUp, Wrike)", "QA Tools (ISO Compliance Software)"],
@@ -527,46 +447,24 @@ document.addEventListener("DOMContentLoaded", () => {
     "Web Developer": ["Programming Languages (HTML, CSS, JavaScript)", "CMS (WordPress, Shopify)"],
     "SEO Program Manager": ["Google Search Console", "Keyword Research Tools (Moz, SEMrush)"],
     "SEO Specialist": ["Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)", "Google Analytics"],
-    "Quality Assurance Analyst (SEO)": [
-      "A/B Testing Tools (Google Optimize, VWO)",
-      "SEO Audit Tools (SEMrush, Ahrefs)",
-    ],
+    "Quality Assurance Analyst (SEO)": ["A/B Testing Tools (Google Optimize, VWO)","SEO Audit Tools (SEMrush, Ahrefs)"],
     "Sales Development Representative": ["CRM (Salesforce, HubSpot)", "Dialer Software (Five9, Aircall)"],
-    "Social Media Marketer": [
-      "Social Listening Tools (Brandwatch, Sprout Social)",
-      "Content Scheduling Tools (Buffer, Later)",
-    ],
+    "Social Media Marketer": ["Social Listening Tools (Brandwatch, Sprout Social)","Content Scheduling Tools (Buffer, Later)"],
     "Database Coordinator": ["Database Management (MySQL, PostgreSQL)", "Data Processing (Excel, Google Sheets)"],
     "Researcher": ["Market Research Platforms (Statista, IBISWorld)", "Survey Tools (Google Forms, Typeform)"],
     "Data Analyst": ["Data Visualization Tools (Power BI, Tableau)", "SQL (Intermediate Queries)"],
     "Data Profiler": ["Database Cleaning Tools (OpenRefine, Trifacta)", "CRM Enrichment (Clearbit, ZoomInfo)"],
-    "Digital Marketing Manager": [
-      "PPC Tools (Google Ads, Facebook Ads Manager)",
-      "Marketing Analytics (Google Data Studio, HubSpot)",
-    ],
-    "Email Marketing Specialist/Associate": [
-      "Email Platforms (Mailchimp, Klaviyo)",
-      "A/B Testing Software (Litmus, Optimizely)",
-    ],
+    "Digital Marketing Manager": ["PPC Tools (Google Ads, Facebook Ads Manager)","Marketing Analytics (Google Data Studio, HubSpot)"],
+    "Email Marketing Specialist/Associate": ["Email Platforms (Mailchimp, Klaviyo)","A/B Testing Software (Litmus, Optimizely)"],
     "Digital Designer": ["UI/UX Design Tools (Figma, Adobe XD)", "HTML/CSS (Basic for Web Design)"],
     "Content Writer": ["CMS (WordPress, Ghost)", "Copywriting Tools (Grammarly, Hemingway Editor)"],
     "LinkedIn Champion": ["LinkedIn Sales Navigator", "LinkedIn Analytics"],
     "Recruitment Coordinator": ["ATS", "LinkedIn Recruiter"],
     "Recruitment Associate": ["Job Boards", "ATS"],
-    "Recruitment Branding Specialist": [
-      "Social Media Ads (Meta Business Suite, LinkedIn Ads)",
-      "Design Software",
-      "Job Boards",
-    ],
+    "Recruitment Branding Specialist": ["Social Media Ads (Meta Business Suite, LinkedIn Ads)","Design Software","Job Boards"],
     "Recruitment Database Specialist": ["Applicant Database Management (Google Sheets, SQL)", "ATS"],
-    "Learning and Development Coordinator": [
-      "LMS Platforms (Moodle, TalentLMS)",
-      "E-learning Tools (Articulate, Captivate)",
-    ],
-    "Production Specialist": [
-      "Video Editing Software (Adobe Premiere Pro, Camtasia)",
-      "Audio Recording Tools (Audacity, GarageBand)",
-    ],
+    "Learning and Development Coordinator": ["LMS Platforms (Moodle, TalentLMS)","E-learning Tools (Articulate, Captivate)"],
+    "Production Specialist": ["Video Editing Software (Adobe Premiere Pro, Camtasia)","Audio Recording Tools (Audacity, GarageBand)"],
     "Project Manager": ["Project Management Tools (Trello, Jira)", "Risk Assessment Software (Lucidchart, Asana)"],
     "Software Developer": ["Programming Languages (Python, Java, C#)", "Version Control (Git, GitHub)"],
     "Business Process Manager": ["Process Mapping Tools (Bizagi, Microsoft Visio)", "ERP Systems"],
@@ -574,10 +472,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "IT Security Manager": ["SIEM Tools (Splunk, IBM QRadar)", "Endpoint Security (CrowdStrike, Symantec)"],
     "Network Administrator": ["Network Monitoring (Wireshark, Nagios)", "Firewall Configurations (Cisco, Fortinet)"],
     "Tech Support": ["Help Desk Software (Zendesk, Freshdesk)", "Remote Desktop Tools (TeamViewer, AnyDesk)"],
-    "Non-Voice Tech Support": [
-      "Ticketing Systems (Jira Service Desk, Zoho Desk)",
-      "Knowledge Base Software (Confluence, Notion)",
-    ],
+    "Non-Voice Tech Support": ["Ticketing Systems (Jira Service Desk, Zoho Desk)","Knowledge Base Software (Confluence, Notion)"],
   }
 
   // Role data for matching
@@ -654,7 +549,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Database Coordinator": {
       industries: ["Market Research & Business Intelligence", "Call Center / BPO"],
     },
-    "Researcher": {
+    Researcher: {
       industries: ["Market Research & Business Intelligence", "Financial Services"],
     },
     "Data Analyst": {
@@ -946,6 +841,20 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         })
 
+        // Get selected education fields
+        if (educationSelected) {
+          // Find the active education category
+          const activeCategory = document.querySelector('.category.active[data-category="' + formData.education + '"]')
+          if (activeCategory) {
+            // Get all checked field checkboxes within this category
+            const selectedFields = []
+            activeCategory.querySelectorAll('input[type="checkbox"]:checked').forEach((checkbox) => {
+              selectedFields.push(checkbox.value)
+            })
+            formData.educationFields = selectedFields
+          }
+        }
+
         if (!educationSelected) {
           errorElement.classList.remove("hidden")
           isValid = false
@@ -1093,7 +1002,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const result = {
         role,
         rawScore,
-        description: roleDescriptions[role] || "",
         qualifications: roleQualifications[role] || [],
         technicalSkills: roleTechnicalSkills[role] || [],
         industries: roleInfo.industries || [],
@@ -1176,13 +1084,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Normalize scores to make them add up to 100%
     if (totalRawScore > 0) {
+      // First pass: calculate initial normalized scores
+      let totalNormalizedScore = 0
       top3Matches.forEach((match) => {
         match.normalizedScore = Math.round((match.rawScore / totalRawScore) * 100)
+        totalNormalizedScore += match.normalizedScore
       })
+
+      // Second pass: adjust if total doesn’t equal 100%
+      if (totalNormalizedScore !== 100 && top3Matches.length > 0) {
+        // Add or subtract the difference from the highest scoring match
+        top3Matches.sort((a, b) => b.rawScore - a.rawScore)
+        top3Matches[0].normalizedScore += 100 - totalNormalizedScore
+      }
     } else {
       // If all scores are 0, distribute evenly
-      top3Matches.forEach((match) => {
-        match.normalizedScore = Math.round(100 / top3Matches.length)
+      const evenScore = Math.floor(100 / top3Matches.length)
+      const remainder = 100 - evenScore * top3Matches.length
+
+      top3Matches.forEach((match, index) => {
+        match.normalizedScore = evenScore + (index === 0 ? remainder : 0)
       })
     }
 
@@ -1243,23 +1164,24 @@ document.addEventListener("DOMContentLoaded", () => {
       email: formData.email,
       phone: formData.phone,
       education: formData.education,
+      education_fields: formData.educationFields ? formData.educationFields.join(", ") : "",
       experience: formData.experience,
       qualifications: selectedQualifications,
       technical: selectedTechnical,
       industries: selectedIndustries,
       role1: role1 ? role1.role : "None",
       role1_raw_score: role1 ? role1.rawScore : 0,
-      role1_normalized_score: role1 ? role1.normalizedScore : 0,
+      role1_normalized_score: role1 ? role1.normalizedScore + "%" : "0%",
       role1_is_managerial: role1 ? (role1.isManagerial ? "Yes" : "No") : "No",
       education_points: role1 ? role1.educationPoints : 0,
       experience_points: role1 ? role1.experiencePoints : 0,
       role2: role2 ? role2.role : "None",
       role2_raw_score: role2 ? role2.rawScore : 0,
-      role2_normalized_score: role2 ? role2.normalizedScore : 0,
+      role2_normalized_score: role2 ? role2.normalizedScore + "%" : "0%",
       role2_is_managerial: role2 ? (role2.isManagerial ? "Yes" : "No") : "No",
       role3: role3 ? role3.role : "None",
       role3_raw_score: role3 ? role3.rawScore : 0,
-      role3_normalized_score: role3 ? role3.normalizedScore : 0,
+      role3_normalized_score: role3 ? role3.normalizedScore + "%" : "0%",
       role3_is_managerial: role3 ? (role3.isManagerial ? "Yes" : "No") : "No",
     }
 
@@ -1299,7 +1221,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Initialization Functions
-function initializeQualifications() {
+  function initializeQualifications() {
     const qualificationsContainer = document.getElementById("qualifications-container")
     qualificationsContainer.innerHTML = ""
 
@@ -1498,112 +1420,110 @@ function initializeQualifications() {
 
   //education Options
   function initializeEducationOptions() {
-    const educationContainer = document.getElementById("education-options");
-    educationContainer.innerHTML = "";
-  
-    let activeCategory = null; // Track the currently active category
-  
+    const educationContainer = document.getElementById("education-options")
+    educationContainer.innerHTML = ""
+
+    let activeCategory = null // Track the currently active category
+
     // Create a category for each education level
     educationData.forEach((education, index) => {
-      const categoryDiv = document.createElement("div");
-      categoryDiv.className = "category";
-      categoryDiv.dataset.category = education.level;
-  
-      const categoryTitle = document.createElement("h3");
-      categoryTitle.className = "category-title";
-      categoryTitle.textContent = education.level;
-  
-  
-      const categoryItems = document.createElement("div");
-      categoryItems.className = "education-items";
-  
+      const categoryDiv = document.createElement("div")
+      categoryDiv.className = "category"
+      categoryDiv.dataset.category = education.level
+
+      const categoryTitle = document.createElement("h3")
+      categoryTitle.className = "category-title"
+      categoryTitle.textContent = education.level
+
+      const categoryItems = document.createElement("div")
+      categoryItems.className = "education-items"
+
       // Create fields of study options with checkboxes in a grid
-      const fieldsGrid = document.createElement("div");
-      fieldsGrid.className = "education-grid"; 
-  
+      const fieldsGrid = document.createElement("div")
+      fieldsGrid.className = "education-grid"
+
       // Add checkboxes for each field
       education.fields.forEach((field, fieldIndex) => {
-        const checkboxItem = document.createElement("div");
-        checkboxItem.className = "checkbox-item";
-  
-        const input = document.createElement("input");
-        input.type = "checkbox";
-        input.id = `field-${index}-${fieldIndex}`;
-        input.name = `education-field-${index}`;
-        input.value = field;
-  
-        const label = document.createElement("label");
-        label.htmlFor = `field-${index}-${fieldIndex}`;
-        label.textContent = field;
-  
+        const checkboxItem = document.createElement("div")
+        checkboxItem.className = "checkbox-item"
+
+        const input = document.createElement("input")
+        input.type = "checkbox"
+        input.id = `field-${index}-${fieldIndex}`
+        input.name = `education-field-${index}`
+        input.value = field
+
+        const label = document.createElement("label")
+        label.htmlFor = `field-${index}-${fieldIndex}`
+        label.textContent = field
+
         // Update formData when field is selected
         input.addEventListener("change", () => {
           if (!formData.educationFields) {
-            formData.educationFields = [];
+            formData.educationFields = []
           }
-          
+
           if (input.checked) {
             // Add field to selected fields if not already there
             if (!formData.educationFields.includes(field)) {
-              formData.educationFields.push(field);
+              formData.educationFields.push(field)
             }
           } else {
             // Remove field from selected fields
-            formData.educationFields = formData.educationFields.filter(f => f !== field);
+            formData.educationFields = formData.educationFields.filter((f) => f !== field)
           }
-        });
-  
-        checkboxItem.appendChild(input);
-        checkboxItem.appendChild(label);
-        fieldsGrid.appendChild(checkboxItem);
-      });
-  
-      categoryItems.appendChild(fieldsGrid);
-  
+        })
+
+        checkboxItem.appendChild(input)
+        checkboxItem.appendChild(label)
+        fieldsGrid.appendChild(checkboxItem)
+      })
+
+      categoryItems.appendChild(fieldsGrid)
+
       // Add a hidden radio button for the education level
-      const hiddenRadio = document.createElement("input");
-      hiddenRadio.type = "radio";
-      hiddenRadio.id = `education-${index}`;
-      hiddenRadio.name = "education";
-      hiddenRadio.value = education.level;
-      hiddenRadio.style.display = "none"; // Hide the radio button
-      categoryItems.appendChild(hiddenRadio);
-  
+      const hiddenRadio = document.createElement("input")
+      hiddenRadio.type = "radio"
+      hiddenRadio.id = `education-${index}`
+      hiddenRadio.name = "education"
+      hiddenRadio.value = education.level
+      hiddenRadio.style.display = "none" // Hide the radio button
+      categoryItems.appendChild(hiddenRadio)
+
       // Toggle functionality ensuring only one stays open
       categoryTitle.addEventListener("click", () => {
         if (activeCategory && activeCategory !== categoryDiv) {
           // Collapse the previously active category
-          activeCategory.classList.remove("active");
-          
+          activeCategory.classList.remove("active")
+
           // Uncheck all checkboxes in the previously active category
           activeCategory.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-            checkbox.checked = false;
-          });
+            checkbox.checked = false
+          })
         }
-        
-        categoryDiv.classList.toggle("active");
-        activeCategory = categoryDiv.classList.contains("active") ? categoryDiv : null;
-        
+
+        categoryDiv.classList.toggle("active")
+        activeCategory = categoryDiv.classList.contains("active") ? categoryDiv : null
+
         // If this category is now active, select this education level
         if (categoryDiv.classList.contains("active")) {
           // Check the hidden radio button
-          hiddenRadio.checked = true;
-          
-          // Update formData
-          formData.education = education.level;
-          formData.educationPoints = education.points;
-          
-          // Reset educationFields array
-          formData.educationFields = [];
-        }
-      });
-  
-      categoryDiv.appendChild(categoryTitle);
-      categoryDiv.appendChild(categoryItems);
-  
-      educationContainer.appendChild(categoryDiv);
-    });
-  }
+          hiddenRadio.checked = true
 
+          // Update formData
+          formData.education = education.level
+          formData.educationPoints = education.points
+
+          // Reset educationFields array
+          formData.educationFields = []
+        }
+      })
+
+      categoryDiv.appendChild(categoryTitle)
+      categoryDiv.appendChild(categoryItems)
+
+      educationContainer.appendChild(categoryDiv)
+    })
+  }
 })
 
