@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Google Sheet submission URL - Replace with your own Google Apps Script Web App URL
-  const GOOGLE_SHEET_URL ="https://script.google.com/macros/s/AKfycbwRdzGOWlRQmisaXdPW97NSw8aovyOQs77Pad0qIIBgJoFnMGPHGukfK6DtsbE2fs_g/exec"
+  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwRdzGOWlRQmisaXdPW97NSw8aovyOQs77Pad0qIIBgJoFnMGPHGukfK6DtsbE2fs_g/exec"
 
   // Define the list of managerial positions
   const managerialPositions = [
@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Process Mapping",
       "Business Process Optimization",
     ],
-    "IT & Security": [
+    "IT, Security, and Software": [
       "IT Infrastructure Management",
       "Cybersecurity",
       "Threat Detection",
@@ -140,6 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "IT Troubleshooting & System Maintenance",
       "LinkedIn Profile Management",
       "Technical Documentation & Support",
+      "Software Developer",
     ],
   }
 
@@ -246,11 +247,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "Project & Process Management": [
       "Project Management Tools (Trello, Jira)",
       "Risk Assessment Software (Lucidchart, Asana)",
-      "Programming Languages (Python, Java, C#)",
-      "Version Control (Git, GitHub)",
       "Process Mapping Tools (Bizagi, Microsoft Visio)",
     ],
-    "IT & Security": [
+    "IT, Security, and Software": [
       "ITSM Tools (ServiceNow, Freshservice)",
       "Cloud Management (AWS, Azure)",
       "SIEM Tools (Splunk, IBM QRadar)",
@@ -261,6 +260,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "Remote Desktop Tools (TeamViewer, AnyDesk)",
       "Ticketing Systems (Jira Service Desk, Zoho Desk)",
       "Knowledge Base Software (Confluence, Notion)",
+      "Programming Languages (Python, Java, C#)",
+      "Version Control (Git, GitHub)",
     ],
   }
 
@@ -306,6 +307,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Graphic Design or Fine Arts",
         "Media or Multimedia Arts",
         "Web Design",
+        "Other",
       ],
     },
     {
@@ -331,6 +333,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Graphic Design or Fine Arts",
         "Media or Multimedia Arts",
         "Web Design",
+        "Other",
       ],
     },
     {
@@ -356,6 +359,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Graphic Design or Fine Arts",
         "Media or Multimedia Arts",
         "Web Design",
+        "Other",
       ],
     },
   ]
@@ -390,11 +394,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Operations Manager": ["Process Optimization", "Project Management", "Team Leadership"],
     "Client Success Manager": ["Customer Retention Strategies", "Account Management"],
     "Production Manager": ["Workflow Management", "Project Management", "Team Leadership"],
-    "Business Development Manager": [
-      "Lead Generation Strategy",
-      "Sales Pipeline Management",
-      "B2B Sales & Negotiation",
-    ],
+    "Business Development Manager": ["Lead Generation Strategy", "Sales Pipeline Management", "B2B Sales & Negotiation"],
     "Business Development Representative": ["Lead Qualification", "Prospecting"],
     "Marketing Manager": ["Performance Analytics", "PPC Management", "Project Management"],
     "Lead Generator": ["Prospecting", "CRM Management", "List Building"],
@@ -418,11 +418,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Recruitment Associate": ["Talent Sourcing", "Applicant Screening"],
     "Recruitment Branding Specialist": ["Employer Branding", "Social Media Recruitment"],
     "Recruitment Database Specialist": ["Applicant Database Management", "Data Entry"],
-    "Learning and Development Coordinator": [
-      "Training Program Development",
-      "Performance Evaluation",
-      "Project Management",
-    ],
+    "Learning and Development Coordinator": ["Training Program Development", "Performance Evaluation", "Project Management"],
     "Production Specialist": ["Performance Evaluation", "Content Production"],
     "Project Manager": ["Agile & Scrum Methodologies", "Risk Management", "Project Management", "Team Leadership"],
     "Software Developer": ["Coding & Programming", "Software Testing"],
@@ -437,26 +433,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // Technical skills for each role
   const roleTechnicalSkills = {
     "CRM Manager": ["CRM platforms (Salesforce, HubSpot)", "Data Reporting Tools (Power BI, Tableau)"],
-    "Quality Assurance Analyst": [
-      "QA Software (Call Listening Tools, QA Scorecards)",
-      "Google Sheets/Excel (Pivot Tables, Data Validation)",
-    ],
-    "Sales Performance and QA Coordinator": [
-      "Sales Analytics Tools (HubSpot, Gong.io)",
-      "Performance Tracking Software (Power BI, Salesforce Analytics)",
-    ],
+    "Quality Assurance Analyst": ["QA Software (Call Listening Tools, QA Scorecards)", "Google Sheets/Excel (Pivot Tables, Data Validation)"],
+    "Sales Performance and QA Coordinator": ["Sales Analytics Tools (HubSpot, Gong.io)", "Performance Tracking Software (Power BI, Salesforce Analytics)"],
     "HR/Finance": ["Payroll Systems (ADP, QuickBooks)", "HRIS (BambooHR, Workday)"],
-    "HR/Admin Specialist": [
-      "RMS (SAP SuccessFactors, Workday)",
-      "Document Management Systems (Google Drive, SharePoint)",
-    ],
+    "HR/Admin Specialist": ["RMS (SAP SuccessFactors, Workday)", "Document Management Systems (Google Drive, SharePoint)"],
     "HR/Admin Manager": ["Compliance Software (HRIS, OSHA Compliance Tools)", "ATS (Greenhouse, Lever)"],
     "HR/Admin and Finance Director": ["ERP Systems", "Financial Planning Software (NetSuite, QuickBooks)"],
     "Finance Associate": ["Accounting Software (Xero, QuickBooks)", "Excel (Financial Modeling, Macros)"],
-    "Finance Manager (Coordinator)": [
-      "Budgeting Tools (SAP, NetSuite)",
-      "Financial Reporting Software (Power BI, Tableau)",
-    ],
+    "Finance Manager (Coordinator)": ["Budgeting Tools (SAP, NetSuite)", "Financial Reporting Software (Power BI, Tableau)"],
     "Operations Manager": ["Project Management Tools (Asana, Monday.com)", "ERP Systems (SAP, NetSuite)"],
     "Client Success Manager": ["CRM (Salesforce, Zendesk)", "Customer Support Tools (Intercom, Freshdesk)"],
     "Production Manager": ["Workflow Management (ClickUp, Wrike)", "QA Tools (ISO Compliance Software)"],
@@ -468,46 +452,24 @@ document.addEventListener("DOMContentLoaded", () => {
     "Web Developer": ["Programming Languages (HTML, CSS, JavaScript)", "CMS (WordPress, Shopify)"],
     "SEO Program Manager": ["Google Search Console", "Keyword Research Tools (Moz, SEMrush)"],
     "SEO Specialist": ["Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)", "Google Analytics"],
-    "Quality Assurance Analyst (SEO)": [
-      "A/B Testing Tools (Google Optimize, VWO)",
-      "SEO Audit Tools (SEMrush, Ahrefs)",
-    ],
+    "Quality Assurance Analyst (SEO)": ["A/B Testing Tools (Google Optimize, VWO)", "SEO Audit Tools (SEMrush, Ahrefs)"],
     "Sales Development Representative": ["CRM (Salesforce, HubSpot)", "Dialer Software (Five9, Aircall)"],
-    "Social Media Marketer": [
-      "Social Listening Tools (Brandwatch, Sprout Social)",
-      "Content Scheduling Tools (Buffer, Later)",
-    ],
+    "Social Media Marketer": ["Social Listening Tools (Brandwatch, Sprout Social)", "Content Scheduling Tools (Buffer, Later)"],
     "Database Coordinator": ["Database Management (MySQL, PostgreSQL)", "Data Processing (Excel, Google Sheets)"],
     "DB Researcher": ["Market Research Platforms (Statista, IBISWorld)", "Survey Tools (Google Forms, Typeform)"],
     "Data Analyst": ["Data Visualization Tools (Power BI, Tableau)", "SQL (Intermediate Queries)"],
     "Data Profiler": ["Database Cleaning Tools (OpenRefine, Trifacta)", "CRM Enrichment (Clearbit, ZoomInfo)"],
-    "Digital Marketing Manager": [
-      "PPC Tools (Google Ads, Facebook Ads Manager)",
-      "Marketing Analytics (Google Data Studio, HubSpot)",
-    ],
-    "Email Marketing Specialist/Associate": [
-      "Email Platforms (Mailchimp, Klaviyo)",
-      "A/B Testing Software (Litmus, Optimizely)",
-    ],
+    "Digital Marketing Manager": ["PPC Tools (Google Ads, Facebook Ads Manager)", "Marketing Analytics (Google Data Studio, HubSpot)"],
+    "Email Marketing Specialist/Associate": ["Email Platforms (Mailchimp, Klaviyo)", "A/B Testing Software (Litmus, Optimizely)"],
     "Digital Designer": ["UI/UX Design Tools (Figma, Adobe XD)", "HTML/CSS (Basic for Web Design)"],
     "Content Writer": ["CMS (WordPress, Ghost)", "Copywriting Tools (Grammarly, Hemingway Editor)"],
     "LinkedIn Champion": ["LinkedIn Sales Navigator", "LinkedIn Analytics"],
     "Recruitment Coordinator": ["ATS", "LinkedIn Recruiter"],
     "Recruitment Associate": ["Job Boards", "ATS"],
-    "Recruitment Branding Specialist": [
-      "Social Media Ads (Meta Business Suite, LinkedIn Ads)",
-      "Design Software",
-      "Job Boards",
-    ],
+    "Recruitment Branding Specialist": ["Social Media Ads (Meta Business Suite, LinkedIn Ads)", "Design Software", "Job Boards"],
     "Recruitment Database Specialist": ["Applicant Database Management (Google Sheets, SQL)", "ATS"],
-    "Learning and Development Coordinator": [
-      "LMS Platforms (Moodle, TalentLMS)",
-      "E-learning Tools (Articulate, Captivate)",
-    ],
-    "Production Specialist": [
-      "Video Editing Software (Adobe Premiere Pro, Camtasia)",
-      "Audio Recording Tools (Audacity, GarageBand)",
-    ],
+    "Learning and Development Coordinator": ["LMS Platforms (Moodle, TalentLMS)", "E-learning Tools (Articulate, Captivate)"],
+    "Production Specialist": ["Video Editing Software (Adobe Premiere Pro, Camtasia)", "Audio Recording Tools (Audacity, GarageBand)"],
     "Project Manager": ["Project Management Tools (Trello, Jira)", "Risk Assessment Software (Lucidchart, Asana)"],
     "Software Developer": ["Programming Languages (Python, Java, C#)", "Version Control (Git, GitHub)"],
     "Business Process Manager": ["Process Mapping Tools (Bizagi, Microsoft Visio)", "ERP Systems"],
@@ -515,10 +477,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "IT Security Manager": ["SIEM Tools (Splunk, IBM QRadar)", "Endpoint Security (CrowdStrike, Symantec)"],
     "Network Administrator": ["Network Monitoring (Wireshark, Nagios)", "Firewall Configurations (Cisco, Fortinet)"],
     "Tech Support": ["Help Desk Software (Zendesk, Freshdesk)", "Remote Desktop Tools (TeamViewer, AnyDesk)"],
-    "Non-Voice Tech Support": [
-      "Ticketing Systems (Jira Service Desk, Zoho Desk)",
-      "Knowledge Base Software (Confluence, Notion)",
-    ],
+    "Non-Voice Tech Support": ["Ticketing Systems (Jira Service Desk, Zoho Desk)", "Knowledge Base Software (Confluence, Notion)"],
   }
 
   // Role data for matching
@@ -650,16 +609,16 @@ document.addEventListener("DOMContentLoaded", () => {
       industries: ["IT & Security", "Technology (SaaS, IT, Software Development)"],
     },
     "IT Security Manager": {
-      industries: ["IT & Security", "Financial Services"],
+      industries: ["IT, Security, and Software", "Financial Services"],
     },
     "Network Administrator": {
-      industries: ["IT & Security", "Telecommunications"],
+      industries: ["IT, Security, and Software", "Telecommunications"],
     },
     "Tech Support": {
-      industries: ["IT & Security", "Call Center / BPO"],
+      industries: ["IT, Security, and Software", "Call Center / BPO"],
     },
     "Non-Voice Tech Support": {
-      industries: ["IT & Security", "Retail & E-commerce"],
+      industries: ["IT, Security, and Software", "Retail & E-commerce"],
     },
   }
 
@@ -962,6 +921,14 @@ document.addEventListener("DOMContentLoaded", () => {
           left: 0,
           behavior: "smooth", // Smooth scrolling
         })
+      }
+
+      if (selectedFields.includes("Other") && (!formData.otherEducationField || formData.otherEducationField.trim() === "")) {
+        if (errorElement) {
+          errorElement.textContent = "Please specify your field of study for 'Other'."
+          errorElement.classList.remove("hidden")
+        }
+        isValid = false;
       }
     }
   }
@@ -1309,34 +1276,51 @@ document.addEventListener("DOMContentLoaded", () => {
     // Calculate total experience points
     const experiencePoints = calculateTotalExperiencePoints()
 
+    // Format education fields including "Others" input
+    let educationFields = formData.educationFields ? [...formData.educationFields] : []
+
+    // Add custom education fields if they exist
+    if (formData.educationOthersText && formData.education) {
+      const customField = formData.educationOthersText[formData.education]
+      if (customField) {
+        // Replace "Others" with the custom input in the educationFields array
+        const othersIndex = educationFields.indexOf("Others")
+        if (othersIndex !== -1) {
+          educationFields[othersIndex] = customField
+        } else {
+          educationFields.push(customField)
+        }
+      }
+    }
+
     // Format results with detailed information for Google Sheets
     const role1 = matches[0]
       ? {
-          role: matches[0].role,
-          normalizedScore: matches[0].normalizedScore,
-          rawScore: matches[0].rawScore,
-          educationPoints: matches[0].educationPoints || 0,
-          experiencePoints: matches[0].experiencePoints || 0,
-          isManagerial: matches[0].isManagerial || false,
-        }
+        role: matches[0].role,
+        normalizedScore: matches[0].normalizedScore,
+        rawScore: matches[0].rawScore,
+        educationPoints: matches[0].educationPoints || 0,
+        experiencePoints: matches[0].experiencePoints || 0,
+        isManagerial: matches[0].isManagerial || false,
+      }
       : null
 
     const role2 = matches[1]
       ? {
-          role: matches[1].role,
-          normalizedScore: matches[1].normalizedScore,
-          rawScore: matches[1].rawScore,
-          isManagerial: matches[1].isManagerial || false,
-        }
+        role: matches[1].role,
+        normalizedScore: matches[1].normalizedScore,
+        rawScore: matches[1].rawScore,
+        isManagerial: matches[1].isManagerial || false,
+      }
       : null
 
     const role3 = matches[2]
       ? {
-          role: matches[2].role,
-          normalizedScore: matches[2].normalizedScore,
-          rawScore: matches[2].rawScore,
-          isManagerial: matches[2].isManagerial || false,
-        }
+        role: matches[2].role,
+        normalizedScore: matches[2].normalizedScore,
+        rawScore: matches[2].rawScore,
+        isManagerial: matches[2].isManagerial || false,
+      }
       : null
 
     // Create data object with all assessment details
@@ -1346,7 +1330,13 @@ document.addEventListener("DOMContentLoaded", () => {
       email: formData.email,
       phone: formData.phone,
       education: formData.education,
-      education_fields: formData.educationFields ? formData.educationFields.join(", ") : "",
+      education_fields: (() => {
+        let educationFieldsText = formData.educationFields ? formData.educationFields.join(", ") : "";
+        if (formData.educationFields && formData.educationFields.includes("Other") && formData.otherEducationField) {
+          educationFieldsText = educationFieldsText.replace("Other", `Other (${formData.otherEducationField})`);
+        }
+        return educationFieldsText;
+      })(),
       qualifications: Object.keys(formData.qualifications)
         .filter((q) => formData.qualifications[q])
         .join(", "),
@@ -1383,7 +1373,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then(() => {
         console.log("Data submitted via fetch")
         document.getElementById("submission-status").textContent =
-          "Results have been saved to Google Sheets successfully!"
+          ""
 
         // Show thank you message
         setTimeout(() => {
@@ -2353,9 +2343,29 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!formData.educationFields.includes(field)) {
               formData.educationFields.push(field)
             }
+
+            // Show custom input field if "Other" is selected
+            if (field === "Other") {
+              const otherInputContainer = categoryDiv.querySelector('.other-input-container')
+              if (otherInputContainer) {
+                otherInputContainer.classList.remove('hidden')
+              }
+            }
           } else {
             // Remove field from selected fields
             formData.educationFields = formData.educationFields.filter((f) => f !== field)
+
+            // Hide custom input field if "Other" is unselected
+            if (field === "Other") {
+              const otherInputContainer = categoryDiv.querySelector('.other-input-container')
+              if (otherInputContainer) {
+                otherInputContainer.classList.add('hidden')
+                otherInputContainer.querySelector('input').value = ''
+                if (formData.otherEducationField) {
+                  delete formData.otherEducationField
+                }
+              }
+            }
           }
         })
 
@@ -2365,6 +2375,22 @@ document.addEventListener("DOMContentLoaded", () => {
       })
 
       categoryItems.appendChild(fieldsGrid)
+
+      // Add custom input field for "Other" option (initially hidden)
+      const otherInputContainer = document.createElement("div")
+      otherInputContainer.className = "other-input-container hidden"
+      otherInputContainer.innerHTML = `
+        <label for="other-field-${index}">Please specify your field of study:</label>
+        <input type="text" id="other-field-${index}" class="other-field-input" placeholder="Enter your field of study">
+      `
+
+      // Add event listener to update formData when the custom field changes
+      const otherInput = otherInputContainer.querySelector('input')
+      otherInput.addEventListener('input', (e) => {
+        formData.otherEducationField = e.target.value
+      })
+
+      categoryItems.appendChild(otherInputContainer)
 
       // Add a hidden radio button for the education level
       const hiddenRadio = document.createElement("input")
@@ -2385,6 +2411,18 @@ document.addEventListener("DOMContentLoaded", () => {
           activeCategory.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
             checkbox.checked = false
           })
+
+          // Hide any visible "Other" input fields
+          const otherContainer = activeCategory.querySelector('.other-input-container')
+          if (otherContainer) {
+            otherContainer.classList.add('hidden')
+            otherContainer.querySelector('input').value = ''
+          }
+
+          // Clear other education field data
+          if (formData.otherEducationField) {
+            delete formData.otherEducationField
+          }
         }
 
         categoryDiv.classList.toggle("active")
