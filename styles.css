@@ -77,7 +77,7 @@ body {
   box-shadow: var(--shadow);
   overflow: hidden;
   transition: var(--transition);
-  width: 1200px; /* Explicitly set the card width to 1200px */
+  width: 1200px; /* Keep the original fixed width for desktop */
   margin: 0 auto;
   overflow: hidden;
 }
@@ -105,10 +105,23 @@ body {
 
 .divider {
   height: 2px;
-  width: 35rem;
+  width: 35rem; /* Keep the original fixed width */
   background-color: #ffca09;
   border-radius: 9999px;
   margin: 0.5rem auto 0;
+}
+
+/* Add responsive adjustments only for mobile */
+@media (max-width: 1220px) {
+  .card {
+    width: 100%; /* Make it responsive only on smaller screens */
+    max-width: 1200px;
+  }
+
+  .divider {
+    width: 100%;
+    max-width: 35rem;
+  }
 }
 
 .card-content {
@@ -245,7 +258,7 @@ body {
 
 .tabs-list {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 1fr; /* Change to single column on mobile */
   gap: 0.75rem;
   margin-bottom: 2rem;
   align-items: center;
@@ -253,7 +266,7 @@ body {
 
 @media (min-width: 768px) {
   .tabs-list {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, 1fr); /* Restore 5 columns on desktop */
   }
 }
 
@@ -786,6 +799,26 @@ body {
   .result-score {
     align-self: flex-start;
   }
+
+  /* Make tabs stack vertically on mobile */
+  .tabs-list {
+    grid-template-columns: 1fr;
+  }
+
+  /* Make experience cards full width on mobile */
+  .experience-cards-container {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Make the industry experience container stack vertically */
+  .industry-experience-container {
+    flex-direction: column;
+  }
+
+  /* Make education grid single column */
+  .education-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Animation for transitions */
@@ -920,9 +953,6 @@ label {
   font-family: var(--font-family);
 }
 
-
-
-
 /* Add to styles.css */
 /* Experience Container */
 .experience-container {
@@ -1002,6 +1032,7 @@ label {
   transition: all 0.2s ease;
   animation: fadeIn 0.3s ease;
   position: relative;
+  width: 100%;
 }
 
 .experience-card:hover {
@@ -1365,3 +1396,47 @@ label {
   border-color: #014e89;
   box-shadow: 0 0 0 2px rgba(1, 78, 137, 0.2);
 }
+
+/* Add responsive styles for the industry experience section */
+.experience-card {
+  width: 100%;
+}
+
+/* Make the dropdown options more mobile-friendly */
+.dropdown-content {
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+/* Ensure the logo is responsive */
+.callboxlogo {
+  max-width: 100px;
+  height: auto;
+}
+
+/* Add styles for better mobile experience */
+@media (max-width: 480px) {
+  body {
+    padding: 1rem 0.5rem;
+  }
+
+  .card-header {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .card-content {
+    padding: 1.25rem 0.75rem;
+  }
+
+  .experience-card {
+    width: 100%;
+  }
+
+  .dropdown-content {
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
+

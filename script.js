@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Google Sheet submission URL - Replace with your own Google Apps Script Web App URL
-  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwRdzGOWlRQmisaXdPW97NSw8aovyOQs77Pad0qIIBgJoFnMGPHGukfK6DtsbE2fs_g/exec"
+  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxzQpzLXkBMDTZI7CUlTQeQGv5oYwCD9K0KcTGZzIC07EziLM746tD-2lWnIwjBs_om/exec"
 
   // Define the list of managerial positions
   const managerialPositions = [
