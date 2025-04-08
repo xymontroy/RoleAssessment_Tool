@@ -1979,211 +1979,205 @@ function validateCurrentTab() {
 
   // Industry Experience
   function initializeIndustryExperience() {
-    const tabContent = document.getElementById("industry-experience-tab")
-
+    const tabContent = document.getElementById("industry-experience-tab");
+  
     // Create container for all experience types
-    const experienceContainer = document.createElement("div")
-    experienceContainer.className = "experience-container"
-
+    const experienceContainer = document.createElement("div");
+    experienceContainer.className = "experience-container";
+  
     // Add Rank & File section
-    const rankFileSection = createExperienceSection("Rank and File Experience", "rank-file-experience", experienceData)
-    experienceContainer.appendChild(rankFileSection)
-
+    const rankFileSection = createExperienceSection("Rank-and-File (Entry-Level Roles)", "rank-file-experience", experienceData);
+    experienceContainer.appendChild(rankFileSection);
+  
     // Add Mid-Level section
-    const midLevelSection = createExperienceSection("Mid-Level Experience", "mid-level-experience", midLevelExp)
-    experienceContainer.appendChild(midLevelSection)
-
+    const midLevelSection = createExperienceSection("Mid-Level (Quality Assurance Analysts, Production Specialist and Specialized Roles)", "mid-level-experience", midLevelExp);
+    experienceContainer.appendChild(midLevelSection);
+  
     // Add Managerial section
-    const managerialSection = createExperienceSection("Managerial Experience", "managerial-experience", managerialExp)
-    experienceContainer.appendChild(managerialSection)
-
+    const managerialSection = createExperienceSection("Managerial (Including Supervisory and Coordinator Roles)", "managerial-experience", managerialExp);
+    experienceContainer.appendChild(managerialSection);
+  
     // Clear existing content and add our new structure
-    tabContent.innerHTML = ""
-
+    tabContent.innerHTML = "";
+  
     // Add tab header
-    const tabHeader = document.createElement("div")
-    tabHeader.className = "tab-header"
+    const tabHeader = document.createElement("div");
+    tabHeader.className = "tab-header";
     tabHeader.innerHTML = `
       <h2><i class="fas fa-industry"></i> Industry & Experience</h2>
       <p>Select your industry experience for rank and file, mid-level, and managerial roles</p>
-    `
-    tabContent.appendChild(tabHeader)
-    tabContent.appendChild(experienceContainer)
-
+    `;
+    tabContent.appendChild(tabHeader);
+    tabContent.appendChild(experienceContainer);
+  
     // Initialize all cards
-    initIndustryExperienceCard("rank-file-experience", experienceData)
-    initIndustryExperienceCard("mid-level-experience", midLevelExp)
-    initIndustryExperienceCard("managerial-experience", managerialExp)
-
+    initIndustryExperienceCard("rank-file-experience", experienceData);
+    initIndustryExperienceCard("mid-level-experience", midLevelExp);
+    initIndustryExperienceCard("managerial-experience", managerialExp);
+  
     // Add error message container for industry experience tab
-    const errorElement = document.createElement("div")
-    errorElement.id = "industry-experience-error"
-    errorElement.className = "error-message hidden"
-    errorElement.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please select at least one industry.'
-    tabContent.appendChild(errorElement)
-
-    // Make sure the error element is hidden by default
-    errorElement.classList.add("hidden")
+    const errorElement = document.createElement("div");
+    errorElement.id = "industry-experience-error";
+    errorElement.className = "error-message hidden";
+    errorElement.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please select at least one industry.';
+    tabContent.appendChild(errorElement);
   }
-
-  // Modify the createExperienceSection function to change how the dropdown is positioned
+  
   function createExperienceSection(title, containerId, experienceLevels) {
-    const section = document.createElement("div")
-    section.className = "experience-section"
-
-    const sectionHeader = document.createElement("div")
-    sectionHeader.className = "section-header"
-
-    const sectionTitle = document.createElement("h3")
-    sectionTitle.className = "experience-section-title"
-    sectionTitle.textContent = title
-    sectionHeader.appendChild(sectionTitle)
-
+    const section = document.createElement("div");
+    section.className = "experience-section";
+  
+    const sectionHeader = document.createElement("div");
+    sectionHeader.className = "section-header";
+  
+    const sectionTitle = document.createElement("h3");
+    sectionTitle.className = "experience-section-title";
+  
+    // Split title into bold and normal parts
+    const match = title.match(/^(.+?)\s*(\(.+\))$/);
+    if (match) {
+      const boldSpan = document.createElement("span");
+      boldSpan.textContent = match[1];
+      boldSpan.style.fontWeight = "bold";
+  
+      const normalSpan = document.createElement("span");
+      normalSpan.textContent = ` ${match[2]}`;
+      normalSpan.style.fontWeight = "normal";
+  
+      sectionTitle.appendChild(boldSpan);
+      sectionTitle.appendChild(normalSpan);
+    } else {
+      sectionTitle.textContent = title;
+    }
+  
+    sectionHeader.appendChild(sectionTitle);
+  
     // Add collapse toggle button
-    const toggleBtn = document.createElement("button")
-    toggleBtn.className = "toggle-section"
-    toggleBtn.innerHTML = '<i class="fas fa-chevron-down"></i>' // Default to collapsed state
-    sectionHeader.appendChild(toggleBtn)
-    section.appendChild(sectionHeader)
-
-    // Create collapsible content container
-    const sectionContent = document.createElement("div")
-    sectionContent.className = "section-content collapsed" // Add 'collapsed' class by default
-
-    const selectorContainer = document.createElement("div")
-    selectorContainer.className = "industry-selector-container"
-
-    // Create a custom dropdown that uses a modal-like approach
-    const dropdownContainer = document.createElement("div")
-    dropdownContainer.className = "industry-dropdown-container"
-
-    const label = document.createElement("label")
-    label.textContent = "Select Industries:"
-    dropdownContainer.appendChild(label)
-
-    const dropdownTrigger = document.createElement("button")
-    dropdownTrigger.className = "dropdown-trigger"
+    const toggleBtn = document.createElement("button");
+    toggleBtn.className = "toggle-section";
+    toggleBtn.innerHTML = '<i class="fas fa-chevron-down"></i>';
+    sectionHeader.appendChild(toggleBtn);
+    section.appendChild(sectionHeader);
+  
+    // Collapsible content container
+    const sectionContent = document.createElement("div");
+    sectionContent.className = "section-content collapsed";
+  
+    const selectorContainer = document.createElement("div");
+    selectorContainer.className = "industry-selector-container";
+  
+    const dropdownContainer = document.createElement("div");
+    dropdownContainer.className = "industry-dropdown-container";
+  
+    const label = document.createElement("label");
+    label.textContent = "Select Industries:";
+    dropdownContainer.appendChild(label);
+  
+    const dropdownTrigger = document.createElement("button");
+    dropdownTrigger.className = "dropdown-trigger";
     dropdownTrigger.innerHTML = `
       <span class="trigger-text">Choose industries</span>
       <i class="fas fa-chevron-down"></i>
-    `
-    dropdownContainer.appendChild(dropdownTrigger)
-
-    // Create dropdown content as a separate element that will be positioned absolutely relative to the viewport
-    const dropdownContent = document.createElement("div")
-    dropdownContent.className = "dropdown-content"
+    `;
+    dropdownContainer.appendChild(dropdownTrigger);
+  
+    const dropdownContent = document.createElement("div");
+    dropdownContent.className = "dropdown-content";
     dropdownContent.innerHTML = `
-    <div class="dropdown-header">
-      <h4>Select Industries</h4>
-      <button class="close-dropdown"><i class="fas fa-times"></i></button>
-    </div>
-    <div class="dropdown-body">
-      <input type="text" class="industry-search" placeholder="Search industries...">
-      <div class="options-list"></div>
-    </div>
-  `
-
-    // Add the dropdown content to the dropdown container for proper positioning
-    dropdownContainer.appendChild(dropdownContent)
-
-    // Store the dropdown content reference in the trigger for later use
-    dropdownTrigger.dropdownContent = dropdownContent
-    dropdownContent.dataset.containerId = containerId
-
-    // Add event listener to toggle dropdown
+      <div class="dropdown-header">
+        <h4>Select Industries</h4>
+        <button class="close-dropdown"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="dropdown-body">
+        <input type="text" class="industry-search" placeholder="Search industries...">
+        <div class="options-list"></div>
+      </div>
+    `;
+    dropdownContainer.appendChild(dropdownContent);
+  
+    dropdownTrigger.dropdownContent = dropdownContent;
+    dropdownContent.dataset.containerId = containerId;
+  
     dropdownTrigger.addEventListener("click", (e) => {
-      e.stopPropagation()
-
-      // Position the dropdown content relative to the trigger
-      const rect = dropdownTrigger.getBoundingClientRect()
-      dropdownContent.style.position = "absolute"
-      dropdownContent.style.top = "100%"
-      dropdownContent.style.left = "0"
-      dropdownContent.style.width = "100%"
-      dropdownContent.style.zIndex = "1000"
-
-      // Show the dropdown
-      dropdownContent.classList.add("active")
-
-      // Focus the search input
+      e.stopPropagation();
+      const rect = dropdownTrigger.getBoundingClientRect();
+      dropdownContent.style.position = "absolute";
+      dropdownContent.style.top = "100%";
+      dropdownContent.style.left = "0";
+      dropdownContent.style.width = "100%";
+      dropdownContent.style.zIndex = "1000";
+      dropdownContent.classList.add("active");
+  
       setTimeout(() => {
-        dropdownContent.querySelector(".industry-search").focus()
-      }, 100)
-    })
-
-    // Fix: Add event listener to close dropdown without affecting the section collapse
+        dropdownContent.querySelector(".industry-search").focus();
+      }, 100);
+    });
+  
     dropdownContent.querySelector(".close-dropdown").addEventListener("click", (e) => {
-      e.stopPropagation() // Prevent event from bubbling up to section
-      dropdownContent.classList.remove("active")
-    })
-
-    // Close dropdown when clicking outside
+      e.stopPropagation();
+      dropdownContent.classList.remove("active");
+    });
+  
     document.addEventListener("click", (e) => {
       if (!dropdownContent.contains(e.target) && e.target !== dropdownTrigger) {
-        dropdownContent.classList.remove("active")
+        dropdownContent.classList.remove("active");
       }
-    })
-
-    // Add search functionality
+    });
+  
     dropdownContent.querySelector(".industry-search").addEventListener("input", (e) => {
-      const value = e.target.value.toLowerCase()
-      const options = dropdownContent.querySelectorAll(".industry-option")
-
+      const value = e.target.value.toLowerCase();
+      const options = dropdownContent.querySelectorAll(".industry-option");
+  
       options.forEach((option) => {
-        const text = option.textContent.toLowerCase()
-        option.style.display = text.includes(value) ? "flex" : "none"
-      })
-    })
-
-    const selectedIndustries = document.createElement("div")
-    selectedIndustries.className = "selected-industries"
-    selectorContainer.appendChild(dropdownContainer)
-    selectorContainer.appendChild(selectedIndustries)
-
-    sectionContent.appendChild(selectorContainer)
-
-    const experienceCardsContainer = document.createElement("div")
-    experienceCardsContainer.id = containerId
-    experienceCardsContainer.className = "experience-cards-container"
-    sectionContent.appendChild(experienceCardsContainer)
-
-    section.appendChild(sectionContent)
-
-    // Add empty state message by default
-    const emptyState = document.createElement("div")
-    emptyState.className = "empty-state"
+        const text = option.textContent.toLowerCase();
+        option.style.display = text.includes(value) ? "flex" : "none";
+      });
+    });
+  
+    const selectedIndustries = document.createElement("div");
+    selectedIndustries.className = "selected-industries";
+  
+    selectorContainer.appendChild(dropdownContainer);
+    selectorContainer.appendChild(selectedIndustries);
+    sectionContent.appendChild(selectorContainer);
+  
+    const experienceCardsContainer = document.createElement("div");
+    experienceCardsContainer.id = containerId;
+    experienceCardsContainer.className = "experience-cards-container";
+    sectionContent.appendChild(experienceCardsContainer);
+  
+    section.appendChild(sectionContent);
+  
+    const emptyState = document.createElement("div");
+    emptyState.className = "empty-state";
     emptyState.innerHTML = `
-    <i class="fas fa-info-circle"></i>
-    <p>No industries selected. Choose industries from the dropdown above.</p>
-  `
-    experienceCardsContainer.appendChild(emptyState)
-
-    // Make the entire section clickable to toggle collapse
+      <i class="fas fa-info-circle"></i>
+      <p>No industries selected. Choose industries from the dropdown above.</p>
+    `;
+    experienceCardsContainer.appendChild(emptyState);
+  
     toggleBtn.addEventListener("click", (e) => {
-      e.stopPropagation() // Prevent event from bubbling
-      const content = section.querySelector(".section-content")
-      content.classList.toggle("collapsed")
-      const icon = toggleBtn.querySelector("i")
-      icon.classList.toggle("fa-chevron-up")
-      icon.classList.toggle("fa-chevron-down")
-    })
-
-    // Modify section click behavior to only toggle when clicking on the header
+      e.stopPropagation();
+      const content = section.querySelector(".section-content");
+      content.classList.toggle("collapsed");
+      const icon = toggleBtn.querySelector("i");
+      icon.classList.toggle("fa-chevron-up");
+      icon.classList.toggle("fa-chevron-down");
+    });
+  
     sectionHeader.addEventListener("click", (e) => {
-      // Prevent this from triggering when clicking on the toggle button
-      if (e.target === toggleBtn || e.target.closest(".toggle-section")) {
-        return
-      }
-
-      const content = section.querySelector(".section-content")
-      content.classList.toggle("collapsed")
-      const icon = toggleBtn.querySelector("i")
-      icon.classList.toggle("fa-chevron-up")
-      icon.classList.toggle("fa-chevron-down")
-    })
-
-    return section
+      if (e.target === toggleBtn || e.target.closest(".toggle-section")) return;
+  
+      const content = section.querySelector(".section-content");
+      content.classList.toggle("collapsed");
+      const icon = toggleBtn.querySelector("i");
+      icon.classList.toggle("fa-chevron-up");
+      icon.classList.toggle("fa-chevron-down");
+    });
+  
+    return section;
   }
+  
 
   // Modify the updateCardsLayout function to handle the empty state message
   let updateCardsLayout = (container) => {
