@@ -25,9 +25,22 @@ document.addEventListener("DOMContentLoaded", () => {
     "IT Security Manager",
   ]
 
+  // Define the list of mid-level positions
+  const midLevelPositions = [
+    "Quality Assurance Analyst",
+    "HR/Admin Specialist",
+    "Quality Assurance Analyst (SEO)",
+    "Production Specialist",
+  ]
+
   // Helper function to check if a role is managerial
   function isManagerialRole(role) {
     return managerialPositions.includes(role)
+  }
+
+  // Helper function to check if a role is mid-level
+  function isMidLevelRole(role) {
+    return midLevelPositions.includes(role)
   }
 
   // Data objects
@@ -64,7 +77,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "Sales Pipeline Management",
       "B2B Sales & Negotiation",
       "Lead Qualification",
-      "Prospecting",
     ],
     "Marketing & Lead Generation": [
       "Performance Analytics",
@@ -372,6 +384,14 @@ document.addEventListener("DOMContentLoaded", () => {
     { level: "5+ years", points: 1 },
   ]
 
+  // Mid-level experience
+  const midLevelExp = [
+    { level: "1 to 2 years", points: 0.8 },
+    { level: "3 to 4 years", points: 1.0 },
+    { level: "4 to 5 years", points: 1.3 },
+    { level: "5+ years", points: 1.5 },
+  ]
+
   // Managerial
   const managerialExp = [
     { level: "1 to 2 years", points: 1.3 },
@@ -384,9 +404,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const roleQualifications = {
     "CRM Manager": ["CRM Software Expertise", "Data Analysis & Reporting"],
     "Quality Assurance Analyst": ["Call Evaluation & Scoring", "Lead Qualification Techniques"],
+    "Quality Assurance Analyst [Mid-level]": ["Call Evaluation & Scoring", "Lead Qualification Techniques", "Data Analysis & Reporting"],
     "Sales Performance and QA Coordinator": ["Sales Performance Analysis", "Coaching & Training"],
     "HR/Finance": ["Payroll Management", "Labor Law Compliance"],
     "HR/Admin Specialist": ["Employee Records Management", "People Management"],
+    "HR/Admin Specialist [Mid-level]": ["Employee Records Management", "People Management", "Labor Law Compliance"],
     "HR/Admin Manager": ["Policy Development", "People Management", "Labor Law Compliance", "Project Management"],
     "HR/Admin and Finance Director": ["Financial Planning", "Payroll Management"],
     "Finance Associate": ["General Ledger Accounting", "Financial Reporting"],
@@ -403,6 +425,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "SEO Program Manager": ["SEO Strategy", "Website Analytics", "Project Management"],
     "SEO Specialist": ["On-Page/Off-Page SEO", "Google Analytics"],
     "Quality Assurance Analyst (SEO)": ["Marketing Compliance", "Content Quality Review"],
+    "Quality Assurance Analyst (SEO) [Mid-level]": ["Marketing Compliance", "Content Quality Review", "SEO Strategy"],
     "Sales Development Representative": ["Prospecting", "Objection Handling", "List Building"],
     "Social Media Marketer": ["Social Media Advertising", "Community Engagement"],
     "Database Coordinator": ["Data Management", "Database Optimization"],
@@ -420,6 +443,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Recruitment Database Specialist": ["Applicant Database Management", "Data Entry"],
     "Learning and Development Coordinator": ["Training Program Development", "Performance Evaluation", "Project Management"],
     "Production Specialist": ["Performance Evaluation", "Content Production"],
+    "Production Specialist [Mid-level]": ["Performance Evaluation", "Content Production", "Project Management"],
     "Project Manager": ["Agile & Scrum Methodologies", "Risk Management", "Project Management", "Team Leadership"],
     "Software Developer": ["Coding & Programming", "Software Testing"],
     "Business Process Manager": ["Process Mapping", "Project Management", "Business Process Optimization"],
@@ -434,9 +458,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const roleTechnicalSkills = {
     "CRM Manager": ["CRM platforms (Salesforce, HubSpot)", "Data Reporting Tools (Power BI, Tableau)"],
     "Quality Assurance Analyst": ["QA Software (Call Listening Tools, QA Scorecards)", "Google Sheets/Excel (Pivot Tables, Data Validation)"],
+    "Quality Assurance Analyst [Mid-level]": ["QA Software (Call Listening Tools, QA Scorecards)", "Google Sheets/Excel (Pivot Tables, Data Validation)", "Data Reporting Tools (Power BI, Tableau)"],
     "Sales Performance and QA Coordinator": ["Sales Analytics Tools (HubSpot, Gong.io)", "Performance Tracking Software (Power BI, Salesforce Analytics)"],
     "HR/Finance": ["Payroll Systems (ADP, QuickBooks)", "HRIS (BambooHR, Workday)"],
     "HR/Admin Specialist": ["RMS (SAP SuccessFactors, Workday)", "Document Management Systems (Google Drive, SharePoint)"],
+    "HR/Admin Specialist [Mid-level]": ["RMS (SAP SuccessFactors, Workday)", "Document Management Systems (Google Drive, SharePoint)", "Compliance Software (HRIS, OSHA Compliance Tools)"],
     "HR/Admin Manager": ["Compliance Software (HRIS, OSHA Compliance Tools)", "ATS (Greenhouse, Lever)"],
     "HR/Admin and Finance Director": ["ERP Systems", "Financial Planning Software (NetSuite, QuickBooks)"],
     "Finance Associate": ["Accounting Software (Xero, QuickBooks)", "Excel (Financial Modeling, Macros)"],
@@ -453,6 +479,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "SEO Program Manager": ["Google Search Console", "Keyword Research Tools (Moz, SEMrush)"],
     "SEO Specialist": ["Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)", "Google Analytics"],
     "Quality Assurance Analyst (SEO)": ["A/B Testing Tools (Google Optimize, VWO)", "SEO Audit Tools (SEMrush, Ahrefs)"],
+    "Quality Assurance Analyst (SEO) [Mid-level]": ["A/B Testing Tools (Google Optimize, VWO)", "SEO Audit Tools (SEMrush, Ahrefs)", "Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)"],
     "Sales Development Representative": ["CRM (Salesforce, HubSpot)", "Dialer Software (Five9, Aircall)"],
     "Social Media Marketer": ["Social Listening Tools (Brandwatch, Sprout Social)", "Content Scheduling Tools (Buffer, Later)"],
     "Database Coordinator": ["Database Management (MySQL, PostgreSQL)", "Data Processing (Excel, Google Sheets)"],
@@ -470,6 +497,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Recruitment Database Specialist": ["Applicant Database Management (Google Sheets, SQL)", "ATS"],
     "Learning and Development Coordinator": ["LMS Platforms (Moodle, TalentLMS)", "E-learning Tools (Articulate, Captivate)"],
     "Production Specialist": ["Video Editing Software (Adobe Premiere Pro, Camtasia)", "Audio Recording Tools (Audacity, GarageBand)"],
+    "Production Specialist [Mid-level]": ["Video Editing Software (Adobe Premiere Pro, Camtasia)", "Audio Recording Tools (Audacity, GarageBand)", "Content Scheduling Tools (Buffer, Later)"],
     "Project Manager": ["Project Management Tools (Trello, Jira)", "Risk Assessment Software (Lucidchart, Asana)"],
     "Software Developer": ["Programming Languages (Python, Java, C#)", "Version Control (Git, GitHub)"],
     "Business Process Manager": ["Process Mapping Tools (Bizagi, Microsoft Visio)", "ERP Systems"],
@@ -488,6 +516,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "Quality Assurance Analyst": {
       industries: ["Call Center / BPO", "Technology (SaaS, IT, Software Development)"],
     },
+    "Quality Assurance Analyst [Mid-level]": {
+      industries: ["Call Center / BPO", "Technology (SaaS, IT, Software Development)"],
+    },
     "Sales Performance and QA Coordinator": {
       industries: ["Call Center / BPO", "Education & Training"],
     },
@@ -495,6 +526,9 @@ document.addEventListener("DOMContentLoaded", () => {
       industries: ["Human Resources & Recruitment", "Financial Services"],
     },
     "HR/Admin Specialist": {
+      industries: ["Human Resources & Recruitment", "Corporate Finance"],
+    },
+    "HR/Admin Specialist [Mid-level]": {
       industries: ["Human Resources & Recruitment", "Corporate Finance"],
     },
     "HR/Admin Manager": {
@@ -543,6 +577,9 @@ document.addEventListener("DOMContentLoaded", () => {
       industries: ["Digital Marketing & Advertising", "Media & Publishing"],
     },
     "Quality Assurance Analyst (SEO)": {
+      industries: ["Digital Marketing & Advertising", "Media & Publishing"],
+    },
+    "Quality Assurance Analyst (SEO) [Mid-level]": {
       industries: ["Digital Marketing & Advertising", "Media & Publishing"],
     },
     "Sales Development Representative": {
@@ -594,6 +631,9 @@ document.addEventListener("DOMContentLoaded", () => {
       industries: ["Education & Training", "Call Center / BPO"],
     },
     "Production Specialist": {
+      industries: ["Digital Marketing & Advertising", "Media & Publishing"],
+    },
+    "Production Specialist [Mid-level]": {
       industries: ["Digital Marketing & Advertising", "Media & Publishing"],
     },
     "Project Manager": {
@@ -675,6 +715,7 @@ document.addEventListener("DOMContentLoaded", () => {
     industryExperience: {
       // Updated for combined industry-experience
       rankFile: {},
+      midLevel: {}, // Added mid-level experience
       managerial: {},
     },
   }
@@ -763,6 +804,7 @@ document.addEventListener("DOMContentLoaded", () => {
       technical: {},
       industryExperience: {
         rankFile: {},
+        midLevel: {}, // Added mid-level experience
         managerial: {},
       },
     }
@@ -923,7 +965,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       }
 
-      if (selectedFields.includes("Other") && (!formData.otherEducationField || formData.otherEducationField.trim() === "")) {
+      if (selectedFields && selectedFields.includes("Other") && (!formData.otherEducationField || formData.otherEducationField.trim() === "")) {
         if (errorElement) {
           errorElement.textContent = "Please specify your field of study for 'Other'."
           errorElement.classList.remove("hidden")
@@ -945,125 +987,202 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // Modify the validateCurrentTab function to ensure proper validation for industry-experience
-  function validateCurrentTab() {
-    const tabName = tabNames[currentTabIndex]
-    const errorElement = document.getElementById(`${tabName}-error`)
-    let isValid = true
+  // In the validateCurrentTab function, update each case to properly set completedTabs
+function validateCurrentTab() {
+  const tabName = tabNames[currentTabIndex];
+  const errorElement = document.getElementById(`${tabName}-error`);
+  let isValid = true;
 
-    switch (tabName) {
-      case "applicant":
-        const name = document.getElementById("name").value
-        const email = document.getElementById("email").value
-        const phone = document.getElementById("phone").value
+  switch (tabName) {
+    case "applicant":
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const phone = document.getElementById("phone").value.trim();
 
-        formData.name = name
-        formData.email = email
-        formData.phone = phone
+      formData.name = name;
+      formData.email = email;
+      formData.phone = phone;
 
-        if (!name || !email) {
-          if (errorElement) {
-            errorElement.classList.remove("hidden")
-          }
-          isValid = false
-        } else {
-          if (errorElement) {
-            errorElement.classList.add("hidden")
-          }
+      if (errorElement) {
+        errorElement.classList.add("hidden");
+      }
+
+      if (!name || !email) {
+        if (errorElement) {
+          errorElement.textContent = "Please fill out all required fields (Name and Email).";
+          errorElement.classList.remove("hidden");
         }
-        break
+        isValid = false;
+      } else if (!validateEmail(email)) {
+        if (errorElement) {
+          errorElement.textContent = "Please provide a valid email address.";
+          errorElement.classList.remove("hidden");
+        }
+        isValid = false;
+      }
+      
+      completedTabs.applicant = isValid;
+      break;
 
       case "education":
-        const educationRadios = document.querySelectorAll('input[name="education"]')
-        let educationSelected = false
-
+        const educationRadios = document.querySelectorAll('input[name="education"]');
+        let educationSelected = false;
+      
+        formData.education = null;
+        formData.educationFields = [];
+      
         educationRadios.forEach((radio) => {
           if (radio.checked) {
-            formData.education = radio.value
-            educationSelected = true
+            formData.education = radio.value;
+            educationSelected = true;
           }
-        })
-
-        // Get selected education fields
+        });
+      
         if (educationSelected) {
-          // Find the active education category
-          const activeCategory = document.querySelector('.category.active[data-category="' + formData.education + '"]')
+          const activeCategory = document.querySelector('.category.active');
           if (activeCategory) {
-            // Get all checked field checkboxes within this category
-            const selectedFields = []
+            const selectedFields = [];
             activeCategory.querySelectorAll('input[type="checkbox"]:checked').forEach((checkbox) => {
-              selectedFields.push(checkbox.value)
-            })
-            formData.educationFields = selectedFields
+              selectedFields.push(checkbox.value);
+            });
+            formData.educationFields = selectedFields;
+      
+            // Check if "Other" is selected and validate the input
+            if (selectedFields.includes("Other")) {
+              const otherInput = activeCategory.querySelector('.other-field-input');
+              if (!otherInput || otherInput.value.trim() === "") {
+                if (errorElement) {
+                  errorElement.textContent = "Please specify your field of study for 'Other'.";
+                  errorElement.classList.remove("hidden");
+                }
+                isValid = false;
+                
+                // Highlight the other input field
+                if (otherInput) {
+                  otherInput.style.border = "1px solid var(--error)";
+                  otherInput.focus();
+                }
+              } else {
+                formData.otherEducationField = otherInput.value.trim();
+                if (otherInput) {
+                  otherInput.style.border = "";
+                }
+              }
+            }
+      
+            if (formData.educationFields.length === 0) {
+              if (errorElement) {
+                errorElement.textContent = "Please select at least one field of study.";
+                errorElement.classList.remove("hidden");
+              }
+              isValid = false;
+            } else {
+              // Hide the error message if validation passes
+              if (errorElement) {
+                errorElement.classList.add("hidden");
+              }
+            }
           }
-        }
-
-        if (!educationSelected) {
-          if (errorElement) {
-            errorElement.classList.remove("hidden")
-          }
-          isValid = false
         } else {
           if (errorElement) {
-            errorElement.classList.add("hidden")
+            errorElement.textContent = "Please select an education level.";
+            errorElement.classList.remove("hidden");
           }
+          isValid = false;
         }
-        break
-
+        
+        completedTabs.education = isValid;
+        break;
       case "qualifications":
-        const qualificationCheckboxes = document.querySelectorAll('input[name^="qualification-"]')
-        let qualificationsSelected = false
+      const qualificationCheckboxes = document.querySelectorAll('input[name^="qualification-"]');
+      let qualificationsSelected = false;
 
-        qualificationCheckboxes.forEach((checkbox) => {
-          const qualification = checkbox.value
-          formData.qualifications[qualification] = checkbox.checked
-          if (checkbox.checked) {
-            qualificationsSelected = true
-          }
-        })
-
-        if (!qualificationsSelected) {
-          if (errorElement) {
-            errorElement.classList.remove("hidden")
-          }
-          isValid = false
-        } else {
-          if (errorElement) {
-            errorElement.classList.add("hidden")
-          }
+      qualificationCheckboxes.forEach((checkbox) => {
+        const qualification = checkbox.value;
+        formData.qualifications[qualification] = checkbox.checked;
+        if (checkbox.checked) {
+          qualificationsSelected = true;
         }
-        break
+      });
 
-      case "technical":
-        const technicalCheckboxes = document.querySelectorAll('input[name^="technical-"]')
-        let technicalSelected = false
-
-        technicalCheckboxes.forEach((checkbox) => {
-          const technical = checkbox.value
-          formData.technical[technical] = checkbox.checked
-          if (checkbox.checked) {
-            technicalSelected = true
-          }
-        })
-
-        if (!technicalSelected) {
-          if (errorElement) {
-            errorElement.classList.remove("hidden")
-          }
-          isValid = false
-        } else {
-          if (errorElement) {
-            errorElement.classList.add("hidden")
-          }
+      if (!qualificationsSelected) {
+        if (errorElement) {
+          errorElement.classList.remove("hidden");
         }
-        break
+        isValid = false;
+      } else {
+        if (errorElement) {
+          errorElement.classList.add("hidden");
+        }
+      }
+      
+      completedTabs.qualifications = isValid;
+      break;
 
-      case "industry-experience":
-        // Directly use the validateIndustryExperience function for validation
-        isValid = validateIndustryExperience()
-        break
+    case "technical":
+      const technicalCheckboxes = document.querySelectorAll('input[name^="technical-"]');
+      let technicalSelected = false;
+
+      technicalCheckboxes.forEach((checkbox) => {
+        const technical = checkbox.value;
+        formData.technical[technical] = checkbox.checked;
+        if (checkbox.checked) {
+          technicalSelected = true;
+        }
+      });
+
+      if (!technicalSelected) {
+        if (errorElement) {
+          errorElement.classList.remove("hidden");
+        }
+        isValid = false;
+      } else {
+        if (errorElement) {
+          errorElement.classList.add("hidden");
+        }
+      }
+      
+      completedTabs.technical = isValid;
+      break;
+
+    case "industry-experience":
+      isValid = validateIndustryExperience();
+      completedTabs["industry-experience"] = isValid;
+      break;
+  }
+
+  return isValid;
+}
+
+  function validateEmail(email) {
+    // Regular expression for email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    // Check if email matches the format
+    if (!emailRegex.test(email)) {
+        return false;
     }
-
-    return isValid
+  
+    // Extract domain and TLD
+    const domainParts = email.split("@")[1]?.split(".");
+    if (!domainParts || domainParts.length < 2) {
+        return false;
+    }
+  
+    const domain = domainParts[0];
+    const tld = domainParts[domainParts.length - 1];
+  
+    // Validate domain (ensure it's not empty)
+    if (!domain || domain.length < 2) {
+        return false;
+    }
+  
+    // Validate TLD (ensure it's at least 2 characters long)
+    if (!tld || tld.length < 2) {
+        return false;
+    }
+  
+    return true;
   }
 
   // Modify the submitAssessment function to ensure validation is performed
@@ -1120,8 +1239,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // Calculate industry experience score
       if (roleInfo.industries) {
         roleInfo.industries.forEach((ind) => {
-          // Check both rankFile and managerial experience
-          if (formData.industryExperience.rankFile[ind] || formData.industryExperience.managerial[ind]) {
+          // Check all three experience types
+          if (formData.industryExperience.rankFile[ind] || 
+              formData.industryExperience.midLevel[ind] || 
+              formData.industryExperience.managerial[ind]) {
             totalPoints += 2
           }
           maxPoints += 2 // Maximum possible points for this industry
@@ -1138,6 +1259,7 @@ document.addEventListener("DOMContentLoaded", () => {
         technicalSkills: roleTechnicalSkills[role] || [],
         industries: roleInfo.industries || [],
         isManagerial: isManagerialRole(role), // Add flag to identify managerial roles
+        isMidLevel: isMidLevelRole(role), // Add flag to identify mid-level roles
       }
 
       // Check for strict education field compliance
@@ -1166,7 +1288,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // Add experience points from both rankFile and managerial experiences
+      // Add experience points from all experience types
       result.experiencePoints = 0
 
       // Process all industry experiences and add points
@@ -1176,6 +1298,17 @@ document.addEventListener("DOMContentLoaded", () => {
           if (experienceInfo && !result.disqualifiedByEducation) {
             result.rawScore += experienceInfo.points
             result.experiencePoints += experienceInfo.points
+          }
+        }
+      })
+
+      // Process mid-level experiences
+      Object.entries(formData.industryExperience.midLevel || {}).forEach(([industry, expLevel]) => {
+        if (expLevel) {
+          const midLevelInfo = midLevelExp.find((exp) => exp.level === expLevel)
+          if (midLevelInfo && !result.disqualifiedByEducation) {
+            result.rawScore += midLevelInfo.points
+            result.experiencePoints += midLevelInfo.points
           }
         }
       })
@@ -1193,8 +1326,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return result
     })
 
-    // Check if applicant has managerial experience
+    // Check if applicant has different types of experience
     const hasManagerialExperience = Object.keys(formData.industryExperience.managerial || {}).length > 0
+    const hasMidLevelExperience = Object.keys(formData.industryExperience.midLevel || {}).length > 0
     const hasRankFileExperience = Object.keys(formData.industryExperience.rankFile || {}).length > 0
 
     // Sort roles based on experience type
@@ -1210,18 +1344,33 @@ document.addEventListener("DOMContentLoaded", () => {
         // If both are managerial or both are not, sort by score
         return b.rawScore - a.rawScore
       })
+    } else if (hasMidLevelExperience) {
+      // For mid-level experience: prioritize mid-level roles, then non-managerial, then managerial
+      const midLevelRoles = roleScores.filter((role) => role.isMidLevel)
+      const nonManagerialRoles = roleScores.filter((role) => !role.isManagerial && !role.isMidLevel)
+      const managerialRoles = roleScores.filter((role) => role.isManagerial)
+
+      // Sort each group by score
+      midLevelRoles.sort((a, b) => b.rawScore - a.rawScore)
+      nonManagerialRoles.sort((a, b) => b.rawScore - a.rawScore)
+      managerialRoles.sort((a, b) => b.rawScore - a.rawScore)
+
+      // Combine the groups with mid-level first
+      sortedRoles = [...midLevelRoles, ...nonManagerialRoles, ...managerialRoles]
     } else if (hasRankFileExperience) {
       // For rank and file experience: prioritize non-managerial roles for first and second positions
-      // First, separate managerial and non-managerial roles
+      // First, separate managerial, mid-level, and non-managerial roles
       const managerialRoles = roleScores.filter((role) => role.isManagerial)
-      const nonManagerialRoles = roleScores.filter((role) => !role.isManagerial)
+      const midLevelRoles = roleScores.filter((role) => role.isMidLevel)
+      const nonManagerialRoles = roleScores.filter((role) => !role.isManagerial && !role.isMidLevel)
 
-      // Sort both groups by score
+      // Sort all groups by score
       managerialRoles.sort((a, b) => b.rawScore - a.rawScore)
+      midLevelRoles.sort((a, b) => b.rawScore - a.rawScore)
       nonManagerialRoles.sort((a, b) => b.rawScore - a.rawScore)
 
-      // Take the top non-managerial roles first, then add managerial roles
-      sortedRoles = [...nonManagerialRoles, ...managerialRoles]
+      // Take the top non-managerial roles first, then mid-level, then managerial roles
+      sortedRoles = [...nonManagerialRoles, ...midLevelRoles, ...managerialRoles]
     } else {
       // Default sorting by score if no experience selected
       sortedRoles = roleScores.sort((a, b) => b.rawScore - a.rawScore)
@@ -1302,6 +1451,7 @@ document.addEventListener("DOMContentLoaded", () => {
         educationPoints: matches[0].educationPoints || 0,
         experiencePoints: matches[0].experiencePoints || 0,
         isManagerial: matches[0].isManagerial || false,
+        isMidLevel: matches[0].isMidLevel || false,
       }
       : null
 
@@ -1311,6 +1461,7 @@ document.addEventListener("DOMContentLoaded", () => {
         normalizedScore: matches[1].normalizedScore,
         rawScore: matches[1].rawScore,
         isManagerial: matches[1].isManagerial || false,
+        isMidLevel: matches[1].isMidLevel || false,
       }
       : null
 
@@ -1320,6 +1471,7 @@ document.addEventListener("DOMContentLoaded", () => {
         normalizedScore: matches[2].normalizedScore,
         rawScore: matches[2].rawScore,
         isManagerial: matches[2].isManagerial || false,
+        isMidLevel: matches[2].isMidLevel || false,
       }
       : null
 
@@ -1397,6 +1549,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Add a function to calculate total experience points
   function calculateTotalExperiencePoints() {
     let rankPoints = 0
+    let midLevelPoints = 0
     let managerialPoints = 0
 
     // Calculate rank file experience points
@@ -1405,6 +1558,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const experienceInfo = experienceData.find((exp) => exp.level === expLevel)
         if (experienceInfo) {
           rankPoints += experienceInfo.points
+        }
+      }
+    })
+
+    // Calculate mid-level experience points
+    Object.entries(formData.industryExperience.midLevel || {}).forEach(([industry, expLevel]) => {
+      if (expLevel) {
+        const midLevelInfo = midLevelExp.find((exp) => exp.level === expLevel)
+        if (midLevelInfo) {
+          midLevelPoints += midLevelInfo.points
         }
       }
     })
@@ -1420,10 +1583,11 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     // Calculate total points
-    const totalPoints = rankPoints + managerialPoints
+    const totalPoints = rankPoints + midLevelPoints + managerialPoints
 
     return {
       rankPoints,
+      midLevelPoints,
       managerialPoints,
       totalPoints,
     }
@@ -1442,6 +1606,15 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     })
 
+    // Process mid-level experiences
+    Object.entries(formData.industryExperience.midLevel || {}).forEach(([industry, expLevel]) => {
+      if (expLevel) {
+        const midLevelInfo = midLevelExp.find((exp) => exp.level === expLevel)
+        const points = midLevelInfo ? midLevelInfo.points : 0
+        formattedExperiences.push(`${industry}: ${expLevel} (Mid-level, ${points} pts)`)
+      }
+    })
+
     // Process managerial experiences
     Object.entries(formData.industryExperience.managerial || {}).forEach(([industry, expLevel]) => {
       if (expLevel) {
@@ -1454,7 +1627,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Add total experience points summary
     const experiencePoints = calculateTotalExperiencePoints()
     formattedExperiences.push(
-      `Rank: ${experiencePoints.rankPoints.toFixed(2)} points, Managerial: ${experiencePoints.managerialPoints.toFixed(2)} points, Total: ${experiencePoints.totalPoints.toFixed(2)} points`,
+      `Rank: ${experiencePoints.rankPoints.toFixed(2)} points, Mid-level: ${experiencePoints.midLevelPoints.toFixed(2)} points, Managerial: ${experiencePoints.managerialPoints.toFixed(2)} points, Total: ${experiencePoints.totalPoints.toFixed(2)} points`,
     )
 
     return formattedExperiences.join(", ")
@@ -1494,8 +1667,10 @@ document.addEventListener("DOMContentLoaded", () => {
       // Calculate industry experience score
       if (roleInfo.industries) {
         roleInfo.industries.forEach((ind) => {
-          // Check both rankFile and managerial experience
-          if (formData.industryExperience.rankFile[ind] || formData.industryExperience.managerial[ind]) {
+          // Check all three experience types
+          if (formData.industryExperience.rankFile[ind] || 
+              formData.industryExperience.midLevel[ind] || 
+              formData.industryExperience.managerial[ind]) {
             totalPoints += 2
           }
           maxPoints += 2 // Maximum possible points for this industry
@@ -1512,6 +1687,7 @@ document.addEventListener("DOMContentLoaded", () => {
         technicalSkills: roleTechnicalSkills[role] || [],
         industries: roleInfo.industries || [],
         isManagerial: isManagerialRole(role), // Add flag to identify managerial roles
+        isMidLevel: isMidLevelRole(role), // Add flag to identify mid-level roles
       }
 
       // Check for strict education field compliance
@@ -1544,22 +1720,43 @@ document.addEventListener("DOMContentLoaded", () => {
       if (!result.disqualifiedByEducation) {
         // For managerial roles, prioritize managerial experience points
         if (isManagerialRole(role)) {
-          // If they have managerial experience, use that, otherwise use rank file experience
+          // If they have managerial experience, use that, otherwise use mid-level or rank file experience
           if (experiencePoints.managerialPoints > 0) {
             result.rawScore += experiencePoints.managerialPoints
             result.experiencePoints = experiencePoints.managerialPoints
+          } else if (experiencePoints.midLevelPoints > 0) {
+            result.rawScore += experiencePoints.midLevelPoints
+            result.experiencePoints = experiencePoints.midLevelPoints
           } else {
             result.rawScore += experiencePoints.rankPoints
             result.experiencePoints = experiencePoints.rankPoints
           }
-        } else {
-          // For non-managerial roles, use rank file experience points if available, otherwise use total
-          if (experiencePoints.rankPoints > 0) {
+        } 
+        // For mid-level roles, prioritize mid-level experience points
+        else if (isMidLevelRole(role)) {
+          // If they have mid-level experience, use that, otherwise use rank file or managerial experience
+          if (experiencePoints.midLevelPoints > 0) {
+            result.rawScore += experiencePoints.midLevelPoints
+            result.experiencePoints = experiencePoints.midLevelPoints
+          } else if (experiencePoints.rankPoints > 0) {
             result.rawScore += experiencePoints.rankPoints
             result.experiencePoints = experiencePoints.rankPoints
           } else {
-            result.rawScore += experiencePoints.totalPoints
-            result.experiencePoints = experiencePoints.totalPoints
+            result.rawScore += experiencePoints.managerialPoints
+            result.experiencePoints = experiencePoints.managerialPoints
+          }
+        }
+        // For non-managerial roles, use rank file experience points if available
+        else {
+          if (experiencePoints.rankPoints > 0) {
+            result.rawScore += experiencePoints.rankPoints
+            result.experiencePoints = experiencePoints.rankPoints
+          } else if (experiencePoints.midLevelPoints > 0) {
+            result.rawScore += experiencePoints.midLevelPoints
+            result.experiencePoints = experiencePoints.midLevelPoints
+          } else {
+            result.rawScore += experiencePoints.managerialPoints
+            result.experiencePoints = experiencePoints.managerialPoints
           }
         }
       }
@@ -1567,8 +1764,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return result
     })
 
-    // Check if applicant has managerial experience
+    // Check if applicant has different types of experience
     const hasManagerialExperience = experiencePoints.managerialPoints > 0
+    const hasMidLevelExperience = experiencePoints.midLevelPoints > 0
     const hasRankFileExperience = experiencePoints.rankPoints > 0
 
     // Sort roles based on experience type
@@ -1584,18 +1782,33 @@ document.addEventListener("DOMContentLoaded", () => {
         // If both are managerial or both are not, sort by score
         return b.rawScore - a.rawScore
       })
+    } else if (hasMidLevelExperience) {
+      // For mid-level experience: prioritize mid-level roles, then non-managerial, then managerial
+      const midLevelRoles = roleScores.filter((role) => role.isMidLevel)
+      const nonManagerialRoles = roleScores.filter((role) => !role.isManagerial && !role.isMidLevel)
+      const managerialRoles = roleScores.filter((role) => role.isManagerial)
+
+      // Sort each group by score
+      midLevelRoles.sort((a, b) => b.rawScore - a.rawScore)
+      nonManagerialRoles.sort((a, b) => b.rawScore - a.rawScore)
+      managerialRoles.sort((a, b) => b.rawScore - a.rawScore)
+
+      // Combine the groups with mid-level first
+      sortedRoles = [...midLevelRoles, ...nonManagerialRoles, ...managerialRoles]
     } else if (hasRankFileExperience) {
       // For rank and file experience: prioritize non-managerial roles for first and second positions
-      // First, separate managerial and non-managerial roles
+      // First, separate managerial, mid-level, and non-managerial roles
       const managerialRoles = roleScores.filter((role) => role.isManagerial)
-      const nonManagerialRoles = roleScores.filter((role) => !role.isManagerial)
+      const midLevelRoles = roleScores.filter((role) => role.isMidLevel)
+      const nonManagerialRoles = roleScores.filter((role) => !role.isManagerial && !role.isMidLevel)
 
-      // Sort both groups by score
+      // Sort all groups by score
       managerialRoles.sort((a, b) => b.rawScore - a.rawScore)
+      midLevelRoles.sort((a, b) => b.rawScore - a.rawScore)
       nonManagerialRoles.sort((a, b) => b.rawScore - a.rawScore)
 
-      // Take the top non-managerial roles first, then add managerial roles
-      sortedRoles = [...nonManagerialRoles, ...managerialRoles]
+      // Take the top non-managerial roles first, then mid-level, then managerial roles
+      sortedRoles = [...nonManagerialRoles, ...midLevelRoles, ...managerialRoles]
     } else {
       // Default sorting by score if no experience selected
       sortedRoles = roleScores.sort((a, b) => b.rawScore - a.rawScore)
@@ -1646,6 +1859,13 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     })
 
+    // Process mid-level experiences
+    Object.entries(formData.industryExperience.midLevel || {}).forEach(([industry, expLevel]) => {
+      if (expLevel) {
+        formattedExperiences.push(`${industry}: ${expLevel} (Mid-level)`)
+      }
+    })
+
     // Process managerial experiences
     Object.entries(formData.industryExperience.managerial || {}).forEach(([industry, expLevel]) => {
       if (expLevel) {
@@ -1688,7 +1908,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Border change logic for .checkbox-item
         input.addEventListener("change", () => {
-          checkboxItem.style.border = input.checked ? "2px solid #014e89" : "2px solid transparent"
+          checkboxItem.style.border = input.checked ? "2px solid #014e89" : "2px solid #e2e8f0"
         })
 
         checkboxItem.appendChild(input)
@@ -1738,7 +1958,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Border change logic for .checkbox-item
         input.addEventListener("change", () => {
-          checkboxItem.style.border = input.checked ? "2px solid #014e89" : "2px solid transparent"
+          checkboxItem.style.border = input.checked ? "2px solid #014e89" : "2px solid #e2e8f0"
         })
 
         checkboxItem.appendChild(input)
@@ -1761,13 +1981,17 @@ document.addEventListener("DOMContentLoaded", () => {
   function initializeIndustryExperience() {
     const tabContent = document.getElementById("industry-experience-tab")
 
-    // Create container for both experience types
+    // Create container for all experience types
     const experienceContainer = document.createElement("div")
     experienceContainer.className = "experience-container"
 
     // Add Rank & File section
     const rankFileSection = createExperienceSection("Rank and File Experience", "rank-file-experience", experienceData)
     experienceContainer.appendChild(rankFileSection)
+
+    // Add Mid-Level section
+    const midLevelSection = createExperienceSection("Mid-Level Experience", "mid-level-experience", midLevelExp)
+    experienceContainer.appendChild(midLevelSection)
 
     // Add Managerial section
     const managerialSection = createExperienceSection("Managerial Experience", "managerial-experience", managerialExp)
@@ -1781,13 +2005,14 @@ document.addEventListener("DOMContentLoaded", () => {
     tabHeader.className = "tab-header"
     tabHeader.innerHTML = `
       <h2><i class="fas fa-industry"></i> Industry & Experience</h2>
-      <p>Select your industry experience for both rank and file and managerial roles</p>
+      <p>Select your industry experience for rank and file, mid-level, and managerial roles</p>
     `
     tabContent.appendChild(tabHeader)
     tabContent.appendChild(experienceContainer)
 
-    // Initialize both cards
+    // Initialize all cards
     initIndustryExperienceCard("rank-file-experience", experienceData)
+    initIndustryExperienceCard("mid-level-experience", midLevelExp)
     initIndustryExperienceCard("managerial-experience", managerialExp)
 
     // Add error message container for industry experience tab
@@ -2083,6 +2308,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function updateIndustrySelection(containerId, industry, isSelected, experienceLevels) {
     const container = document.getElementById(containerId)
     const isManagerial = containerId.includes("managerial")
+    const isMidLevel = containerId.includes("mid-level")
 
     if (isSelected) {
       // Create experience card
@@ -2118,10 +2344,12 @@ document.addEventListener("DOMContentLoaded", () => {
           // Update the appropriate section of formData based on containerId
           if (isManagerial) {
             formData.industryExperience.managerial[industry] = radio.value
+          } else if (isMidLevel) {
+            formData.industryExperience.midLevel[industry] = radio.value
           } else {
             formData.industryExperience.rankFile[industry] = radio.value
           }
-          console.log(`Updated ${isManagerial ? "Managerial" : "Rank File"} experience for ${industry}: ${radio.value}`)
+          console.log(`Updated ${isManagerial ? "Managerial" : (isMidLevel ? "Mid-Level" : "Rank File")} experience for ${industry}: ${radio.value}`)
           console.log("Current formData:", formData)
 
           // Remove error highlighting when experience is selected
@@ -2141,6 +2369,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Remove from formData
         if (isManagerial) {
           delete formData.industryExperience.managerial[industry]
+        } else if (isMidLevel) {
+          delete formData.industryExperience.midLevel[industry]
         } else {
           delete formData.industryExperience.rankFile[industry]
         }
@@ -2153,64 +2383,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Find the validateIndustryExperience function and replace it with this improved version
   function validateIndustryExperience() {
-    const errorElement = document.getElementById("industry-experience-error")
-
-    // Check if at least one industry is selected in the dropdown
-    const rankFileContainer = document.getElementById("rank-file-experience")
-    const managerialContainer = document.getElementById("managerial-experience")
-
-    const rankFileCards = rankFileContainer ? rankFileContainer.querySelectorAll(".experience-card") : []
-    const managerialCards = managerialContainer ? managerialContainer.querySelectorAll(".experience-card") : []
-
-    // If no industries are selected at all (no cards present)
-    if (rankFileCards.length === 0 && managerialCards.length === 0) {
+    const errorElement = document.getElementById("industry-experience-error");
+  
+    const rankFileContainer = document.getElementById("rank-file-experience");
+    const midLevelContainer = document.getElementById("mid-level-experience");
+    const managerialContainer = document.getElementById("managerial-experience");
+  
+    const rankFileCards = rankFileContainer ? rankFileContainer.querySelectorAll(".experience-card") : [];
+    const midLevelCards = midLevelContainer ? midLevelContainer.querySelectorAll(".experience-card") : [];
+    const managerialCards = managerialContainer ? managerialContainer.querySelectorAll(".experience-card") : [];
+  
+    if (rankFileCards.length === 0 && midLevelCards.length === 0 && managerialCards.length === 0) {
       if (errorElement) {
-        errorElement.textContent = "Please select at least one industry."
-        errorElement.classList.remove("hidden")
+        errorElement.textContent = "Please select at least one industry.";
+        errorElement.classList.remove("hidden");
       }
-      return false
+      return false;
     }
-
-    // Check if experience is selected for each industry
-    let missingExperience = false
-
-    // Check rank file industries
-    rankFileCards.forEach((card) => {
-      const radioChecked = card.querySelector('input[type="radio"]:checked')
-      if (!radioChecked) {
-        missingExperience = true
-        // Highlight the card that needs attention
-        card.style.border = "2px solid #ef4444"
-      } else {
-        card.style.border = ""
-      }
-    })
-
-    // Check managerial industries
-    managerialCards.forEach((card) => {
-      const radioChecked = card.querySelector('input[type="radio"]:checked')
-      if (!radioChecked) {
-        missingExperience = true
-        // Highlight the card that needs attention
-        card.style.border = "2px solid #ef4444"
-      } else {
-        card.style.border = ""
-      }
-    })
-
+  
+    let missingExperience = false;
+    let firstMissingCard = null;
+  
+    const checkCards = (cards) => {
+      cards.forEach((card) => {
+        const radioChecked = card.querySelector('input[type="radio"]:checked');
+        if (!radioChecked) {
+          if (!firstMissingCard) {
+            firstMissingCard = card;
+          }
+          missingExperience = true;
+          card.style.border = "2px solid #ef4444";
+        } else {
+          card.style.border = "";
+        }
+      });
+    };
+  
+    checkCards(rankFileCards);
+    checkCards(midLevelCards);
+    checkCards(managerialCards);
+  
     if (missingExperience) {
       if (errorElement) {
-        errorElement.textContent = "Please select experience level for each selected industry."
-        errorElement.classList.remove("hidden")
+        errorElement.textContent = "Please select experience level for each selected industry.";
+        errorElement.classList.remove("hidden");
       }
-      return false
+  
+      if (firstMissingCard) {
+        firstMissingCard.scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+  
+      return false;
     } else {
       if (errorElement) {
-        errorElement.classList.add("hidden")
+        errorElement.classList.add("hidden");
       }
-      return true
+      return true;
     }
   }
+  
 
   updateCardsLayout = (container) => {
     const cards = Array.from(container.children)
@@ -2295,158 +2526,142 @@ document.addEventListener("DOMContentLoaded", () => {
 
   //education Options
   function initializeEducationOptions() {
-    const educationContainer = document.getElementById("education-options")
-    educationContainer.innerHTML = ""
-
-    let activeCategory = null // Track the currently active category
-
-    // Create a category for each education level
+    const educationContainer = document.getElementById("education-options");
+    educationContainer.innerHTML = "";
+  
+    let activeCategory = null;
+  
     educationData.forEach((education, index) => {
-      const categoryDiv = document.createElement("div")
-      categoryDiv.className = "category"
-      categoryDiv.dataset.category = education.level
-
-      const categoryTitle = document.createElement("h3")
-      categoryTitle.className = "category-title"
-      categoryTitle.textContent = education.level
-
-      const categoryItems = document.createElement("div")
-      categoryItems.className = "education-items"
-
-      // Create fields of study options with checkboxes in a grid
-      const fieldsGrid = document.createElement("div")
-      fieldsGrid.className = "education-grid"
-
-      // Add checkboxes for each field
+      const categoryDiv = document.createElement("div");
+      categoryDiv.className = "category";
+      categoryDiv.dataset.category = education.level;
+  
+      const categoryTitle = document.createElement("h3");
+      categoryTitle.className = "category-title";
+      categoryTitle.textContent = education.level;
+  
+      const categoryItems = document.createElement("div");
+      categoryItems.className = "education-items";
+  
+      const fieldsGrid = document.createElement("div");
+      fieldsGrid.className = "education-grid";
+  
       education.fields.forEach((field, fieldIndex) => {
-        const checkboxItem = document.createElement("div")
-        checkboxItem.className = "checkbox-item"
-
-        const input = document.createElement("input")
-        input.type = "checkbox"
-        input.id = `field-${index}-${fieldIndex}`
-        input.name = `education-field-${index}`
-        input.value = field
-
-        const label = document.createElement("label")
-        label.htmlFor = `field-${index}-${fieldIndex}`
-        label.textContent = field
-
-        // Update formData when field is selected
+        const checkboxItem = document.createElement("div");
+        checkboxItem.className = "checkbox-item";
+  
+        const input = document.createElement("input");
+        input.type = "checkbox";
+        input.id = `field-${index}-${fieldIndex}`;
+        input.name = `education-field-${index}`;
+        input.value = field;
+  
+        const label = document.createElement("label");
+        label.htmlFor = `field-${index}-${fieldIndex}`;
+        label.textContent = field;
+  
         input.addEventListener("change", () => {
           if (!formData.educationFields) {
-            formData.educationFields = []
+            formData.educationFields = [];
           }
-
+  
           if (input.checked) {
-            // Add field to selected fields if not already there
             if (!formData.educationFields.includes(field)) {
-              formData.educationFields.push(field)
+              formData.educationFields.push(field);
             }
-
-            // Show custom input field if "Other" is selected
+  
             if (field === "Other") {
-              const otherInputContainer = categoryDiv.querySelector('.other-input-container')
+              const otherInputContainer = categoryDiv.querySelector('.other-input-container');
               if (otherInputContainer) {
-                otherInputContainer.classList.remove('hidden')
+                otherInputContainer.classList.remove('hidden');
               }
             }
           } else {
-            // Remove field from selected fields
-            formData.educationFields = formData.educationFields.filter((f) => f !== field)
-
-            // Hide custom input field if "Other" is unselected
+            formData.educationFields = formData.educationFields.filter((f) => f !== field);
+  
             if (field === "Other") {
-              const otherInputContainer = categoryDiv.querySelector('.other-input-container')
+              const otherInputContainer = categoryDiv.querySelector('.other-input-container');
               if (otherInputContainer) {
-                otherInputContainer.classList.add('hidden')
-                otherInputContainer.querySelector('input').value = ''
+                otherInputContainer.classList.add('hidden');
+                otherInputContainer.querySelector('input').value = '';
                 if (formData.otherEducationField) {
-                  delete formData.otherEducationField
+                  delete formData.otherEducationField;
                 }
               }
             }
           }
-        })
-
-        checkboxItem.appendChild(input)
-        checkboxItem.appendChild(label)
-        fieldsGrid.appendChild(checkboxItem)
-      })
-
-      categoryItems.appendChild(fieldsGrid)
-
-      // Add custom input field for "Other" option (initially hidden)
-      const otherInputContainer = document.createElement("div")
-      otherInputContainer.className = "other-input-container hidden"
+        });
+  
+        checkboxItem.appendChild(input);
+        checkboxItem.appendChild(label);
+        fieldsGrid.appendChild(checkboxItem);
+      });
+  
+      categoryItems.appendChild(fieldsGrid);
+  
+      // Add custom input field for "Other" option
+      const otherInputContainer = document.createElement("div");
+      otherInputContainer.className = "other-input-container hidden";
       otherInputContainer.innerHTML = `
         <label for="other-field-${index}">Please specify your field of study:</label>
         <input type="text" id="other-field-${index}" class="other-field-input" placeholder="Enter your field of study">
-      `
-
-      // Add event listener to update formData when the custom field changes
-      const otherInput = otherInputContainer.querySelector('input')
+      `;
+  
+      // Add input event listener to update formData
+      const otherInput = otherInputContainer.querySelector('input');
       otherInput.addEventListener('input', (e) => {
-        formData.otherEducationField = e.target.value
-      })
-
-      categoryItems.appendChild(otherInputContainer)
-
-      // Add a hidden radio button for the education level
-      const hiddenRadio = document.createElement("input")
-      hiddenRadio.type = "radio"
-      hiddenRadio.id = `education-${index}`
-      hiddenRadio.name = "education"
-      hiddenRadio.value = education.level
-      hiddenRadio.style.display = "none" // Hide the radio button
-      categoryItems.appendChild(hiddenRadio)
-
-      // Toggle functionality ensuring only one stays open
+        formData.otherEducationField = e.target.value;
+        // Remove error styling when user starts typing
+        if (e.target.value.trim() !== "") {
+          e.target.style.border = "";
+          const errorElement = document.getElementById("education-error");
+          if (errorElement) {
+            errorElement.classList.add("hidden");
+          }
+        }
+      });
+  
+      categoryItems.appendChild(otherInputContainer);
+  
+      // Hidden radio button for education level
+      const hiddenRadio = document.createElement("input");
+      hiddenRadio.type = "radio";
+      hiddenRadio.id = `education-${index}`;
+      hiddenRadio.name = "education";
+      hiddenRadio.value = education.level;
+      hiddenRadio.style.display = "none";
+      categoryItems.appendChild(hiddenRadio);
+  
       categoryTitle.addEventListener("click", () => {
         if (activeCategory && activeCategory !== categoryDiv) {
-          // Collapse the previously active category
-          activeCategory.classList.remove("active")
-
-          // Uncheck all checkboxes in the previously active category
+          activeCategory.classList.remove("active");
           activeCategory.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-            checkbox.checked = false
-          })
-
-          // Hide any visible "Other" input fields
-          const otherContainer = activeCategory.querySelector('.other-input-container')
+            checkbox.checked = false;
+          });
+          const otherContainer = activeCategory.querySelector('.other-input-container');
           if (otherContainer) {
-            otherContainer.classList.add('hidden')
-            otherContainer.querySelector('input').value = ''
+            otherContainer.classList.add('hidden');
+            otherContainer.querySelector('input').value = '';
           }
-
-          // Clear other education field data
           if (formData.otherEducationField) {
-            delete formData.otherEducationField
+            delete formData.otherEducationField;
           }
         }
-
-        categoryDiv.classList.toggle("active")
-        activeCategory = categoryDiv.classList.contains("active") ? categoryDiv : null
-
-        // If this category is now active, select this education level
+  
+        categoryDiv.classList.toggle("active");
+        activeCategory = categoryDiv.classList.contains("active") ? categoryDiv : null;
+  
         if (categoryDiv.classList.contains("active")) {
-          // Check the hidden radio button
-          hiddenRadio.checked = true
-
-          // Update formData
-          formData.education = education.level
-          formData.educationPoints = education.points
-
-          // Reset educationFields array
-          formData.educationFields = []
+          hiddenRadio.checked = true;
+          formData.education = education.level;
+          formData.educationPoints = education.points;
+          formData.educationFields = [];
         }
-      })
-
-      categoryDiv.appendChild(categoryTitle)
-      categoryDiv.appendChild(categoryItems)
-
-      educationContainer.appendChild(categoryDiv)
-    })
+      });
+  
+      categoryDiv.appendChild(categoryTitle);
+      categoryDiv.appendChild(categoryItems);
+      educationContainer.appendChild(categoryDiv);
+    });
   }
 })
-

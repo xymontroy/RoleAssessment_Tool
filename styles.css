@@ -884,11 +884,18 @@ body {
 
 .education-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two equal columns */
+  grid-template-columns: repeat(2, 1fr); /* Two equal columns by default */
   gap: 15px; /* Space between checkboxes */
   max-width: 6000px; /* Adjust width for better centering */
   margin: 0 auto; /* Center the grid horizontally */
   padding: 20px;
+}
+
+/* Add this media query to change to 1 column on mobile */
+@media (max-width: 768px) {
+  .education-grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+  }
 }
 
 .education-item {
@@ -1440,3 +1447,8 @@ label {
   }
 }
 
+/* Add to styles.css */
+.other-field-input.error {
+  border: 1px solid var(--error) !important;
+  box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2);
+}
