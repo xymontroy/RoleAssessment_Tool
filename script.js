@@ -986,57 +986,49 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Modify the validateCurrentTab function to ensure proper validation for industry-experience
-  // In the validateCurrentTab function, update each case to properly set completedTabs
-function validateCurrentTab() {
-  const tabName = tabNames[currentTabIndex];
-  const errorElement = document.getElementById(`${tabName}-error`);
-  let isValid = true;
 
-  switch (tabName) {
-    case "applicant":
-      const name = document.getElementById("name").value.trim();
-      const email = document.getElementById("email").value.trim();
-      const phone = document.getElementById("phone").value.trim();
-
-      formData.name = name;
-      formData.email = email;
-      formData.phone = phone;
-
-      if (errorElement) {
-        errorElement.classList.add("hidden");
-      }
-
-      if (!name || !email) {
+  function validateCurrentTab() {
+    const tabName = tabNames[currentTabIndex];
+    const errorElement = document.getElementById(`${tabName}-error`);
+    let isValid = true;
+  
+    switch (tabName) {
+      case "applicant":
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+  
+        formData.name = name;
+        formData.email = email;
+        formData.phone = phone;
+  
         if (errorElement) {
-          errorElement.textContent = "Please fill out all required fields (Name and Email).";
-          errorElement.classList.remove("hidden");
+          errorElement.classList.add("hidden");
         }
-        isValid = false;
-      } else if (!validateEmail(email)) {
-        if (errorElement) {
-          errorElement.textContent = "Please provide a valid email address.";
-          errorElement.classList.remove("hidden");
-        }
-        isValid = false;
-      }
-      
-      completedTabs.applicant = isValid;
-      break;
-
-      case "education":
-        const educationRadios = document.querySelectorAll('input[name="education"]');
-        let educationSelected = false;
-      
-        formData.education = null;
-        formData.educationFields = [];
-      
-        educationRadios.forEach((radio) => {
-          if (radio.checked) {
-            formData.education = radio.value;
-            educationSelected = true;
+  
+        if (!name || !email) {
+          if (errorElement) {
+            errorElement.textContent = "Please fill out all required fields (Name and Email).";
+            errorElement.classList.remove("hidden");
           }
-        });
+          isValid = false;
+        } else if (!validateEmail(email)) {
+          if (errorElement) {
+            errorElement.textContent = "Please provide a valid email address.";
+            errorElement.classList.remove("hidden");
+          }
+          isValid = false;
+        }
+        
+        completedTabs.applicant = isValid;
+        break;
+  
+      case "education":
+        const educationRadios = document.querySelectorAll('input[name="education"]:checked');
+        let educationSelected = educationRadios.length > 0;
+      
+        formData.education = educationSelected ? educationRadios[0].value : null;
+        formData.educationFields = [];
       
         if (educationSelected) {
           const activeCategory = document.querySelector('.category.active');
@@ -1093,66 +1085,161 @@ function validateCurrentTab() {
         
         completedTabs.education = isValid;
         break;
+  
       case "qualifications":
-      const qualificationCheckboxes = document.querySelectorAll('input[name^="qualification-"]');
-      let qualificationsSelected = false;
-
-      qualificationCheckboxes.forEach((checkbox) => {
-        const qualification = checkbox.value;
-        formData.qualifications[qualification] = checkbox.checked;
-        if (checkbox.checked) {
-          qualificationsSelected = true;
+        const qualificationCheckboxes = document.querySelectorAll('input[name^="qualification-"]:checked');
+        let qualificationsSelected = qualificationCheckboxes.length > 0;
+  
+        formData.qualifications = {};
+        qualificationCheckboxes.forEach((checkbox) => {
+          formData.qualifications[checkbox.value] = true;
+        });
+  
+        if (!qualificationsSelected) {
+          if (errorElement) {
+            errorElement.textContent = "Please select at least one qualification.";
+            errorElement.classList.remove("hidden");
+          }
+          isValid = false;
+        } else {
+          if (errorElement) {
+            errorElement.classList.add("hidden");
+          }
         }
-      });
-
-      if (!qualificationsSelected) {
-        if (errorElement) {
-          errorElement.classList.remove("hidden");
+        
+        completedTabs.qualifications = isValid;
+        break;
+  
+      case "technical":
+        const technicalCheckboxes = document.querySelectorAll('input[name^="technical-"]:checked');
+        let technicalSelected = technicalCheckboxes.length > 0;
+  
+        formData.technical = {};
+        technicalCheckboxes.forEach((checkbox) => {
+          formData.technical[checkbox.value] = true;
+        });
+  
+        if (!technicalSelected) {
+          if (errorElement) {
+            errorElement.textContent = "Please select at least one technical skill.";
+            errorElement.classList.remove("hidden");
+          }
+          isValid = false;
+        } else {
+          if (errorElement) {
+            errorElement.classList.add("hidden");
+          }
         }
-        isValid = false;
-      } else {
-        if (errorElement) {
-          errorElement.classList.add("hidden");
-        }
-      }
-      
-      completedTabs.qualifications = isValid;
-      break;
-
-    case "technical":
-      const technicalCheckboxes = document.querySelectorAll('input[name^="technical-"]');
-      let technicalSelected = false;
-
-      technicalCheckboxes.forEach((checkbox) => {
-        const technical = checkbox.value;
-        formData.technical[technical] = checkbox.checked;
-        if (checkbox.checked) {
-          technicalSelected = true;
-        }
-      });
-
-      if (!technicalSelected) {
-        if (errorElement) {
-          errorElement.classList.remove("hidden");
-        }
-        isValid = false;
-      } else {
-        if (errorElement) {
-          errorElement.classList.add("hidden");
-        }
-      }
-      
-      completedTabs.technical = isValid;
-      break;
-
-    case "industry-experience":
-      isValid = validateIndustryExperience();
-      completedTabs["industry-experience"] = isValid;
-      break;
+        
+        completedTabs.technical = isValid;
+        break;
+  
+      case "industry-experience":
+        isValid = validateIndustryExperience();
+        completedTabs["industry-experience"] = isValid;
+        break;
+    }
+  
+    return isValid;
   }
 
-  return isValid;
-}
+  function validateAllSections() {
+    let allValid = true;
+    let errorMessages = [];
+    
+    // Validate each tab
+    tabNames.forEach((tabName) => {
+      const tabIndex = tabNames.indexOf(tabName);
+      currentTabIndex = tabIndex;
+      
+      if (!validateCurrentTab()) {
+        allValid = false;
+        
+        // Add friendly error messages
+        switch(tabName) {
+          case "applicant":
+            errorMessages.push("• Applicant Information: Please complete all required fields");
+            break;
+          case "education":
+            errorMessages.push("• Education: Please select your education level and field(s) of study");
+            break;
+          case "qualifications":
+            errorMessages.push("• Qualifications: Please select at least one qualification");
+            break;
+          case "technical":
+            errorMessages.push("• Technical Skills: Please select at least one technical skill");
+            break;
+          case "industry-experience":
+            errorMessages.push("• Industry Experience: Please select at least one industry and experience level");
+            break;
+        }
+      }
+    });
+    
+    // If there are errors, show them in an alert
+    if (!allValid && errorMessages.length > 0) {
+      // Remove any existing error alerts first
+      const existingAlert = document.querySelector(".validation-error-alert");
+      if (existingAlert) existingAlert.remove();
+  
+      const errorAlert = document.createElement("div");
+      errorAlert.className = "validation-error-alert";
+      errorAlert.style.position = "fixed";
+      errorAlert.style.bottom = "20px";
+      errorAlert.style.left = "20px";
+      errorAlert.style.zIndex = "1000";
+      errorAlert.style.padding = "15px";
+      errorAlert.style.maxWidth = "400px";
+      errorAlert.style.borderRadius = "8px";
+      errorAlert.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
+      errorAlert.style.animation = "fadeIn 0.3s ease";
+      errorAlert.style.backgroundColor = "#fff";
+      errorAlert.style.borderLeft = "4px solid var(--error)";
+      
+      errorAlert.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
+          <h3 style="margin: 0; color: var(--error); font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+            <i class="fas fa-exclamation-triangle"></i> Form Incomplete
+          </h3>
+          <button id="close-error-alert" style="background: none; border: none; cursor: pointer; color: #64748b;">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <p style="margin: 0 0 8px 0; font-size: 0.9rem; color: #334155;">Please complete these sections:</p>
+        <ul style="margin: 0; padding-left: 20px; font-size: 0.85rem; color: #475569;">
+          ${errorMessages.map(msg => `<li style="margin-bottom: 4px;">${msg}</li>`).join("")}
+        </ul>
+      `;
+      
+      document.body.appendChild(errorAlert);
+      
+      // Add close button functionality
+      errorAlert.querySelector("#close-error-alert").addEventListener("click", () => {
+        errorAlert.style.animation = "fadeOut 0.3s ease";
+        setTimeout(() => errorAlert.remove(), 300);
+      });
+      
+      // Auto-dismiss after 10 seconds
+      setTimeout(() => {
+        if (errorAlert.parentNode) {
+          errorAlert.style.animation = "fadeOut 0.3s ease";
+          setTimeout(() => errorAlert.remove(), 300);
+        }
+      }, 10000);
+      
+      // Scroll to the first incomplete section
+      const firstInvalidTab = tabNames.find(tab => !completedTabs[tab]);
+      if (firstInvalidTab) {
+        switchTab(firstInvalidTab);
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
+    }
+    
+    return allValid;
+  }
 
   function validateEmail(email) {
     // Regular expression for email format validation
@@ -1187,24 +1274,16 @@ function validateCurrentTab() {
 
   // Modify the submitAssessment function to ensure validation is performed
   function submitAssessment() {
-    // First validate the current tab (which is the industry-experience tab)
-    if (validateCurrentTab()) {
-      // Double-check industry experience validation specifically
-      if (tabNames[currentTabIndex] === "industry-experience" && !validateIndustryExperience()) {
-        return // Stop submission if industry validation fails
-      }
-
-      // Mark the last tab as completed
-      completedTabs[tabNames[currentTabIndex]] = true
-
-      showView("loading")
-
+    // First validate all sections
+    if (validateAllSections()) {
+      showView("loading");
+  
       // Calculate matches
-      const matches = calculateRoleMatches()
-      resultsData = matches
-
+      const matches = calculateRoleMatches();
+      resultsData = matches;
+  
       // Submit to Google Sheets
-      submitToGoogleSheet(matches)
+      submitToGoogleSheet(matches);
     }
   }
 
