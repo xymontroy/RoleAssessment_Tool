@@ -1,37 +1,65 @@
 document.addEventListener("DOMContentLoaded", () => {
   // Google Sheet submission URL - Replace with your own Google Apps Script Web App URL
-  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbxzQpzLXkBMDTZI7CUlTQeQGv5oYwCD9K0KcTGZzIC07EziLM746tD-2lWnIwjBs_om/exec"
+  const GOOGLE_SHEET_URL =
+    "https://script.google.com/macros/s/AKfycbxzQpzLXkBMDTZI7CUlTQeQGv5oYwCD9K0KcTGZzIC07EziLM746tD-2lWnIwjBs_om/exec"
 
-  // Define the list of managerial positions
-  const managerialPositions = [
-    "CRM Manager",
-    "Sales Performance and QA Coordinator – Training",
-    "HR/Admin Manager",
-    "HR/Admin and Finance Director",
-    "Finance Manager (Coordinator)",
-    "Operations Manager",
-    "Client Success Manager",
-    "Production Manager",
-    "Business Development Manager",
-    "Marketing Manager",
-    "SEO Program Manager",
-    "Database Coordinator",
-    "Digital Marketing Manager",
-    "Recruitment Coordinator",
-    "Learning and Development Coordinator",
-    "Project Manager",
-    "Business Process Manager",
-    "IT Manager",
-    "IT Security Manager",
-  ]
+  // Entry-Level Positions
+const entryLevelPositions = [
+  "Finance Associate",
+  "Lead Generator",
+  "Social Media Specialist",
+  "Web Developer",
+  "SEO Specialist",
+  "Sales Development Representative",
+  "Social Media Marketer",
+  "Researcher",
+  "Data Analyst",
+  "Data Profiler",
+  "Email Marketing Specialist/Associate",
+  "Digital Designer",
+  "Content Writer",
+  "LinkedIn Champion",
+  "Recruitment Associate",
+  "Recruitment Branding Specialist",
+  "Recruitment Database Specialist",
+  "Network Administrator",
+  "Tech Support",
+  "Non-Voice Tech Support",
+  "Software Developer",
+]
 
-  // Define the list of mid-level positions
-  const midLevelPositions = [
-    "Quality Assurance Analyst",
-    "HR/Admin Specialist",
-    "Quality Assurance Analyst (SEO)",
-    "Production Specialist",
-  ]
+// Mid-Level Positions
+const midLevelPositions = [
+  "Quality Assurance Analyst",
+  "HR/Admin Specialist",
+  "Business Development Representative",
+  "Quality Assurance Analyst (SEO)",
+  "Production Specialist",
+]
+
+// Managerial Positions
+const managerialPositions = [
+  "CRM Manager",
+  "Sales Performance and QA Coordinator – Training",
+  "HR/Admin Manager",
+  "HR/Admin and Finance Director",
+  "Finance Manager (Coordinator)",
+  "Operations Manager",
+  "Client Success Manager",
+  "Production Manager",
+  "Business Development Manager",
+  "Marketing Manager",
+  "SEO Program Manager",
+  "Database Coordinator",
+  "Digital Marketing Manager",
+  "Recruitment Coordinator",
+  "Learning and Development Coordinator",
+  "Project Manager",
+  "Business Process Manager",
+  "IT Manager",
+  "IT Security Manager",
+]
+
 
   // Helper function to check if a role is managerial
   function isManagerialRole(role) {
@@ -41,6 +69,32 @@ document.addEventListener("DOMContentLoaded", () => {
   // Helper function to check if a role is mid-level
   function isMidLevelRole(role) {
     return midLevelPositions.includes(role)
+  }
+
+  // Helper function to check if a role is entry-level
+  function isEntryLevelRole(role) {
+    return entryLevelPositions.includes(role)
+  }
+
+  // Helper function to check if a role is eligible for a specific level based on the new logic
+  function isEligibleForLevel(role, level) {
+    // Rank-and-File can be any roles from rank-and-file or mid-level
+    if (level === "rankFile") {
+      return isEntryLevelRole(role) || isMidLevelRole(role)
+    }
+    // Mid-Level can be any roles from rank-and-file, mid-level and Managerial (except for Operation Manager and Client Success Manager)
+    else if (level === "midLevel") {
+      return (
+        isEntryLevelRole(role) ||
+        isMidLevelRole(role) ||
+        (isManagerialRole(role) && role !== "Operations Manager" && role !== "Client Success Manager")
+      )
+    }
+    // Managerial all roles from mid-level to managerial
+    else if (level === "managerial") {
+      return isMidLevelRole(role) || isManagerialRole(role)
+    }
+    return false
   }
 
   // Data objects
@@ -66,7 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Financial Reporting",
       "Budgeting & Forecasting",
     ],
-    "Operations & Client Success": [
+    "Client Success & Operations and People Management": [
       "Process Optimization",
       "Project Management",
       "Team Leadership",
@@ -137,8 +191,8 @@ document.addEventListener("DOMContentLoaded", () => {
     "Project & Process Management": [
       "Agile & Scrum Methodologies",
       "Risk Management",
-      "Coding & Programming",
-      "Software Testing",
+      "Project Management",
+      "Team Leadership",
       "Process Mapping",
       "Business Process Optimization",
     ],
@@ -153,6 +207,8 @@ document.addEventListener("DOMContentLoaded", () => {
       "LinkedIn Profile Management",
       "Technical Documentation & Support",
       "Software Developer",
+      "Coding & Programming",
+      "Software Testing",
     ],
   }
 
@@ -180,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "Budgeting Tools (SAP, NetSuite)",
       "Financial Reporting Software (Power BI, Tableau)",
     ],
-    "Operations & Client Success": [
+    "Client Success & Operations and People Management": [
       "Project Management Tools (Asana, Monday.com)",
       "ERP Systems (SAP, NetSuite)",
       "CRM (Salesforce, Zendesk)",
@@ -290,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Market Research & Business Intelligence",
     "Education & Training",
     "Telecommunications",
-    "Cybersecurity & IT Security",
+    "IT & Security",
     "Healthcare",
   ]
 
@@ -386,29 +442,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Mid-level experience
   const midLevelExp = [
-    { level: "1 to 2 years", points: 0.8 },
-    { level: "3 to 4 years", points: 1.0 },
-    { level: "4 to 5 years", points: 1.3 },
-    { level: "5+ years", points: 1.5 },
-  ]
-
-  // Managerial
-  const managerialExp = [
     { level: "1 to 2 years", points: 1.3 },
     { level: "3 to 4 years", points: 1.5 },
     { level: "4 to 5 years", points: 1.8 },
     { level: "5+ years", points: 2 },
   ]
 
+  // Managerial
+  const managerialExp = [
+    { level: "1 to 2 years", points: 2.3 },
+    { level: "3 to 4 years", points: 2.5 },
+    { level: "4 to 5 years", points: 2.8 },
+    { level: "5+ years", points: 3 },
+  ]
+
   // Required qualifications for each role
   const roleQualifications = {
     "CRM Manager": ["CRM Software Expertise", "Data Analysis & Reporting"],
     "Quality Assurance Analyst": ["Call Evaluation & Scoring", "Lead Qualification Techniques"],
-    "Quality Assurance Analyst [Mid-level]": ["Call Evaluation & Scoring", "Lead Qualification Techniques", "Data Analysis & Reporting"],
     "Sales Performance and QA Coordinator": ["Sales Performance Analysis", "Coaching & Training"],
     "HR/Finance": ["Payroll Management", "Labor Law Compliance"],
     "HR/Admin Specialist": ["Employee Records Management", "People Management"],
-    "HR/Admin Specialist [Mid-level]": ["Employee Records Management", "People Management", "Labor Law Compliance"],
     "HR/Admin Manager": ["Policy Development", "People Management", "Labor Law Compliance", "Project Management"],
     "HR/Admin and Finance Director": ["Financial Planning", "Payroll Management"],
     "Finance Associate": ["General Ledger Accounting", "Financial Reporting"],
@@ -416,7 +470,11 @@ document.addEventListener("DOMContentLoaded", () => {
     "Operations Manager": ["Process Optimization", "Project Management", "Team Leadership"],
     "Client Success Manager": ["Customer Retention Strategies", "Account Management"],
     "Production Manager": ["Workflow Management", "Project Management", "Team Leadership"],
-    "Business Development Manager": ["Lead Generation Strategy", "Sales Pipeline Management", "B2B Sales & Negotiation"],
+    "Business Development Manager": [
+      "Lead Generation Strategy",
+      "Sales Pipeline Management",
+      "B2B Sales & Negotiation",
+    ],
     "Business Development Representative": ["Lead Qualification", "Prospecting"],
     "Marketing Manager": ["Performance Analytics", "PPC Management", "Project Management"],
     "Lead Generator": ["Prospecting", "CRM Management", "List Building"],
@@ -425,7 +483,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "SEO Program Manager": ["SEO Strategy", "Website Analytics", "Project Management"],
     "SEO Specialist": ["On-Page/Off-Page SEO", "Google Analytics"],
     "Quality Assurance Analyst (SEO)": ["Marketing Compliance", "Content Quality Review"],
-    "Quality Assurance Analyst (SEO) [Mid-level]": ["Marketing Compliance", "Content Quality Review", "SEO Strategy"],
     "Sales Development Representative": ["Prospecting", "Objection Handling", "List Building"],
     "Social Media Marketer": ["Social Media Advertising", "Community Engagement"],
     "Database Coordinator": ["Data Management", "Database Optimization"],
@@ -441,9 +498,9 @@ document.addEventListener("DOMContentLoaded", () => {
     "Recruitment Associate": ["Talent Sourcing", "Applicant Screening"],
     "Recruitment Branding Specialist": ["Employer Branding", "Social Media Recruitment"],
     "Recruitment Database Specialist": ["Applicant Database Management", "Data Entry"],
-    "Learning and Development Coordinator": ["Training Program Development", "Performance Evaluation", "Project Management"],
+    "Learning and Development Coordinator": ["Training Program Development","Performance Evaluation","Project Management"],
     "Production Specialist": ["Performance Evaluation", "Content Production"],
-    "Production Specialist [Mid-level]": ["Performance Evaluation", "Content Production", "Project Management"],
+    "Production Specialist": ["Performance Evaluation", "Content Production", "Project Management"],
     "Project Manager": ["Agile & Scrum Methodologies", "Risk Management", "Project Management", "Team Leadership"],
     "Software Developer": ["Coding & Programming", "Software Testing"],
     "Business Process Manager": ["Process Mapping", "Project Management", "Business Process Optimization"],
@@ -457,16 +514,36 @@ document.addEventListener("DOMContentLoaded", () => {
   // Technical skills for each role
   const roleTechnicalSkills = {
     "CRM Manager": ["CRM platforms (Salesforce, HubSpot)", "Data Reporting Tools (Power BI, Tableau)"],
-    "Quality Assurance Analyst": ["QA Software (Call Listening Tools, QA Scorecards)", "Google Sheets/Excel (Pivot Tables, Data Validation)"],
-    "Quality Assurance Analyst [Mid-level]": ["QA Software (Call Listening Tools, QA Scorecards)", "Google Sheets/Excel (Pivot Tables, Data Validation)", "Data Reporting Tools (Power BI, Tableau)"],
-    "Sales Performance and QA Coordinator": ["Sales Analytics Tools (HubSpot, Gong.io)", "Performance Tracking Software (Power BI, Salesforce Analytics)"],
+    "Quality Assurance Analyst": [
+      "QA Software (Call Listening Tools, QA Scorecards)",
+      "Google Sheets/Excel (Pivot Tables, Data Validation)",
+    ],
+    "Quality Assurance Analyst": [
+      "QA Software (Call Listening Tools, QA Scorecards)",
+      "Google Sheets/Excel (Pivot Tables, Data Validation)",
+      "Data Reporting Tools (Power BI, Tableau)",
+    ],
+    "Sales Performance and QA Coordinator": [
+      "Sales Analytics Tools (HubSpot, Gong.io)",
+      "Performance Tracking Software (Power BI, Salesforce Analytics)",
+    ],
     "HR/Finance": ["Payroll Systems (ADP, QuickBooks)", "HRIS (BambooHR, Workday)"],
-    "HR/Admin Specialist": ["RMS (SAP SuccessFactors, Workday)", "Document Management Systems (Google Drive, SharePoint)"],
-    "HR/Admin Specialist [Mid-level]": ["RMS (SAP SuccessFactors, Workday)", "Document Management Systems (Google Drive, SharePoint)", "Compliance Software (HRIS, OSHA Compliance Tools)"],
+    "HR/Admin Specialist": [
+      "RMS (SAP SuccessFactors, Workday)",
+      "Document Management Systems (Google Drive, SharePoint)",
+    ],
+    "HR/Admin Specialist": [
+      "RMS (SAP SuccessFactors, Workday)",
+      "Document Management Systems (Google Drive, SharePoint)",
+      "Compliance Software (HRIS, OSHA Compliance Tools)",
+    ],
     "HR/Admin Manager": ["Compliance Software (HRIS, OSHA Compliance Tools)", "ATS (Greenhouse, Lever)"],
     "HR/Admin and Finance Director": ["ERP Systems", "Financial Planning Software (NetSuite, QuickBooks)"],
     "Finance Associate": ["Accounting Software (Xero, QuickBooks)", "Excel (Financial Modeling, Macros)"],
-    "Finance Manager (Coordinator)": ["Budgeting Tools (SAP, NetSuite)", "Financial Reporting Software (Power BI, Tableau)"],
+    "Finance Manager (Coordinator)": [
+      "Budgeting Tools (SAP, NetSuite)",
+      "Financial Reporting Software (Power BI, Tableau)",
+    ],
     "Operations Manager": ["Project Management Tools (Asana, Monday.com)", "ERP Systems (SAP, NetSuite)"],
     "Client Success Manager": ["CRM (Salesforce, Zendesk)", "Customer Support Tools (Intercom, Freshdesk)"],
     "Production Manager": ["Workflow Management (ClickUp, Wrike)", "QA Tools (ISO Compliance Software)"],
@@ -478,26 +555,51 @@ document.addEventListener("DOMContentLoaded", () => {
     "Web Developer": ["Programming Languages (HTML, CSS, JavaScript)", "CMS (WordPress, Shopify)"],
     "SEO Program Manager": ["Google Search Console", "Keyword Research Tools (Moz, SEMrush)"],
     "SEO Specialist": ["Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)", "Google Analytics"],
-    "Quality Assurance Analyst (SEO)": ["A/B Testing Tools (Google Optimize, VWO)", "SEO Audit Tools (SEMrush, Ahrefs)"],
-    "Quality Assurance Analyst (SEO) [Mid-level]": ["A/B Testing Tools (Google Optimize, VWO)", "SEO Audit Tools (SEMrush, Ahrefs)", "Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)"],
+    "Quality Assurance Analyst (SEO)": [
+      "A/B Testing Tools (Google Optimize, VWO)",
+      "SEO Audit Tools (SEMrush, Ahrefs)",
+    ],
+    "Quality Assurance Analyst (SEO)": [
+      "A/B Testing Tools (Google Optimize, VWO)",
+      "SEO Audit Tools (SEMrush, Ahrefs)",
+      "Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)",
+    ],
     "Sales Development Representative": ["CRM (Salesforce, HubSpot)", "Dialer Software (Five9, Aircall)"],
-    "Social Media Marketer": ["Social Listening Tools (Brandwatch, Sprout Social)", "Content Scheduling Tools (Buffer, Later)"],
+    "Social Media Marketer": [
+      "Social Listening Tools (Brandwatch, Sprout Social)",
+      "Content Scheduling Tools (Buffer, Later)",
+    ],
     "Database Coordinator": ["Database Management (MySQL, PostgreSQL)", "Data Processing (Excel, Google Sheets)"],
     "DB Researcher": ["Market Research Platforms (Statista, IBISWorld)", "Survey Tools (Google Forms, Typeform)"],
     "Data Analyst": ["Data Visualization Tools (Power BI, Tableau)", "SQL (Intermediate Queries)"],
     "Data Profiler": ["Database Cleaning Tools (OpenRefine, Trifacta)", "CRM Enrichment (Clearbit, ZoomInfo)"],
-    "Digital Marketing Manager": ["PPC Tools (Google Ads, Facebook Ads Manager)", "Marketing Analytics (Google Data Studio, HubSpot)"],
-    "Email Marketing Specialist/Associate": ["Email Platforms (Mailchimp, Klaviyo)", "A/B Testing Software (Litmus, Optimizely)"],
+    "Digital Marketing Manager": [
+      "PPC Tools (Google Ads, Facebook Ads Manager)",
+      "Marketing Analytics (Google Data Studio, HubSpot)",
+    ],
+    "Email Marketing Specialist/Associate": [
+      "Email Platforms (Mailchimp, Klaviyo)",
+      "A/B Testing Software (Litmus, Optimizely)",
+    ],
     "Digital Designer": ["UI/UX Design Tools (Figma, Adobe XD)", "HTML/CSS (Basic for Web Design)"],
     "Content Writer": ["CMS (WordPress, Ghost)", "Copywriting Tools (Grammarly, Hemingway Editor)"],
     "LinkedIn Champion": ["LinkedIn Sales Navigator", "LinkedIn Analytics"],
     "Recruitment Coordinator": ["ATS", "LinkedIn Recruiter"],
     "Recruitment Associate": ["Job Boards", "ATS"],
-    "Recruitment Branding Specialist": ["Social Media Ads (Meta Business Suite, LinkedIn Ads)", "Design Software", "Job Boards"],
+    "Recruitment Branding Specialist": [
+      "Social Media Ads (Meta Business Suite, LinkedIn Ads)",
+      "Design Software",
+      "Job Boards",
+    ],
     "Recruitment Database Specialist": ["Applicant Database Management (Google Sheets, SQL)", "ATS"],
-    "Learning and Development Coordinator": ["LMS Platforms (Moodle, TalentLMS)", "E-learning Tools (Articulate, Captivate)"],
-    "Production Specialist": ["Video Editing Software (Adobe Premiere Pro, Camtasia)", "Audio Recording Tools (Audacity, GarageBand)"],
-    "Production Specialist [Mid-level]": ["Video Editing Software (Adobe Premiere Pro, Camtasia)", "Audio Recording Tools (Audacity, GarageBand)", "Content Scheduling Tools (Buffer, Later)"],
+    "Learning and Development Coordinator": [
+      "LMS Platforms (Moodle, TalentLMS)",
+      "E-learning Tools (Articulate, Captivate)",
+    ],
+    "Production Specialist": [
+      "Video Editing Software (Adobe Premiere Pro, Camtasia)",
+      "Audio Recording Tools (Audacity, GarageBand)",
+    ],
     "Project Manager": ["Project Management Tools (Trello, Jira)", "Risk Assessment Software (Lucidchart, Asana)"],
     "Software Developer": ["Programming Languages (Python, Java, C#)", "Version Control (Git, GitHub)"],
     "Business Process Manager": ["Process Mapping Tools (Bizagi, Microsoft Visio)", "ERP Systems"],
@@ -505,7 +607,10 @@ document.addEventListener("DOMContentLoaded", () => {
     "IT Security Manager": ["SIEM Tools (Splunk, IBM QRadar)", "Endpoint Security (CrowdStrike, Symantec)"],
     "Network Administrator": ["Network Monitoring (Wireshark, Nagios)", "Firewall Configurations (Cisco, Fortinet)"],
     "Tech Support": ["Help Desk Software (Zendesk, Freshdesk)", "Remote Desktop Tools (TeamViewer, AnyDesk)"],
-    "Non-Voice Tech Support": ["Ticketing Systems (Jira Service Desk, Zoho Desk)", "Knowledge Base Software (Confluence, Notion)"],
+    "Non-Voice Tech Support": [
+      "Ticketing Systems (Jira Service Desk, Zoho Desk)",
+      "Knowledge Base Software (Confluence, Notion)",
+    ],
   }
 
   // Role data for matching
@@ -516,7 +621,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Quality Assurance Analyst": {
       industries: ["Call Center / BPO", "Technology (SaaS, IT, Software Development)"],
     },
-    "Quality Assurance Analyst [Mid-level]": {
+    "Quality Assurance Analyst": {
       industries: ["Call Center / BPO", "Technology (SaaS, IT, Software Development)"],
     },
     "Sales Performance and QA Coordinator": {
@@ -528,7 +633,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "HR/Admin Specialist": {
       industries: ["Human Resources & Recruitment", "Corporate Finance"],
     },
-    "HR/Admin Specialist [Mid-level]": {
+    "HR/Admin Specialist": {
       industries: ["Human Resources & Recruitment", "Corporate Finance"],
     },
     "HR/Admin Manager": {
@@ -579,10 +684,10 @@ document.addEventListener("DOMContentLoaded", () => {
     "Quality Assurance Analyst (SEO)": {
       industries: ["Digital Marketing & Advertising", "Media & Publishing"],
     },
-    "Quality Assurance Analyst (SEO) [Mid-level]": {
-      industries: ["Digital Marketing & Advertising", "Media & Publishing"],
-    },
     "Sales Development Representative": {
+      industries: ["B2B Sales & Marketing", "Call Center / BPO"],
+    },
+    "Social Media Marketer": {
       industries: ["B2B Sales & Marketing", "Call Center / BPO"],
     },
     "Social Media Marketer": {
@@ -633,9 +738,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "Production Specialist": {
       industries: ["Digital Marketing & Advertising", "Media & Publishing"],
     },
-    "Production Specialist [Mid-level]": {
-      industries: ["Digital Marketing & Advertising", "Media & Publishing"],
-    },
     "Project Manager": {
       industries: ["Technology (SaaS, IT, Software Development)", "Call Center / BPO"],
     },
@@ -649,31 +751,182 @@ document.addEventListener("DOMContentLoaded", () => {
       industries: ["IT & Security", "Technology (SaaS, IT, Software Development)"],
     },
     "IT Security Manager": {
-      industries: ["IT, Security, and Software", "Financial Services"],
+      industries: ["IT & Security", "Financial Services"],
     },
     "Network Administrator": {
-      industries: ["IT, Security, and Software", "Telecommunications"],
+      industries: ["IT & Security", "Telecommunications"],
     },
     "Tech Support": {
-      industries: ["IT, Security, and Software", "Call Center / BPO"],
+      industries: ["IT & Security", "Call Center / BPO"],
     },
     "Non-Voice Tech Support": {
-      industries: ["IT, Security, and Software", "Retail & E-commerce"],
+      industries: ["IT & Security", "Retail & E-commerce"],
     },
   }
 
   // Add a new object to define required education fields for specific roles
   const requiredEducationFields = {
+    // CRM & Quality Assurance
     "CRM Manager": ["Data Science & Statistics", "Information Technology"],
+    "Quality Assurance Analyst": [
+      "Business Administration & Marketing",
+      "Data Science & Statistics",
+      "Journalism or Communications",
+    ],
+    "Sales Performance and QA Coordinator": [
+      "Business Administration & Marketing",
+      "Management (Sales, Marketing, or Operations)",
+      "Psychology",
+    ],
+
+    // HR & Finance
+    "HR/Finance": ["Accounting or Finance", "Human Resources & Organizational Development", "Public Administration"],
+    "HR/Admin Specialist": [
+      "Human Resources & Organizational Development",
+      "Business Administration & Marketing",
+      "Public Administration",
+    ],
+    "HR/Admin Manager": [
+      "Human Resources & Organizational Development",
+      "Management (Sales, Marketing, or Operations)",
+      "Public Administration",
+    ],
+    "HR/Admin and Finance Director": [
+      "Accounting or Finance",
+      "Human Resources & Organizational Development",
+      "Economics",
+    ],
+    "Finance Associate": ["Accounting or Finance", "Economics"],
+    "Finance Manager": ["Accounting or Finance", "Economics", "Business Administration & Marketing"],
+
+    // Operations & Client Success
+    "Operations Manager": [
+      "Management (Sales, Marketing, or Operations)",
+      "Business Administration & Marketing",
+      "Economics",
+    ],
+    "Client Success Manager": ["Business Administration & Marketing", "Advertising or Public Relations", "Psychology"],
+    "Production Manager": [
+      "Management (Sales, Marketing, or Operations)",
+      "Business Administration & Marketing",
+      "Media or Multimedia Arts",
+    ],
+    "Business Development Manager": [
+      "Business Administration & Marketing",
+      "Entrepreneurship",
+      "Management (Sales, Marketing, or Operations)",
+    ],
+    "Business Development Representative": [
+      "Business Administration & Marketing",
+      "Journalism or Communications",
+      "Psychology",
+    ],
+
+    // Marketing & Lead Generation
+    "Marketing Manager": [
+      "Business Administration & Marketing",
+      "Advertising or Public Relations",
+      "Journalism or Communications",
+    ],
+    "Lead Generator": [
+      "Business Administration & Marketing",
+      "Management (Sales, Marketing, or Operations)",
+      "Data Science & Statistics",
+    ],
+
+    // Creative & Digital Marketing
+    "Social Media Specialist": [
+      "Advertising or Public Relations",
+      "Journalism or Communications",
+      "Media or Multimedia Arts",
+    ],
+    "Web Developer": ["Web Development", "Computer Science", "Software Engineering"],
+    "SEO Program Manager": [
+      "Business Administration & Marketing",
+      "Data Science & Statistics",
+      "Advertising or Public Relations",
+      "Journalism or Communications",
+    ],
+    "SEO Specialist": [
+      "Business Administration & Marketing",
+      "Data Science & Statistics",
+      "Advertising or Public Relations",
+      "Journalism or Communications",
+    ],
+    "Quality Assurance Analyst (SEO)": [
+      "Journalism or Communications",
+      "Business Administration & Marketing",
+      "Data Science & Statistics",
+    ],
+
+    // Sales & Outreach
+    "Sales Development Representative": [
+      "Business Administration & Marketing",
+      "Management (Sales, Marketing, or Operations)",
+      "Psychology",
+    ],
+    "Social Media Marketer": [
+      "Advertising or Public Relations",
+      "Journalism or Communications",
+      "Business Administration & Marketing",
+    ],
+
+    // Database & Research
     "Database Coordinator": ["Data Science & Statistics", "Information Technology", "Computer Science"],
     "DB Researcher": ["Data Science & Statistics", "Information Technology"],
     "Data Analyst": ["Data Science & Statistics", "Information Technology"],
     "Data Profiler": ["Data Science & Statistics", "Information Technology"],
+
+    // Digital Marketing & Content
+    "Digital Marketing Manager": [
+      "Business Administration & Marketing",
+      "Advertising or Public Relations",
+      "Journalism or Communications",
+    ],
+
+    // Recruitment and L&D
+    "Recruitment Coordinator": [
+      "Human Resources & Organizational Development",
+      "Business Administration & Marketing",
+      "Psychology",
+    ],
+    "Recruitment Associate": ["Human Resources & Organizational Development", "Psychology", "Public Administration"],
+    "Recruitment Branding Specialist": [
+      "Advertising or Public Relations",
+      "Journalism or Communications",
+      "Human Resources & Organizational Development",
+    ],
+    "Recruitment Database Specialist": [
+      "Data Science & Statistics",
+      "Human Resources & Organizational Development",
+      "Business Administration & Marketing",
+    ],
+    "Learning and Development Coordinator": ["Human Resources & Organizational Development", "Education", "Psychology"],
+    "Production Specialist": [
+      "Media or Multimedia Arts",
+      "Business Administration & Marketing",
+      "Management (Sales, Marketing, or Operations)",
+    ],
+
+    // Project & Process Management
+    "Project Manager": [
+      "Business Administration & Marketing",
+      "Management (Sales, Marketing, or Operations)",
+      "Information Technology",
+    ],
+    "Business Process Manager": [
+      "Business Administration & Marketing",
+      "Management (Sales, Marketing, or Operations)",
+      "Data Science & Statistics",
+    ],
+
+    // IT, Security, and Software
     "IT Manager": ["Information Technology", "Computer Science"],
     "IT Security Manager": ["Cybersecurity", "Information Technology", "Computer Science"],
     "Network Administrator": ["Information Technology", "Computer Science", "Cybersecurity"],
     "Tech Support": ["Information Technology", "Computer Science", "Cybersecurity"],
     "Non-Voice Tech Support": ["Information Technology", "Computer Science", "Web Development"],
+    "Software Developer": ["Computer Science", "Software Engineering", "Information Technology"],
   }
 
   // DOM Elements
@@ -949,6 +1202,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function goToNextTab() {
+    let selectedFields
+    let errorElement
+    let isValid
+
     if (validateCurrentTab()) {
       if (currentTabIndex < tabNames.length - 1) {
         // Mark current tab as completed
@@ -965,12 +1222,16 @@ document.addEventListener("DOMContentLoaded", () => {
         })
       }
 
-      if (selectedFields && selectedFields.includes("Other") && (!formData.otherEducationField || formData.otherEducationField.trim() === "")) {
+      if (
+        selectedFields &&
+        selectedFields.includes("Other") &&
+        (!formData.otherEducationField || formData.otherEducationField.trim() === "")
+      ) {
         if (errorElement) {
           errorElement.textContent = "Please specify your field of study for 'Other'."
           errorElement.classList.remove("hidden")
         }
-        isValid = false;
+        isValid = false
       }
     }
   }
@@ -986,216 +1247,215 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-
   function validateCurrentTab() {
-    const tabName = tabNames[currentTabIndex];
-    const errorElement = document.getElementById(`${tabName}-error`);
-    let isValid = true;
-  
+    const tabName = tabNames[currentTabIndex]
+    const errorElement = document.getElementById(`${tabName}-error`)
+    let isValid = true
+
     switch (tabName) {
       case "applicant":
-        const name = document.getElementById("name").value.trim();
-        const email = document.getElementById("email").value.trim();
-        const phone = document.getElementById("phone").value.trim();
-  
-        formData.name = name;
-        formData.email = email;
-        formData.phone = phone;
-  
+        const name = document.getElementById("name").value.trim()
+        const email = document.getElementById("email").value.trim()
+        const phone = document.getElementById("phone").value.trim()
+
+        formData.name = name
+        formData.email = email
+        formData.phone = phone
+
         if (errorElement) {
-          errorElement.classList.add("hidden");
+          errorElement.classList.add("hidden")
         }
-  
+
         if (!name || !email) {
           if (errorElement) {
-            errorElement.textContent = "Please fill out all required fields (Name and Email).";
-            errorElement.classList.remove("hidden");
+            errorElement.textContent = "Please fill out all required fields (Name and Email)."
+            errorElement.classList.remove("hidden")
           }
-          isValid = false;
+          isValid = false
         } else if (!validateEmail(email)) {
           if (errorElement) {
-            errorElement.textContent = "Please provide a valid email address.";
-            errorElement.classList.remove("hidden");
+            errorElement.textContent = "Please provide a valid email address."
+            errorElement.classList.remove("hidden")
           }
-          isValid = false;
+          isValid = false
         }
-        
-        completedTabs.applicant = isValid;
-        break;
-  
+
+        completedTabs.applicant = isValid
+        break
+
       case "education":
-        const educationRadios = document.querySelectorAll('input[name="education"]:checked');
-        let educationSelected = educationRadios.length > 0;
-      
-        formData.education = educationSelected ? educationRadios[0].value : null;
-        formData.educationFields = [];
-      
+        const educationRadios = document.querySelectorAll('input[name="education"]:checked')
+        const educationSelected = educationRadios.length > 0
+
+        formData.education = educationSelected ? educationRadios[0].value : null
+        formData.educationFields = []
+
         if (educationSelected) {
-          const activeCategory = document.querySelector('.category.active');
+          const activeCategory = document.querySelector(".category.active")
           if (activeCategory) {
-            const selectedFields = [];
+            const selectedFields = []
             activeCategory.querySelectorAll('input[type="checkbox"]:checked').forEach((checkbox) => {
-              selectedFields.push(checkbox.value);
-            });
-            formData.educationFields = selectedFields;
-      
+              selectedFields.push(checkbox.value)
+            })
+            formData.educationFields = selectedFields
+
             // Check if "Other" is selected and validate the input
             if (selectedFields.includes("Other")) {
-              const otherInput = activeCategory.querySelector('.other-field-input');
+              const otherInput = activeCategory.querySelector(".other-field-input")
               if (!otherInput || otherInput.value.trim() === "") {
                 if (errorElement) {
-                  errorElement.textContent = "Please specify your field of study for 'Other'.";
-                  errorElement.classList.remove("hidden");
+                  errorElement.textContent = "Please specify your field of study for 'Other'."
+                  errorElement.classList.remove("hidden")
                 }
-                isValid = false;
-                
+                isValid = false
+
                 // Highlight the other input field
                 if (otherInput) {
-                  otherInput.style.border = "1px solid var(--error)";
-                  otherInput.focus();
+                  otherInput.style.border = "1px solid var(--error)"
+                  otherInput.focus()
                 }
               } else {
-                formData.otherEducationField = otherInput.value.trim();
+                formData.otherEducationField = otherInput.value.trim()
                 if (otherInput) {
-                  otherInput.style.border = "";
+                  otherInput.style.border = ""
                 }
               }
             }
-      
+
             if (formData.educationFields.length === 0) {
               if (errorElement) {
-                errorElement.textContent = "Please select at least one field of study.";
-                errorElement.classList.remove("hidden");
+                errorElement.textContent = "Please select at least one field of study."
+                errorElement.classList.remove("hidden")
               }
-              isValid = false;
+              isValid = false
             } else {
               // Hide the error message if validation passes
               if (errorElement) {
-                errorElement.classList.add("hidden");
+                errorElement.classList.add("hidden")
               }
             }
           }
         } else {
           if (errorElement) {
-            errorElement.textContent = "Please select an education level.";
-            errorElement.classList.remove("hidden");
+            errorElement.textContent = "Please select an education level."
+            errorElement.classList.remove("hidden")
           }
-          isValid = false;
+          isValid = false
         }
-        
-        completedTabs.education = isValid;
-        break;
-  
+
+        completedTabs.education = isValid
+        break
+
       case "qualifications":
-        const qualificationCheckboxes = document.querySelectorAll('input[name^="qualification-"]:checked');
-        let qualificationsSelected = qualificationCheckboxes.length > 0;
-  
-        formData.qualifications = {};
+        const qualificationCheckboxes = document.querySelectorAll('input[name^="qualification-"]:checked')
+        const qualificationsSelected = qualificationCheckboxes.length > 0
+
+        formData.qualifications = {}
         qualificationCheckboxes.forEach((checkbox) => {
-          formData.qualifications[checkbox.value] = true;
-        });
-  
+          formData.qualifications[checkbox.value] = true
+        })
+
         if (!qualificationsSelected) {
           if (errorElement) {
-            errorElement.textContent = "Please select at least one qualification.";
-            errorElement.classList.remove("hidden");
+            errorElement.textContent = "Please select at least one qualification."
+            errorElement.classList.remove("hidden")
           }
-          isValid = false;
+          isValid = false
         } else {
           if (errorElement) {
-            errorElement.classList.add("hidden");
+            errorElement.classList.add("hidden")
           }
         }
-        
-        completedTabs.qualifications = isValid;
-        break;
-  
+
+        completedTabs.qualifications = isValid
+        break
+
       case "technical":
-        const technicalCheckboxes = document.querySelectorAll('input[name^="technical-"]:checked');
-        let technicalSelected = technicalCheckboxes.length > 0;
-  
-        formData.technical = {};
+        const technicalCheckboxes = document.querySelectorAll('input[name^="technical-"]:checked')
+        const technicalSelected = technicalCheckboxes.length > 0
+
+        formData.technical = {}
         technicalCheckboxes.forEach((checkbox) => {
-          formData.technical[checkbox.value] = true;
-        });
-  
+          formData.technical[checkbox.value] = true
+        })
+
         if (!technicalSelected) {
           if (errorElement) {
-            errorElement.textContent = "Please select at least one technical skill.";
-            errorElement.classList.remove("hidden");
+            errorElement.textContent = "Please select at least one technical skill."
+            errorElement.classList.remove("hidden")
           }
-          isValid = false;
+          isValid = false
         } else {
           if (errorElement) {
-            errorElement.classList.add("hidden");
+            errorElement.classList.add("hidden")
           }
         }
-        
-        completedTabs.technical = isValid;
-        break;
-  
+
+        completedTabs.technical = isValid
+        break
+
       case "industry-experience":
-        isValid = validateIndustryExperience();
-        completedTabs["industry-experience"] = isValid;
-        break;
+        isValid = validateIndustryExperience()
+        completedTabs["industry-experience"] = isValid
+        break
     }
-  
-    return isValid;
+
+    return isValid
   }
 
   function validateAllSections() {
-    let allValid = true;
-    let errorMessages = [];
-    
+    let allValid = true
+    const errorMessages = []
+
     // Validate each tab
     tabNames.forEach((tabName) => {
-      const tabIndex = tabNames.indexOf(tabName);
-      currentTabIndex = tabIndex;
-      
+      const tabIndex = tabNames.indexOf(tabName)
+      currentTabIndex = tabIndex
+
       if (!validateCurrentTab()) {
-        allValid = false;
-        
+        allValid = false
+
         // Add friendly error messages
-        switch(tabName) {
+        switch (tabName) {
           case "applicant":
-            errorMessages.push("• Applicant Information: Please complete all required fields");
-            break;
+            errorMessages.push("• Applicant Information: Please complete all required fields")
+            break
           case "education":
-            errorMessages.push("• Education: Please select your education level and field(s) of study");
-            break;
+            errorMessages.push("• Education: Please select your education level and field(s) of study")
+            break
           case "qualifications":
-            errorMessages.push("• Qualifications: Please select at least one qualification");
-            break;
+            errorMessages.push("• Qualifications: Please select at least one qualification")
+            break
           case "technical":
-            errorMessages.push("• Technical Skills: Please select at least one technical skill");
-            break;
+            errorMessages.push("• Technical Skills: Please select at least one technical skill")
+            break
           case "industry-experience":
-            errorMessages.push("• Industry Experience: Please select at least one industry and experience level");
-            break;
+            errorMessages.push("• Industry Experience: Please select at least one industry and experience level")
+            break
         }
       }
-    });
-    
+    })
+
     // If there are errors, show them in an alert
     if (!allValid && errorMessages.length > 0) {
       // Remove any existing error alerts first
-      const existingAlert = document.querySelector(".validation-error-alert");
-      if (existingAlert) existingAlert.remove();
-  
-      const errorAlert = document.createElement("div");
-      errorAlert.className = "validation-error-alert";
-      errorAlert.style.position = "fixed";
-      errorAlert.style.bottom = "20px";
-      errorAlert.style.left = "20px";
-      errorAlert.style.zIndex = "1000";
-      errorAlert.style.padding = "15px";
-      errorAlert.style.maxWidth = "400px";
-      errorAlert.style.borderRadius = "8px";
-      errorAlert.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)";
-      errorAlert.style.animation = "fadeIn 0.3s ease";
-      errorAlert.style.backgroundColor = "#fff";
-      errorAlert.style.borderLeft = "4px solid var(--error)";
-      
+      const existingAlert = document.querySelector(".validation-error-alert")
+      if (existingAlert) existingAlert.remove()
+
+      const errorAlert = document.createElement("div")
+      errorAlert.className = "validation-error-alert"
+      errorAlert.style.position = "fixed"
+      errorAlert.style.bottom = "20px"
+      errorAlert.style.left = "20px"
+      errorAlert.style.zIndex = "1000"
+      errorAlert.style.padding = "15px"
+      errorAlert.style.maxWidth = "400px"
+      errorAlert.style.borderRadius = "8px"
+      errorAlert.style.boxShadow = "0 4px 12px rgba(0,0,0,0.15)"
+      errorAlert.style.animation = "fadeIn 0.3s ease"
+      errorAlert.style.backgroundColor = "#fff"
+      errorAlert.style.borderLeft = "4px solid var(--error)"
+
       errorAlert.innerHTML = `
         <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
           <h3 style="margin: 0; color: var(--error); font-size: 1rem; display: flex; align-items: center; gap: 8px;">
@@ -1207,124 +1467,126 @@ document.addEventListener("DOMContentLoaded", () => {
         </div>
         <p style="margin: 0 0 8px 0; font-size: 0.9rem; color: #334155;">Please complete these sections:</p>
         <ul style="margin: 0; padding-left: 20px; font-size: 0.85rem; color: #475569;">
-          ${errorMessages.map(msg => `<li style="margin-bottom: 4px;">${msg}</li>`).join("")}
+          ${errorMessages.map((msg) => `<li style="margin-bottom: 4px;">${msg}</li>`).join("")}
         </ul>
-      `;
-      
-      document.body.appendChild(errorAlert);
-      
+      `
+
+      document.body.appendChild(errorAlert)
+
       // Add close button functionality
       errorAlert.querySelector("#close-error-alert").addEventListener("click", () => {
-        errorAlert.style.animation = "fadeOut 0.3s ease";
-        setTimeout(() => errorAlert.remove(), 300);
-      });
-      
+        errorAlert.style.animation = "fadeOut 0.3s ease"
+        setTimeout(() => errorAlert.remove(), 300)
+      })
+
       // Auto-dismiss after 10 seconds
       setTimeout(() => {
         if (errorAlert.parentNode) {
-          errorAlert.style.animation = "fadeOut 0.3s ease";
-          setTimeout(() => errorAlert.remove(), 300);
+          errorAlert.style.animation = "fadeOut 0.3s ease"
+          setTimeout(() => errorAlert.remove(), 300)
         }
-      }, 10000);
-      
+      }, 10000)
+
       // Scroll to the first incomplete section
-      const firstInvalidTab = tabNames.find(tab => !completedTabs[tab]);
+      const firstInvalidTab = tabNames.find((tab) => !completedTabs[tab])
       if (firstInvalidTab) {
-        switchTab(firstInvalidTab);
+        switchTab(firstInvalidTab)
         window.scrollTo({
           top: 0,
-          behavior: "smooth"
-        });
+          behavior: "smooth",
+        })
       }
     }
-    
-    return allValid;
+
+    return allValid
   }
 
   function validateEmail(email) {
     // Regular expression for email format validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+
     // Check if email matches the format
     if (!emailRegex.test(email)) {
-        return false;
+      return false
     }
-  
+
     // Extract domain and TLD
-    const domainParts = email.split("@")[1]?.split(".");
+    const domainParts = email.split("@")[1]?.split(".")
     if (!domainParts || domainParts.length < 2) {
-        return false;
+      return false
     }
-  
-    const domain = domainParts[0];
-    const tld = domainParts[domainParts.length - 1];
-  
+
+    const domain = domainParts[0]
+    const tld = domainParts[domainParts.length - 1]
+
     // Validate domain (ensure it's not empty)
     if (!domain || domain.length < 2) {
-        return false;
+      return false
     }
-  
+
     // Validate TLD (ensure it's at least 2 characters long)
     if (!tld || tld.length < 2) {
-        return false;
+      return false
     }
-  
-    return true;
+
+    return true
   }
 
   // Modify the submitAssessment function to ensure validation is performed
   function submitAssessment() {
     // First validate all sections
     if (validateAllSections()) {
-      showView("loading");
-  
+      showView("loading")
+
       // Calculate matches
-      const matches = calculateRoleMatches();
-      resultsData = matches;
-  
+      const matches = calculateRoleMatches()
+      resultsData = matches
+
       // Submit to Google Sheets
-      submitToGoogleSheet(matches);
+      submitToGoogleSheet(matches)
     }
   }
 
-  // Modify the calculateRoleMatches function to implement the strict education field requirements
-  let calculateRoleMatches = () => {
+  // Modify the calculateRoleMatches function to implement the new role matching logic
+  const calculateRoleMatches = () => {
     // Calculate score for each role
     const roleScores = Object.keys(roleData).map((role) => {
       const roleInfo = roleData[role]
       let totalPoints = 0
       let maxPoints = 0
-
-      // Calculate qualifications score
+      
+      // Calculate qualifications score - INCREASED WEIGHT
       if (roleQualifications[role]) {
         roleQualifications[role].forEach((qualification) => {
           if (formData.qualifications[qualification]) {
-            totalPoints += 3 // Points for having the qualification
+            totalPoints += 4 // Increased from 3 to 4 points for qualifications
           }
-          maxPoints += 3 // Maximum possible points for this qualification
+          maxPoints += 4 // Maximum possible points for this qualification
         })
       }
 
-      // Calculate technical skills score
+      // Calculate technical skills score - INCREASED WEIGHT
       if (roleTechnicalSkills[role]) {
         roleTechnicalSkills[role].forEach((tech) => {
           if (formData.technical[tech]) {
-            totalPoints += 2 // Points for having the technical skill
+            totalPoints += 3 // Increased from 2 to 3 points for technical skills
           }
-          maxPoints += 2 // Maximum possible points for this technical skill
+          maxPoints += 3 // Maximum possible points for this technical skill
         })
       }
 
-      // Calculate industry experience score
+      // Calculate industry experience score - REDUCED WEIGHT
       if (roleInfo.industries) {
         roleInfo.industries.forEach((ind) => {
           // Check all three experience types
-          if (formData.industryExperience.rankFile[ind] || 
-              formData.industryExperience.midLevel[ind] || 
-              formData.industryExperience.managerial[ind]) {
-            totalPoints += 2
+          if (
+            formData.industryExperience.rankFile[ind] ||
+            formData.industryExperience.midLevel[ind] ||
+            formData.industryExperience.managerial[ind]
+          ) {
+            totalPoints += 1 // Reduced from 2 to 1 point for industry experience
           }
-          maxPoints += 2 // Maximum possible points for this industry
+          maxPoints += 1 // Maximum possible points for this industry
         })
       }
 
@@ -1339,55 +1601,57 @@ document.addEventListener("DOMContentLoaded", () => {
         industries: roleInfo.industries || [],
         isManagerial: isManagerialRole(role), // Add flag to identify managerial roles
         isMidLevel: isMidLevelRole(role), // Add flag to identify mid-level roles
+        isEntryLevel: isEntryLevelRole(role), // Add flag to identify entry-level roles
       }
 
-      // Check for strict education field compliance
+      // Check for strict education field compliance - INCREASED IMPORTANCE
       if (requiredEducationFields[role] && formData.educationFields) {
-        // Check if the candidate has all required education fields for this role
-        const hasAllRequiredFields = requiredEducationFields[role].every((field) =>
-          formData.educationFields.includes(field),
+        // Check if the candidate has at least one of the required education fields for this role
+        const hasRequiredField = requiredEducationFields[role].some((field) =>
+          formData.educationFields.includes(field)
         )
 
-        // If the candidate doesn't have all required fields, set score to 0
-        if (!hasAllRequiredFields) {
-          result.rawScore = 0
-          result.disqualifiedByEducation = true
+        // If the candidate doesn't have any required fields, significantly reduce score
+        if (!hasRequiredField) {
+          result.rawScore = result.rawScore * 0.3 // Reduce score by 70% if education doesn't match
+          result.educationPenalty = true
         }
       }
 
-      // Add education points if available
+      // Add education points if available - INCREASED WEIGHT
       if (formData.education) {
         const educationInfo = educationData.find((edu) => edu.level === formData.education)
         if (educationInfo) {
-          // Only add education points if not disqualified by education field requirements
-          if (!result.disqualifiedByEducation) {
-            result.rawScore += educationInfo.points
-            result.educationPoints = educationInfo.points
-          }
+          // Add education points with increased weight
+          const educationPoints = educationInfo.points * 1.5 // Increased weight for education
+          result.rawScore += educationPoints
+          result.educationPoints = educationPoints
         }
       }
 
-      // Add experience points from all experience types
+      // Add experience points from all experience types - REDUCED WEIGHT
       result.experiencePoints = 0
 
-      // Process all industry experiences and add points
+      // Process all industry experiences and add points with reduced weight
       Object.entries(formData.industryExperience.rankFile || {}).forEach(([industry, expLevel]) => {
         if (expLevel) {
           const experienceInfo = experienceData.find((exp) => exp.level === expLevel)
-          if (experienceInfo && !result.disqualifiedByEducation) {
-            result.rawScore += experienceInfo.points
-            result.experiencePoints += experienceInfo.points
+          if (experienceInfo) {
+            const points = experienceInfo.points * 0.7 // Reduced weight for experience
+            result.rawScore += points
+            result.experiencePoints += points
           }
         }
       })
 
-      // Process mid-level experiences
+      // Process mid-level experiences with reduced weight
       Object.entries(formData.industryExperience.midLevel || {}).forEach(([industry, expLevel]) => {
         if (expLevel) {
           const midLevelInfo = midLevelExp.find((exp) => exp.level === expLevel)
-          if (midLevelInfo && !result.disqualifiedByEducation) {
-            result.rawScore += midLevelInfo.points
-            result.experiencePoints += midLevelInfo.points
+          if (midLevelInfo) {
+            const points = midLevelInfo.points * 0.7 // Reduced weight for experience
+            result.rawScore += points
+            result.experiencePoints += points
           }
         }
       })
@@ -1395,9 +1659,10 @@ document.addEventListener("DOMContentLoaded", () => {
       Object.entries(formData.industryExperience.managerial || {}).forEach(([industry, expLevel]) => {
         if (expLevel) {
           const managerialInfo = managerialExp.find((exp) => exp.level === expLevel)
-          if (managerialInfo && !result.disqualifiedByEducation) {
-            result.rawScore += managerialInfo.points
-            result.experiencePoints += managerialInfo.points
+          if (managerialInfo) {
+            const points = managerialInfo.points * 0.7 // Reduced weight for experience
+            result.rawScore += points
+            result.experiencePoints += points
           }
         }
       })
@@ -1410,50 +1675,28 @@ document.addEventListener("DOMContentLoaded", () => {
     const hasMidLevelExperience = Object.keys(formData.industryExperience.midLevel || {}).length > 0
     const hasRankFileExperience = Object.keys(formData.industryExperience.rankFile || {}).length > 0
 
-    // Sort roles based on experience type
-    let sortedRoles
+    // Apply the new role matching logic
+    // Filter roles based on the experience level
+    let eligibleRoles = roleScores
 
     if (hasManagerialExperience) {
-      // For managerial experience: prioritize managerial roles at the top, then sort by score
-      sortedRoles = roleScores.sort((a, b) => {
-        // If one is managerial and the other isn't, the managerial one comes first
-        if (a.isManagerial && !b.isManagerial) return -1
-        if (!a.isManagerial && b.isManagerial) return 1
-
-        // If both are managerial or both are not, sort by score
-        return b.rawScore - a.rawScore
-      })
+      // For managerial experience: prioritize roles eligible for managerial level
+      eligibleRoles = roleScores.filter((role) => isEligibleForLevel(role.role, "managerial"))
     } else if (hasMidLevelExperience) {
-      // For mid-level experience: prioritize mid-level roles, then non-managerial, then managerial
-      const midLevelRoles = roleScores.filter((role) => role.isMidLevel)
-      const nonManagerialRoles = roleScores.filter((role) => !role.isManagerial && !role.isMidLevel)
-      const managerialRoles = roleScores.filter((role) => role.isManagerial)
-
-      // Sort each group by score
-      midLevelRoles.sort((a, b) => b.rawScore - a.rawScore)
-      nonManagerialRoles.sort((a, b) => b.rawScore - a.rawScore)
-      managerialRoles.sort((a, b) => b.rawScore - a.rawScore)
-
-      // Combine the groups with mid-level first
-      sortedRoles = [...midLevelRoles, ...nonManagerialRoles, ...managerialRoles]
+      // For mid-level experience: prioritize roles eligible for mid-level
+      eligibleRoles = roleScores.filter((role) => isEligibleForLevel(role.role, "midLevel"))
     } else if (hasRankFileExperience) {
-      // For rank and file experience: prioritize non-managerial roles for first and second positions
-      // First, separate managerial, mid-level, and non-managerial roles
-      const managerialRoles = roleScores.filter((role) => role.isManagerial)
-      const midLevelRoles = roleScores.filter((role) => role.isMidLevel)
-      const nonManagerialRoles = roleScores.filter((role) => !role.isManagerial && !role.isMidLevel)
-
-      // Sort all groups by score
-      managerialRoles.sort((a, b) => b.rawScore - a.rawScore)
-      midLevelRoles.sort((a, b) => b.rawScore - a.rawScore)
-      nonManagerialRoles.sort((a, b) => b.rawScore - a.rawScore)
-
-      // Take the top non-managerial roles first, then mid-level, then managerial roles
-      sortedRoles = [...nonManagerialRoles, ...midLevelRoles, ...managerialRoles]
-    } else {
-      // Default sorting by score if no experience selected
-      sortedRoles = roleScores.sort((a, b) => b.rawScore - a.rawScore)
+      // For rank-and-file experience: prioritize roles eligible for rank-and-file
+      eligibleRoles = roleScores.filter((role) => isEligibleForLevel(role.role, "rankFile"))
     }
+
+    // If no eligible roles found based on experience level, use all roles
+    if (eligibleRoles.length === 0) {
+      eligibleRoles = roleScores
+    }
+
+    // Sort roles by score
+    const sortedRoles = eligibleRoles.sort((a, b) => b.rawScore - a.rawScore)
 
     // Get top 3 roles
     const top3Matches = sortedRoles.slice(0, 3)
@@ -1505,7 +1748,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const experiencePoints = calculateTotalExperiencePoints()
 
     // Format education fields including "Others" input
-    let educationFields = formData.educationFields ? [...formData.educationFields] : []
+    const educationFields = formData.educationFields ? [...formData.educationFields] : []
 
     // Add custom education fields if they exist
     if (formData.educationOthersText && formData.education) {
@@ -1524,34 +1767,34 @@ document.addEventListener("DOMContentLoaded", () => {
     // Format results with detailed information for Google Sheets
     const role1 = matches[0]
       ? {
-        role: matches[0].role,
-        normalizedScore: matches[0].normalizedScore,
-        rawScore: matches[0].rawScore,
-        educationPoints: matches[0].educationPoints || 0,
-        experiencePoints: matches[0].experiencePoints || 0,
-        isManagerial: matches[0].isManagerial || false,
-        isMidLevel: matches[0].isMidLevel || false,
-      }
+          role: matches[0].role,
+          normalizedScore: matches[0].normalizedScore,
+          rawScore: matches[0].rawScore,
+          educationPoints: matches[0].educationPoints || 0,
+          experiencePoints: matches[0].experiencePoints || 0,
+          isManagerial: matches[0].isManagerial || false,
+          isMidLevel: matches[0].isMidLevel || false,
+        }
       : null
 
     const role2 = matches[1]
       ? {
-        role: matches[1].role,
-        normalizedScore: matches[1].normalizedScore,
-        rawScore: matches[1].rawScore,
-        isManagerial: matches[1].isManagerial || false,
-        isMidLevel: matches[1].isMidLevel || false,
-      }
+          role: matches[1].role,
+          normalizedScore: matches[1].normalizedScore,
+          rawScore: matches[1].rawScore,
+          isManagerial: matches[1].isManagerial || false,
+          isMidLevel: matches[1].isMidLevel || false,
+        }
       : null
 
     const role3 = matches[2]
       ? {
-        role: matches[2].role,
-        normalizedScore: matches[2].normalizedScore,
-        rawScore: matches[2].rawScore,
-        isManagerial: matches[2].isManagerial || false,
-        isMidLevel: matches[2].isMidLevel || false,
-      }
+          role: matches[2].role,
+          normalizedScore: matches[2].normalizedScore,
+          rawScore: matches[2].rawScore,
+          isManagerial: matches[2].isManagerial || false,
+          isMidLevel: matches[2].isMidLevel || false,
+        }
       : null
 
     // Create data object with all assessment details
@@ -1562,11 +1805,11 @@ document.addEventListener("DOMContentLoaded", () => {
       phone: formData.phone,
       education: formData.education,
       education_fields: (() => {
-        let educationFieldsText = formData.educationFields ? formData.educationFields.join(", ") : "";
+        let educationFieldsText = formData.educationFields ? formData.educationFields.join(", ") : ""
         if (formData.educationFields && formData.educationFields.includes("Other") && formData.otherEducationField) {
-          educationFieldsText = educationFieldsText.replace("Other", `Other (${formData.otherEducationField})`);
+          educationFieldsText = educationFieldsText.replace("Other", `Other (${formData.otherEducationField})`)
         }
-        return educationFieldsText;
+        return educationFieldsText
       })(),
       qualifications: Object.keys(formData.qualifications)
         .filter((q) => formData.qualifications[q])
@@ -1603,8 +1846,7 @@ document.addEventListener("DOMContentLoaded", () => {
     })
       .then(() => {
         console.log("Data submitted via fetch")
-        document.getElementById("submission-status").textContent =
-          ""
+        document.getElementById("submission-status").textContent = ""
 
         // Show thank you message
         setTimeout(() => {
@@ -1712,221 +1954,6 @@ document.addEventListener("DOMContentLoaded", () => {
     return formattedExperiences.join(", ")
   }
 
-  // Now modify the calculateRoleMatches function to use the total experience points
-  calculateRoleMatches = () => {
-    // Calculate total experience points
-    const experiencePoints = calculateTotalExperiencePoints()
-
-    // Calculate score for each role
-    const roleScores = Object.keys(roleData).map((role) => {
-      const roleInfo = roleData[role]
-      let totalPoints = 0
-      let maxPoints = 0
-
-      // Calculate qualifications score
-      if (roleQualifications[role]) {
-        roleQualifications[role].forEach((qualification) => {
-          if (formData.qualifications[qualification]) {
-            totalPoints += 3 // Points for having the qualification
-          }
-          maxPoints += 3 // Maximum possible points for this qualification
-        })
-      }
-
-      // Calculate technical skills score
-      if (roleTechnicalSkills[role]) {
-        roleTechnicalSkills[role].forEach((tech) => {
-          if (formData.technical[tech]) {
-            totalPoints += 2 // Points for having the technical skill
-          }
-          maxPoints += 2 // Maximum possible points for this technical skill
-        })
-      }
-
-      // Calculate industry experience score
-      if (roleInfo.industries) {
-        roleInfo.industries.forEach((ind) => {
-          // Check all three experience types
-          if (formData.industryExperience.rankFile[ind] || 
-              formData.industryExperience.midLevel[ind] || 
-              formData.industryExperience.managerial[ind]) {
-            totalPoints += 2
-          }
-          maxPoints += 2 // Maximum possible points for this industry
-        })
-      }
-
-      // Calculate raw score as a percentage
-      const rawScore = maxPoints > 0 ? (totalPoints / maxPoints) * 100 : 0
-
-      const result = {
-        role,
-        rawScore,
-        qualifications: roleQualifications[role] || [],
-        technicalSkills: roleTechnicalSkills[role] || [],
-        industries: roleInfo.industries || [],
-        isManagerial: isManagerialRole(role), // Add flag to identify managerial roles
-        isMidLevel: isMidLevelRole(role), // Add flag to identify mid-level roles
-      }
-
-      // Check for strict education field compliance
-      if (requiredEducationFields[role] && formData.educationFields) {
-        // Check if the candidate has all required education fields for this role
-        const hasAllRequiredFields = requiredEducationFields[role].every((field) =>
-          formData.educationFields.includes(field),
-        )
-
-        // If the candidate doesn't have all required fields, set score to 0
-        if (!hasAllRequiredFields) {
-          result.rawScore = 0
-          result.disqualifiedByEducation = true
-        }
-      }
-
-      // Add education points if available
-      if (formData.education) {
-        const educationInfo = educationData.find((edu) => edu.level === formData.education)
-        if (educationInfo) {
-          // Only add education points if not disqualified by education field requirements
-          if (!result.disqualifiedByEducation) {
-            result.rawScore += educationInfo.points
-            result.educationPoints = educationInfo.points
-          }
-        }
-      }
-
-      // Add experience points - use the total experience points instead of calculating per role
-      if (!result.disqualifiedByEducation) {
-        // For managerial roles, prioritize managerial experience points
-        if (isManagerialRole(role)) {
-          // If they have managerial experience, use that, otherwise use mid-level or rank file experience
-          if (experiencePoints.managerialPoints > 0) {
-            result.rawScore += experiencePoints.managerialPoints
-            result.experiencePoints = experiencePoints.managerialPoints
-          } else if (experiencePoints.midLevelPoints > 0) {
-            result.rawScore += experiencePoints.midLevelPoints
-            result.experiencePoints = experiencePoints.midLevelPoints
-          } else {
-            result.rawScore += experiencePoints.rankPoints
-            result.experiencePoints = experiencePoints.rankPoints
-          }
-        } 
-        // For mid-level roles, prioritize mid-level experience points
-        else if (isMidLevelRole(role)) {
-          // If they have mid-level experience, use that, otherwise use rank file or managerial experience
-          if (experiencePoints.midLevelPoints > 0) {
-            result.rawScore += experiencePoints.midLevelPoints
-            result.experiencePoints = experiencePoints.midLevelPoints
-          } else if (experiencePoints.rankPoints > 0) {
-            result.rawScore += experiencePoints.rankPoints
-            result.experiencePoints = experiencePoints.rankPoints
-          } else {
-            result.rawScore += experiencePoints.managerialPoints
-            result.experiencePoints = experiencePoints.managerialPoints
-          }
-        }
-        // For non-managerial roles, use rank file experience points if available
-        else {
-          if (experiencePoints.rankPoints > 0) {
-            result.rawScore += experiencePoints.rankPoints
-            result.experiencePoints = experiencePoints.rankPoints
-          } else if (experiencePoints.midLevelPoints > 0) {
-            result.rawScore += experiencePoints.midLevelPoints
-            result.experiencePoints = experiencePoints.midLevelPoints
-          } else {
-            result.rawScore += experiencePoints.managerialPoints
-            result.experiencePoints = experiencePoints.managerialPoints
-          }
-        }
-      }
-
-      return result
-    })
-
-    // Check if applicant has different types of experience
-    const hasManagerialExperience = experiencePoints.managerialPoints > 0
-    const hasMidLevelExperience = experiencePoints.midLevelPoints > 0
-    const hasRankFileExperience = experiencePoints.rankPoints > 0
-
-    // Sort roles based on experience type
-    let sortedRoles
-
-    if (hasManagerialExperience) {
-      // For managerial experience: prioritize managerial roles at the top, then sort by score
-      sortedRoles = roleScores.sort((a, b) => {
-        // If one is managerial and the other isn't, the managerial one comes first
-        if (a.isManagerial && !b.isManagerial) return -1
-        if (!a.isManagerial && b.isManagerial) return 1
-
-        // If both are managerial or both are not, sort by score
-        return b.rawScore - a.rawScore
-      })
-    } else if (hasMidLevelExperience) {
-      // For mid-level experience: prioritize mid-level roles, then non-managerial, then managerial
-      const midLevelRoles = roleScores.filter((role) => role.isMidLevel)
-      const nonManagerialRoles = roleScores.filter((role) => !role.isManagerial && !role.isMidLevel)
-      const managerialRoles = roleScores.filter((role) => role.isManagerial)
-
-      // Sort each group by score
-      midLevelRoles.sort((a, b) => b.rawScore - a.rawScore)
-      nonManagerialRoles.sort((a, b) => b.rawScore - a.rawScore)
-      managerialRoles.sort((a, b) => b.rawScore - a.rawScore)
-
-      // Combine the groups with mid-level first
-      sortedRoles = [...midLevelRoles, ...nonManagerialRoles, ...managerialRoles]
-    } else if (hasRankFileExperience) {
-      // For rank and file experience: prioritize non-managerial roles for first and second positions
-      // First, separate managerial, mid-level, and non-managerial roles
-      const managerialRoles = roleScores.filter((role) => role.isManagerial)
-      const midLevelRoles = roleScores.filter((role) => role.isMidLevel)
-      const nonManagerialRoles = roleScores.filter((role) => !role.isManagerial && !role.isMidLevel)
-
-      // Sort all groups by score
-      managerialRoles.sort((a, b) => b.rawScore - a.rawScore)
-      midLevelRoles.sort((a, b) => b.rawScore - a.rawScore)
-      nonManagerialRoles.sort((a, b) => b.rawScore - a.rawScore)
-
-      // Take the top non-managerial roles first, then mid-level, then managerial roles
-      sortedRoles = [...nonManagerialRoles, ...midLevelRoles, ...managerialRoles]
-    } else {
-      // Default sorting by score if no experience selected
-      sortedRoles = roleScores.sort((a, b) => b.rawScore - a.rawScore)
-    }
-
-    // Get top 3 roles
-    const top3Matches = sortedRoles.slice(0, 3)
-
-    // Calculate the sum of the top 3 raw scores
-    const totalRawScore = top3Matches.reduce((sum, match) => sum + match.rawScore, 0)
-
-    // Normalize scores to make them add up to 100%
-    if (totalRawScore > 0) {
-      // First pass: calculate initial normalized scores
-      let totalNormalizedScore = 0
-      top3Matches.forEach((match) => {
-        match.normalizedScore = Math.round((match.rawScore / totalRawScore) * 100)
-        totalNormalizedScore += match.normalizedScore
-      })
-
-      // Second pass: adjust if total doesn't equal 100%
-      if (totalNormalizedScore !== 100 && top3Matches.length > 0) {
-        // Add or subtract the difference from the highest scoring match
-        top3Matches.sort((a, b) => b.rawScore - a.rawScore)
-        top3Matches[0].normalizedScore += 100 - totalNormalizedScore
-      }
-    } else {
-      // If all scores are 0, distribute evenly
-      const evenScore = Math.floor(100 / top3Matches.length)
-      const remainder = 100 - evenScore * top3Matches.length
-
-      top3Matches.forEach((match, index) => {
-        match.normalizedScore = evenScore + (index === 0 ? remainder : 0)
-      })
-    }
-
-    return top3Matches
-  }
-
   // Format industry experience in the required format: "Technology (SaaS): 3-4 yrs (Managerial), Healthcare: 5+ yrs (Rank)"
   formatIndustryExperience = () => {
     const formattedExperiences = []
@@ -1955,7 +1982,148 @@ document.addEventListener("DOMContentLoaded", () => {
     return formattedExperiences.join(", ")
   }
 
-  // Initialization Functions
+  //education Options
+  function initializeEducationOptions() {
+    const educationContainer = document.getElementById("education-options")
+    educationContainer.innerHTML = ""
+
+    let activeCategory = null
+
+    educationData.forEach((education, index) => {
+      const categoryDiv = document.createElement("div")
+      categoryDiv.className = "category"
+      categoryDiv.dataset.category = education.level
+
+      const categoryTitle = document.createElement("h3")
+      categoryTitle.className = "category-title"
+      categoryTitle.textContent = education.level
+
+      const categoryItems = document.createElement("div")
+      categoryItems.className = "education-items"
+
+      const fieldsGrid = document.createElement("div")
+      fieldsGrid.className = "education-grid"
+
+      education.fields.forEach((field, fieldIndex) => {
+        const checkboxItem = document.createElement("div")
+        checkboxItem.className = "checkbox-item"
+
+        const input = document.createElement("input")
+        input.type = "checkbox"
+        input.id = `field-${index}-${fieldIndex}`
+        input.name = `education-field-${index}`
+        input.value = field
+
+        const label = document.createElement("label")
+        label.htmlFor = `field-${index}-${fieldIndex}`
+        label.textContent = field
+
+        input.addEventListener("change", () => {
+          if (!formData.educationFields) {
+            formData.educationFields = []
+          }
+
+          if (input.checked) {
+            if (!formData.educationFields.includes(field)) {
+              formData.educationFields.push(field)
+            }
+
+            if (field === "Other") {
+              const otherInputContainer = categoryDiv.querySelector(".other-input-container")
+              if (otherInputContainer) {
+                otherInputContainer.classList.remove("hidden")
+              }
+            }
+          } else {
+            formData.educationFields = formData.educationFields.filter((f) => f !== field)
+
+            if (field === "Other") {
+              const otherInputContainer = categoryDiv.querySelector(".other-input-container")
+              if (otherInputContainer) {
+                otherInputContainer.classList.add("hidden")
+                otherInputContainer.querySelector("input").value = ""
+                if (formData.otherEducationField) {
+                  delete formData.otherEducationField
+                }
+              }
+            }
+          }
+        })
+
+        checkboxItem.appendChild(input)
+        checkboxItem.appendChild(label)
+        fieldsGrid.appendChild(checkboxItem)
+      })
+
+      categoryItems.appendChild(fieldsGrid)
+
+      // Add custom input field for "Other" option
+      const otherInputContainer = document.createElement("div")
+      otherInputContainer.className = "other-input-container hidden"
+      otherInputContainer.innerHTML = `
+        <label for="other-field-${index}">Please specify your field of study:</label>
+        <input type="text" id="other-field-${index}" class="other-field-input" placeholder="Enter your field of study">
+      `
+
+      // Add input event listener to update formData
+      const otherInput = otherInputContainer.querySelector("input")
+      otherInput.addEventListener("input", (e) => {
+        formData.otherEducationField = e.target.value
+        // Remove error styling when user starts typing
+        if (e.target.value.trim() !== "") {
+          e.target.style.border = ""
+          const errorElement = document.getElementById("education-error")
+          if (errorElement) {
+            errorElement.classList.add("hidden")
+          }
+        }
+      })
+
+      categoryItems.appendChild(otherInputContainer)
+
+      // Hidden radio button for education level
+      const hiddenRadio = document.createElement("input")
+      hiddenRadio.type = "radio"
+      hiddenRadio.id = `education-${index}`
+      hiddenRadio.name = "education"
+      hiddenRadio.value = education.level
+      hiddenRadio.style.display = "none"
+      categoryItems.appendChild(hiddenRadio)
+
+      categoryTitle.addEventListener("click", () => {
+        if (activeCategory && activeCategory !== categoryDiv) {
+          activeCategory.classList.remove("active")
+          activeCategory.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
+            checkbox.checked = false
+          })
+          const otherContainer = activeCategory.querySelector(".other-input-container")
+          if (otherContainer) {
+            otherContainer.classList.add("hidden")
+            otherContainer.querySelector("input").value = ""
+          }
+          if (formData.otherEducationField) {
+            delete formData.otherEducationField
+          }
+        }
+
+        categoryDiv.classList.toggle("active")
+        activeCategory = categoryDiv.classList.contains("active") ? categoryDiv : null
+
+        if (categoryDiv.classList.contains("active")) {
+          hiddenRadio.checked = true
+          formData.education = education.level
+          formData.educationPoints = education.points
+          formData.educationFields = []
+        }
+      })
+
+      categoryDiv.appendChild(categoryTitle)
+      categoryDiv.appendChild(categoryItems)
+      educationContainer.appendChild(categoryDiv)
+    })
+  }
+
+  // Initialize form elements
   function initializeQualifications() {
     const qualificationsContainer = document.getElementById("qualifications-container")
     qualificationsContainer.innerHTML = ""
@@ -2058,110 +2226,122 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Industry Experience
   function initializeIndustryExperience() {
-    const tabContent = document.getElementById("industry-experience-tab");
-  
+    const tabContent = document.getElementById("industry-experience-tab")
+
     // Create container for all experience types
-    const experienceContainer = document.createElement("div");
-    experienceContainer.className = "experience-container";
-  
+    const experienceContainer = document.createElement("div")
+    experienceContainer.className = "experience-container"
+
     // Add Rank & File section
-    const rankFileSection = createExperienceSection("Rank-and-File (Entry-Level Roles)", "rank-file-experience", experienceData);
-    experienceContainer.appendChild(rankFileSection);
-  
+    const rankFileSection = createExperienceSection(
+      "Rank-and-File (Entry-Level Roles)",
+      "rank-file-experience",
+      experienceData,
+    )
+    experienceContainer.appendChild(rankFileSection)
+
     // Add Mid-Level section
-    const midLevelSection = createExperienceSection("Mid-Level (Quality Assurance Analysts, Production Specialist and Specialized Roles)", "mid-level-experience", midLevelExp);
-    experienceContainer.appendChild(midLevelSection);
-  
+    const midLevelSection = createExperienceSection(
+      "Mid-Level (Quality Assurance Analysts, Production Specialist and Specialized Roles)",
+      "mid-level-experience",
+      midLevelExp,
+    )
+    experienceContainer.appendChild(midLevelSection)
+
     // Add Managerial section
-    const managerialSection = createExperienceSection("Managerial (Including Supervisory and Coordinator Roles)", "managerial-experience", managerialExp);
-    experienceContainer.appendChild(managerialSection);
-  
+    const managerialSection = createExperienceSection(
+      "Managerial (Including Supervisory and Coordinator Roles)",
+      "managerial-experience",
+      managerialExp,
+    )
+    experienceContainer.appendChild(managerialSection)
+
     // Clear existing content and add our new structure
-    tabContent.innerHTML = "";
-  
+    tabContent.innerHTML = ""
+
     // Add tab header
-    const tabHeader = document.createElement("div");
-    tabHeader.className = "tab-header";
+    const tabHeader = document.createElement("div")
+    tabHeader.className = "tab-header"
     tabHeader.innerHTML = `
       <h2><i class="fas fa-industry"></i> Industry & Experience</h2>
       <p>Select your industry experience for rank and file, mid-level, and managerial roles</p>
-    `;
-    tabContent.appendChild(tabHeader);
-    tabContent.appendChild(experienceContainer);
-  
+    `
+    tabContent.appendChild(tabHeader)
+    tabContent.appendChild(experienceContainer)
+
     // Initialize all cards
-    initIndustryExperienceCard("rank-file-experience", experienceData);
-    initIndustryExperienceCard("mid-level-experience", midLevelExp);
-    initIndustryExperienceCard("managerial-experience", managerialExp);
-  
+    initIndustryExperienceCard("rank-file-experience", experienceData)
+    initIndustryExperienceCard("mid-level-experience", midLevelExp)
+    initIndustryExperienceCard("managerial-experience", managerialExp)
+
     // Add error message container for industry experience tab
-    const errorElement = document.createElement("div");
-    errorElement.id = "industry-experience-error";
-    errorElement.className = "error-message hidden";
-    errorElement.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please select at least one industry.';
-    tabContent.appendChild(errorElement);
+    const errorElement = document.createElement("div")
+    errorElement.id = "industry-experience-error"
+    errorElement.className = "error-message hidden"
+    errorElement.innerHTML = '<i class="fas fa-exclamation-circle"></i> Please select at least one industry.'
+    tabContent.appendChild(errorElement)
   }
-  
+
   function createExperienceSection(title, containerId, experienceLevels) {
-    const section = document.createElement("div");
-    section.className = "experience-section";
-  
-    const sectionHeader = document.createElement("div");
-    sectionHeader.className = "section-header";
-  
-    const sectionTitle = document.createElement("h3");
-    sectionTitle.className = "experience-section-title";
-  
+    const section = document.createElement("div")
+    section.className = "experience-section"
+
+    const sectionHeader = document.createElement("div")
+    sectionHeader.className = "section-header"
+
+    const sectionTitle = document.createElement("h3")
+    sectionTitle.className = "experience-section-title"
+
     // Split title into bold and normal parts
-    const match = title.match(/^(.+?)\s*(\(.+\))$/);
+    const match = title.match(/^(.+?)\s*($$.+$$)$/)
     if (match) {
-      const boldSpan = document.createElement("span");
-      boldSpan.textContent = match[1];
-      boldSpan.style.fontWeight = "bold";
-  
-      const normalSpan = document.createElement("span");
-      normalSpan.textContent = ` ${match[2]}`;
-      normalSpan.style.fontWeight = "normal";
-  
-      sectionTitle.appendChild(boldSpan);
-      sectionTitle.appendChild(normalSpan);
+      const boldSpan = document.createElement("span")
+      boldSpan.textContent = match[1]
+      boldSpan.style.fontWeight = "bold"
+
+      const normalSpan = document.createElement("span")
+      normalSpan.textContent = ` ${match[2]}`
+      normalSpan.style.fontWeight = "normal"
+
+      sectionTitle.appendChild(boldSpan)
+      sectionTitle.appendChild(normalSpan)
     } else {
-      sectionTitle.textContent = title;
+      sectionTitle.textContent = title
     }
-  
-    sectionHeader.appendChild(sectionTitle);
-  
+
+    sectionHeader.appendChild(sectionTitle)
+
     // Add collapse toggle button
-    const toggleBtn = document.createElement("button");
-    toggleBtn.className = "toggle-section";
-    toggleBtn.innerHTML = '<i class="fas fa-chevron-down"></i>';
-    sectionHeader.appendChild(toggleBtn);
-    section.appendChild(sectionHeader);
-  
+    const toggleBtn = document.createElement("button")
+    toggleBtn.className = "toggle-section"
+    toggleBtn.innerHTML = '<i class="fas fa-chevron-down"></i>'
+    sectionHeader.appendChild(toggleBtn)
+    section.appendChild(sectionHeader)
+
     // Collapsible content container
-    const sectionContent = document.createElement("div");
-    sectionContent.className = "section-content collapsed";
-  
-    const selectorContainer = document.createElement("div");
-    selectorContainer.className = "industry-selector-container";
-  
-    const dropdownContainer = document.createElement("div");
-    dropdownContainer.className = "industry-dropdown-container";
-  
-    const label = document.createElement("label");
-    label.textContent = "Select Industries:";
-    dropdownContainer.appendChild(label);
-  
-    const dropdownTrigger = document.createElement("button");
-    dropdownTrigger.className = "dropdown-trigger";
+    const sectionContent = document.createElement("div")
+    sectionContent.className = "section-content collapsed"
+
+    const selectorContainer = document.createElement("div")
+    selectorContainer.className = "industry-selector-container"
+
+    const dropdownContainer = document.createElement("div")
+    dropdownContainer.className = "industry-dropdown-container"
+
+    const label = document.createElement("label")
+    label.textContent = "Select Industries:"
+    dropdownContainer.appendChild(label)
+
+    const dropdownTrigger = document.createElement("button")
+    dropdownTrigger.className = "dropdown-trigger"
     dropdownTrigger.innerHTML = `
       <span class="trigger-text">Choose industries</span>
       <i class="fas fa-chevron-down"></i>
-    `;
-    dropdownContainer.appendChild(dropdownTrigger);
-  
-    const dropdownContent = document.createElement("div");
-    dropdownContent.className = "dropdown-content";
+    `
+    dropdownContainer.appendChild(dropdownTrigger)
+
+    const dropdownContent = document.createElement("div")
+    dropdownContent.className = "dropdown-content"
     dropdownContent.innerHTML = `
       <div class="dropdown-header">
         <h4>Select Industries</h4>
@@ -2171,92 +2351,91 @@ document.addEventListener("DOMContentLoaded", () => {
         <input type="text" class="industry-search" placeholder="Search industries...">
         <div class="options-list"></div>
       </div>
-    `;
-    dropdownContainer.appendChild(dropdownContent);
-  
-    dropdownTrigger.dropdownContent = dropdownContent;
-    dropdownContent.dataset.containerId = containerId;
-  
+    `
+    dropdownContainer.appendChild(dropdownContent)
+
+    dropdownTrigger.dropdownContent = dropdownContent
+    dropdownContent.dataset.containerId = containerId
+
     dropdownTrigger.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const rect = dropdownTrigger.getBoundingClientRect();
-      dropdownContent.style.position = "absolute";
-      dropdownContent.style.top = "100%";
-      dropdownContent.style.left = "0";
-      dropdownContent.style.width = "100%";
-      dropdownContent.style.zIndex = "1000";
-      dropdownContent.classList.add("active");
-  
+      e.stopPropagation()
+      const rect = dropdownTrigger.getBoundingClientRect()
+      dropdownContent.style.position = "absolute"
+      dropdownContent.style.top = "100%"
+      dropdownContent.style.left = "0"
+      dropdownContent.style.width = "100%"
+      dropdownContent.style.zIndex = "1000"
+      dropdownContent.classList.add("active")
+
       setTimeout(() => {
-        dropdownContent.querySelector(".industry-search").focus();
-      }, 100);
-    });
-  
+        dropdownContent.querySelector(".industry-search").focus()
+      }, 100)
+    })
+
     dropdownContent.querySelector(".close-dropdown").addEventListener("click", (e) => {
-      e.stopPropagation();
-      dropdownContent.classList.remove("active");
-    });
-  
+      e.stopPropagation()
+      dropdownContent.classList.remove("active")
+    })
+
     document.addEventListener("click", (e) => {
       if (!dropdownContent.contains(e.target) && e.target !== dropdownTrigger) {
-        dropdownContent.classList.remove("active");
+        dropdownContent.classList.remove("active")
       }
-    });
-  
+    })
+
     dropdownContent.querySelector(".industry-search").addEventListener("input", (e) => {
-      const value = e.target.value.toLowerCase();
-      const options = dropdownContent.querySelectorAll(".industry-option");
-  
+      const value = e.target.value.toLowerCase()
+      const options = dropdownContent.querySelectorAll(".industry-option")
+
       options.forEach((option) => {
-        const text = option.textContent.toLowerCase();
-        option.style.display = text.includes(value) ? "flex" : "none";
-      });
-    });
-  
-    const selectedIndustries = document.createElement("div");
-    selectedIndustries.className = "selected-industries";
-  
-    selectorContainer.appendChild(dropdownContainer);
-    selectorContainer.appendChild(selectedIndustries);
-    sectionContent.appendChild(selectorContainer);
-  
-    const experienceCardsContainer = document.createElement("div");
-    experienceCardsContainer.id = containerId;
-    experienceCardsContainer.className = "experience-cards-container";
-    sectionContent.appendChild(experienceCardsContainer);
-  
-    section.appendChild(sectionContent);
-  
-    const emptyState = document.createElement("div");
-    emptyState.className = "empty-state";
+        const text = option.textContent.toLowerCase()
+        option.style.display = text.includes(value) ? "flex" : "none"
+      })
+    })
+
+    const selectedIndustries = document.createElement("div")
+    selectedIndustries.className = "selected-industries"
+
+    selectorContainer.appendChild(dropdownContainer)
+    selectorContainer.appendChild(selectedIndustries)
+    sectionContent.appendChild(selectorContainer)
+
+    const experienceCardsContainer = document.createElement("div")
+    experienceCardsContainer.id = containerId
+    experienceCardsContainer.className = "experience-cards-container"
+    sectionContent.appendChild(experienceCardsContainer)
+
+    section.appendChild(sectionContent)
+
+    const emptyState = document.createElement("div")
+    emptyState.className = "empty-state"
     emptyState.innerHTML = `
       <i class="fas fa-info-circle"></i>
       <p>No industries selected. Choose industries from the dropdown above.</p>
-    `;
-    experienceCardsContainer.appendChild(emptyState);
-  
+    `
+    experienceCardsContainer.appendChild(emptyState)
+
     toggleBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const content = section.querySelector(".section-content");
-      content.classList.toggle("collapsed");
-      const icon = toggleBtn.querySelector("i");
-      icon.classList.toggle("fa-chevron-up");
-      icon.classList.toggle("fa-chevron-down");
-    });
-  
+      e.stopPropagation()
+      const content = section.querySelector(".section-content")
+      content.classList.toggle("collapsed")
+      const icon = toggleBtn.querySelector("i")
+      icon.classList.toggle("fa-chevron-up")
+      icon.classList.toggle("fa-chevron-down")
+    })
+
     sectionHeader.addEventListener("click", (e) => {
-      if (e.target === toggleBtn || e.target.closest(".toggle-section")) return;
-  
-      const content = section.querySelector(".section-content");
-      content.classList.toggle("collapsed");
-      const icon = toggleBtn.querySelector("i");
-      icon.classList.toggle("fa-chevron-up");
-      icon.classList.toggle("fa-chevron-down");
-    });
-  
-    return section;
+      if (e.target === toggleBtn || e.target.closest(".toggle-section")) return
+
+      const content = section.querySelector(".section-content")
+      content.classList.toggle("collapsed")
+      const icon = toggleBtn.querySelector("i")
+      icon.classList.toggle("fa-chevron-up")
+      icon.classList.toggle("fa-chevron-down")
+    })
+
+    return section
   }
-  
 
   // Modify the updateCardsLayout function to handle the empty state message
   let updateCardsLayout = (container) => {
@@ -2422,7 +2601,9 @@ document.addEventListener("DOMContentLoaded", () => {
           } else {
             formData.industryExperience.rankFile[industry] = radio.value
           }
-          console.log(`Updated ${isManagerial ? "Managerial" : (isMidLevel ? "Mid-Level" : "Rank File")} experience for ${industry}: ${radio.value}`)
+          console.log(
+            `Updated ${isManagerial ? "Managerial" : isMidLevel ? "Mid-Level" : "Rank File"} experience for ${industry}: ${radio.value}`,
+          )
           console.log("Current formData:", formData)
 
           // Remove error highlighting when experience is selected
@@ -2456,65 +2637,64 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Find the validateIndustryExperience function and replace it with this improved version
   function validateIndustryExperience() {
-    const errorElement = document.getElementById("industry-experience-error");
-  
-    const rankFileContainer = document.getElementById("rank-file-experience");
-    const midLevelContainer = document.getElementById("mid-level-experience");
-    const managerialContainer = document.getElementById("managerial-experience");
-  
-    const rankFileCards = rankFileContainer ? rankFileContainer.querySelectorAll(".experience-card") : [];
-    const midLevelCards = midLevelContainer ? midLevelContainer.querySelectorAll(".experience-card") : [];
-    const managerialCards = managerialContainer ? managerialContainer.querySelectorAll(".experience-card") : [];
-  
+    const errorElement = document.getElementById("industry-experience-error")
+
+    const rankFileContainer = document.getElementById("rank-file-experience")
+    const midLevelContainer = document.getElementById("mid-level-experience")
+    const managerialContainer = document.getElementById("managerial-experience")
+
+    const rankFileCards = rankFileContainer ? rankFileContainer.querySelectorAll(".experience-card") : []
+    const midLevelCards = midLevelContainer ? midLevelContainer.querySelectorAll(".experience-card") : []
+    const managerialCards = managerialContainer ? managerialContainer.querySelectorAll(".experience-card") : []
+
     if (rankFileCards.length === 0 && midLevelCards.length === 0 && managerialCards.length === 0) {
       if (errorElement) {
-        errorElement.textContent = "Please select at least one industry.";
-        errorElement.classList.remove("hidden");
+        errorElement.textContent = "Please select at least one industry."
+        errorElement.classList.remove("hidden")
       }
-      return false;
+      return false
     }
-  
-    let missingExperience = false;
-    let firstMissingCard = null;
-  
+
+    let missingExperience = false
+    let firstMissingCard = null
+
     const checkCards = (cards) => {
       cards.forEach((card) => {
-        const radioChecked = card.querySelector('input[type="radio"]:checked');
+        const radioChecked = card.querySelector('input[type="radio"]:checked')
         if (!radioChecked) {
           if (!firstMissingCard) {
-            firstMissingCard = card;
+            firstMissingCard = card
           }
-          missingExperience = true;
-          card.style.border = "2px solid #ef4444";
+          missingExperience = true
+          card.style.border = "2px solid #ef4444"
         } else {
-          card.style.border = "";
+          card.style.border = ""
         }
-      });
-    };
-  
-    checkCards(rankFileCards);
-    checkCards(midLevelCards);
-    checkCards(managerialCards);
-  
+      })
+    }
+
+    checkCards(rankFileCards)
+    checkCards(midLevelCards)
+    checkCards(managerialCards)
+
     if (missingExperience) {
       if (errorElement) {
-        errorElement.textContent = "Please select experience level for each selected industry.";
-        errorElement.classList.remove("hidden");
+        errorElement.textContent = "Please select experience level for each selected industry."
+        errorElement.classList.remove("hidden")
       }
-  
+
       if (firstMissingCard) {
-        firstMissingCard.scrollIntoView({ behavior: "smooth", block: "center" });
+        firstMissingCard.scrollIntoView({ behavior: "smooth", block: "center" })
       }
-  
-      return false;
+
+      return false
     } else {
       if (errorElement) {
-        errorElement.classList.add("hidden");
+        errorElement.classList.add("hidden")
       }
-      return true;
+      return true
     }
   }
-  
 
   updateCardsLayout = (container) => {
     const cards = Array.from(container.children)
@@ -2595,146 +2775,5 @@ document.addEventListener("DOMContentLoaded", () => {
       moreBadge.textContent = `+${checkboxes.length - displayLimit} more`
       container.appendChild(moreBadge)
     }
-  }
-
-  //education Options
-  function initializeEducationOptions() {
-    const educationContainer = document.getElementById("education-options");
-    educationContainer.innerHTML = "";
-  
-    let activeCategory = null;
-  
-    educationData.forEach((education, index) => {
-      const categoryDiv = document.createElement("div");
-      categoryDiv.className = "category";
-      categoryDiv.dataset.category = education.level;
-  
-      const categoryTitle = document.createElement("h3");
-      categoryTitle.className = "category-title";
-      categoryTitle.textContent = education.level;
-  
-      const categoryItems = document.createElement("div");
-      categoryItems.className = "education-items";
-  
-      const fieldsGrid = document.createElement("div");
-      fieldsGrid.className = "education-grid";
-  
-      education.fields.forEach((field, fieldIndex) => {
-        const checkboxItem = document.createElement("div");
-        checkboxItem.className = "checkbox-item";
-  
-        const input = document.createElement("input");
-        input.type = "checkbox";
-        input.id = `field-${index}-${fieldIndex}`;
-        input.name = `education-field-${index}`;
-        input.value = field;
-  
-        const label = document.createElement("label");
-        label.htmlFor = `field-${index}-${fieldIndex}`;
-        label.textContent = field;
-  
-        input.addEventListener("change", () => {
-          if (!formData.educationFields) {
-            formData.educationFields = [];
-          }
-  
-          if (input.checked) {
-            if (!formData.educationFields.includes(field)) {
-              formData.educationFields.push(field);
-            }
-  
-            if (field === "Other") {
-              const otherInputContainer = categoryDiv.querySelector('.other-input-container');
-              if (otherInputContainer) {
-                otherInputContainer.classList.remove('hidden');
-              }
-            }
-          } else {
-            formData.educationFields = formData.educationFields.filter((f) => f !== field);
-  
-            if (field === "Other") {
-              const otherInputContainer = categoryDiv.querySelector('.other-input-container');
-              if (otherInputContainer) {
-                otherInputContainer.classList.add('hidden');
-                otherInputContainer.querySelector('input').value = '';
-                if (formData.otherEducationField) {
-                  delete formData.otherEducationField;
-                }
-              }
-            }
-          }
-        });
-  
-        checkboxItem.appendChild(input);
-        checkboxItem.appendChild(label);
-        fieldsGrid.appendChild(checkboxItem);
-      });
-  
-      categoryItems.appendChild(fieldsGrid);
-  
-      // Add custom input field for "Other" option
-      const otherInputContainer = document.createElement("div");
-      otherInputContainer.className = "other-input-container hidden";
-      otherInputContainer.innerHTML = `
-        <label for="other-field-${index}">Please specify your field of study:</label>
-        <input type="text" id="other-field-${index}" class="other-field-input" placeholder="Enter your field of study">
-      `;
-  
-      // Add input event listener to update formData
-      const otherInput = otherInputContainer.querySelector('input');
-      otherInput.addEventListener('input', (e) => {
-        formData.otherEducationField = e.target.value;
-        // Remove error styling when user starts typing
-        if (e.target.value.trim() !== "") {
-          e.target.style.border = "";
-          const errorElement = document.getElementById("education-error");
-          if (errorElement) {
-            errorElement.classList.add("hidden");
-          }
-        }
-      });
-  
-      categoryItems.appendChild(otherInputContainer);
-  
-      // Hidden radio button for education level
-      const hiddenRadio = document.createElement("input");
-      hiddenRadio.type = "radio";
-      hiddenRadio.id = `education-${index}`;
-      hiddenRadio.name = "education";
-      hiddenRadio.value = education.level;
-      hiddenRadio.style.display = "none";
-      categoryItems.appendChild(hiddenRadio);
-  
-      categoryTitle.addEventListener("click", () => {
-        if (activeCategory && activeCategory !== categoryDiv) {
-          activeCategory.classList.remove("active");
-          activeCategory.querySelectorAll('input[type="checkbox"]').forEach((checkbox) => {
-            checkbox.checked = false;
-          });
-          const otherContainer = activeCategory.querySelector('.other-input-container');
-          if (otherContainer) {
-            otherContainer.classList.add('hidden');
-            otherContainer.querySelector('input').value = '';
-          }
-          if (formData.otherEducationField) {
-            delete formData.otherEducationField;
-          }
-        }
-  
-        categoryDiv.classList.toggle("active");
-        activeCategory = categoryDiv.classList.contains("active") ? categoryDiv : null;
-  
-        if (categoryDiv.classList.contains("active")) {
-          hiddenRadio.checked = true;
-          formData.education = education.level;
-          formData.educationPoints = education.points;
-          formData.educationFields = [];
-        }
-      });
-  
-      categoryDiv.appendChild(categoryTitle);
-      categoryDiv.appendChild(categoryItems);
-      educationContainer.appendChild(categoryDiv);
-    });
   }
 })
