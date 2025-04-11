@@ -1346,30 +1346,31 @@ const managerialPositions = [
         completedTabs.education = isValid
         break
 
-      case "qualifications":
-        const qualificationCheckboxes = document.querySelectorAll('input[name^="qualification-"]:checked')
-        const qualificationsSelected = qualificationCheckboxes.length > 0
-
-        formData.qualifications = {}
-        qualificationCheckboxes.forEach((checkbox) => {
-          formData.qualifications[checkbox.value] = true
-        })
-
-        if (!qualificationsSelected) {
-          if (errorElement) {
-            errorElement.textContent = "Please select at least one qualification."
-            errorElement.classList.remove("hidden")
+        case "qualifications":
+          const qualificationCheckboxes = document.querySelectorAll('input[type="checkbox"][name^="qualification-"]:checked')
+          const qualificationsSelected = qualificationCheckboxes.length > 0
+      
+          formData.qualifications = {}
+          qualificationCheckboxes.forEach((checkbox) => {
+              formData.qualifications[checkbox.value] = true
+          })
+      
+          if (!qualificationsSelected) {
+              if (errorElement) {
+                  errorElement.textContent = "Please select at least one qualification."
+                  errorElement.classList.remove("hidden")
+              }
+              isValid = false
+          } else {
+              if (errorElement) {
+                  errorElement.classList.add("hidden")
+              }
           }
-          isValid = false
-        } else {
-          if (errorElement) {
-            errorElement.classList.add("hidden")
-          }
-        }
+      
+          completedTabs.qualifications = isValid
+          break
 
-        completedTabs.qualifications = isValid
-        break
-
+      
       case "technical":
         const technicalCheckboxes = document.querySelectorAll('input[name^="technical-"]:checked')
         const technicalSelected = technicalCheckboxes.length > 0
@@ -1418,19 +1419,19 @@ const managerialPositions = [
         // Add friendly error messages
         switch (tabName) {
           case "applicant":
-            errorMessages.push("• Applicant Information: Please complete all required fields")
+            errorMessages.push("Applicant Information: Please complete all required fields")
             break
           case "education":
-            errorMessages.push("• Education: Please select your education level and field(s) of study")
+            errorMessages.push("Education: Please select your education level and field(s) of study")
             break
           case "qualifications":
-            errorMessages.push("• Qualifications: Please select at least one qualification")
+            errorMessages.push("Qualifications: Please select at least one qualification")
             break
           case "technical":
-            errorMessages.push("• Technical Skills: Please select at least one technical skill")
+            errorMessages.push("Technical Skills: Please select at least one technical skill")
             break
           case "industry-experience":
-            errorMessages.push("• Industry Experience: Please select at least one industry and experience level")
+            errorMessages.push("Industry Experience: Please select at least one industry and experience level")
             break
         }
       }
@@ -2129,50 +2130,53 @@ const managerialPositions = [
     qualificationsContainer.innerHTML = ""
 
     Object.entries(qualificationCategories).forEach(([category, qualifications]) => {
-      const categoryDiv = document.createElement("div")
-      categoryDiv.className = "category"
+        const categoryDiv = document.createElement("div")
+        categoryDiv.className = "category"
 
-      const categoryTitle = document.createElement("h3")
-      categoryTitle.className = "category-title"
-      categoryTitle.textContent = category
+        const categoryTitle = document.createElement("h3")
+        categoryTitle.className = "category-title"
+        categoryTitle.textContent = category
 
-      const categoryItems = document.createElement("div")
-      categoryItems.className = "category-items"
+        const categoryItems = document.createElement("div")
+        categoryItems.className = "category-items"
 
-      qualifications.forEach((qualification) => {
-        const checkboxItem = document.createElement("div")
-        checkboxItem.className = "checkbox-item"
+        qualifications.forEach((qualification, index) => {
+            const checkboxItem = document.createElement("div")
+            checkboxItem.className = "checkbox-item"
 
-        const input = document.createElement("input")
-        input.type = "checkbox"
-        input.id = `qualification-${qualification}`
-        input.name = `qualification-${qualification}`
-        input.value = qualification
+            // Create unique ID by combining category and qualification (with index for duplicates)
+            const uniqueId = `qualification-${category.replace(/\s+/g, '-')}-${qualification.replace(/\s+/g, '-')}-${index}`
+            
+            const input = document.createElement("input")
+            input.type = "checkbox"
+            input.id = uniqueId
+            input.name = uniqueId  // Make name unique as well
+            input.value = qualification
 
-        const label = document.createElement("label")
-        label.htmlFor = `qualification-${qualification}`
-        label.textContent = qualification
+            const label = document.createElement("label")
+            label.htmlFor = uniqueId
+            label.textContent = qualification
 
-        // Border change logic for .checkbox-item
-        input.addEventListener("change", () => {
-          checkboxItem.style.border = input.checked ? "2px solid #014e89" : "2px solid #e2e8f0"
+            // Border change logic for .checkbox-item
+            input.addEventListener("change", () => {
+                checkboxItem.style.border = input.checked ? "2px solid #014e89" : "2px solid #e2e8f0"
+            })
+
+            checkboxItem.appendChild(input)
+            checkboxItem.appendChild(label)
+            categoryItems.appendChild(checkboxItem)
         })
 
-        checkboxItem.appendChild(input)
-        checkboxItem.appendChild(label)
-        categoryItems.appendChild(checkboxItem)
-      })
+        categoryTitle.addEventListener("click", () => {
+            categoryDiv.classList.toggle("active")
+        })
 
-      categoryTitle.addEventListener("click", () => {
-        categoryDiv.classList.toggle("active")
-      })
+        categoryDiv.appendChild(categoryTitle)
+        categoryDiv.appendChild(categoryItems)
 
-      categoryDiv.appendChild(categoryTitle)
-      categoryDiv.appendChild(categoryItems)
-
-      qualificationsContainer.appendChild(categoryDiv)
+        qualificationsContainer.appendChild(categoryDiv)
     })
-  }
+}
 
   function initializeTechnicalSkills() {
     const technicalContainer = document.getElementById("technical-container")
@@ -2292,21 +2296,26 @@ const managerialPositions = [
     const sectionTitle = document.createElement("h3")
     sectionTitle.className = "experience-section-title"
 
-    // Split title into bold and normal parts
-    const match = title.match(/^(.+?)\s*($$.+$$)$/)
-    if (match) {
-      const boldSpan = document.createElement("span")
-      boldSpan.textContent = match[1]
-      boldSpan.style.fontWeight = "bold"
+    // Split title at the first parenthesis
+    const parenIndex = title.indexOf('(')
+    if (parenIndex > -1) {
+        // Text before parenthesis (bold)
+        const boldText = title.substring(0, parenIndex).trim()
+        const boldSpan = document.createElement("span")
+        boldSpan.style.fontWeight = "bold"
+        boldSpan.textContent = boldText + " "
+        sectionTitle.appendChild(boldSpan)
 
-      const normalSpan = document.createElement("span")
-      normalSpan.textContent = ` ${match[2]}`
-      normalSpan.style.fontWeight = "normal"
-
-      sectionTitle.appendChild(boldSpan)
-      sectionTitle.appendChild(normalSpan)
+        // Text including and after parenthesis (normal)
+        const normalText = title.substring(parenIndex)
+        const normalSpan = document.createElement("span")
+        normalSpan.style.fontWeight = "normal"
+        normalSpan.textContent = normalText
+        sectionTitle.appendChild(normalSpan)
     } else {
-      sectionTitle.textContent = title
+        // If no parenthesis, just make it bold
+        sectionTitle.style.fontWeight = "bold"
+        sectionTitle.textContent = title
     }
 
     sectionHeader.appendChild(sectionTitle)
@@ -2318,6 +2327,7 @@ const managerialPositions = [
     sectionHeader.appendChild(toggleBtn)
     section.appendChild(sectionHeader)
 
+    // Rest of the function remains the same...
     // Collapsible content container
     const sectionContent = document.createElement("div")
     sectionContent.className = "section-content collapsed"
@@ -2435,7 +2445,7 @@ const managerialPositions = [
     })
 
     return section
-  }
+}
 
   // Modify the updateCardsLayout function to handle the empty state message
   let updateCardsLayout = (container) => {
@@ -2635,66 +2645,79 @@ const managerialPositions = [
     updateCardsLayout(container)
   }
 
-  // Find the validateIndustryExperience function and replace it with this improved version
-  function validateIndustryExperience() {
-    const errorElement = document.getElementById("industry-experience-error")
-
-    const rankFileContainer = document.getElementById("rank-file-experience")
-    const midLevelContainer = document.getElementById("mid-level-experience")
-    const managerialContainer = document.getElementById("managerial-experience")
-
-    const rankFileCards = rankFileContainer ? rankFileContainer.querySelectorAll(".experience-card") : []
-    const midLevelCards = midLevelContainer ? midLevelContainer.querySelectorAll(".experience-card") : []
-    const managerialCards = managerialContainer ? managerialContainer.querySelectorAll(".experience-card") : []
-
-    if (rankFileCards.length === 0 && midLevelCards.length === 0 && managerialCards.length === 0) {
-      if (errorElement) {
-        errorElement.textContent = "Please select at least one industry."
-        errorElement.classList.remove("hidden")
-      }
-      return false
+  // In the validateIndustryExperience function, replace it with this improved version
+function validateIndustryExperience() {
+  const errorElement = document.getElementById("industry-experience-error");
+  
+  const rankFileContainer = document.getElementById("rank-file-experience");
+  const midLevelContainer = document.getElementById("mid-level-experience");
+  const managerialContainer = document.getElementById("managerial-experience");
+  
+  const rankFileCards = rankFileContainer ? rankFileContainer.querySelectorAll(".experience-card") : [];
+  const midLevelCards = midLevelContainer ? midLevelContainer.querySelectorAll(".experience-card") : [];
+  const managerialCards = managerialContainer ? managerialContainer.querySelectorAll(".experience-card") : [];
+  
+  if (rankFileCards.length === 0 && midLevelCards.length === 0 && managerialCards.length === 0) {
+    if (errorElement) {
+      errorElement.textContent = "Please select at least one industry.";
+      errorElement.classList.remove("hidden");
     }
-
-    let missingExperience = false
-    let firstMissingCard = null
-
-    const checkCards = (cards) => {
-      cards.forEach((card) => {
-        const radioChecked = card.querySelector('input[type="radio"]:checked')
-        if (!radioChecked) {
-          if (!firstMissingCard) {
-            firstMissingCard = card
-          }
-          missingExperience = true
-          card.style.border = "2px solid #ef4444"
-        } else {
-          card.style.border = ""
-        }
-      })
-    }
-
-    checkCards(rankFileCards)
-    checkCards(midLevelCards)
-    checkCards(managerialCards)
-
-    if (missingExperience) {
-      if (errorElement) {
-        errorElement.textContent = "Please select experience level for each selected industry."
-        errorElement.classList.remove("hidden")
-      }
-
-      if (firstMissingCard) {
-        firstMissingCard.scrollIntoView({ behavior: "smooth", block: "center" })
-      }
-
-      return false
-    } else {
-      if (errorElement) {
-        errorElement.classList.add("hidden")
-      }
-      return true
-    }
+    return false;
   }
+  
+  let missingExperience = false;
+  let firstMissingCard = null;
+  
+  const checkCards = (cards) => {
+    cards.forEach((card) => {
+      const radioChecked = card.querySelector('input[type="radio"]:checked');
+      if (!radioChecked) {
+        if (!firstMissingCard) {
+          firstMissingCard = card;
+        }
+        missingExperience = true;
+        card.style.border = "2px solid #ef4444";
+      } else {
+        card.style.border = "";
+      }
+    });
+  };
+  
+  checkCards(rankFileCards);
+  checkCards(midLevelCards);
+  checkCards(managerialCards);
+  
+  if (missingExperience) {
+    if (errorElement) {
+      errorElement.textContent = "Please select experience level for each selected industry.";
+      errorElement.classList.remove("hidden");
+    }
+    
+    // Scroll to the industry experience tab first
+    switchTab("industry-experience");
+    
+    // Then scroll to the first missing card with a slight delay to ensure tab is visible
+    setTimeout(() => {
+      if (firstMissingCard) {
+        firstMissingCard.scrollIntoView({ behavior: "smooth", block: "center" });
+        
+        // Highlight the card more prominently
+        firstMissingCard.style.border = "2px solid #ef4444";
+        
+        
+        // Add animation to draw attention
+        firstMissingCard.style.animation = "pulse 1s 2";
+      }
+    }, 300);
+    
+    return false;
+  } else {
+    if (errorElement) {
+      errorElement.classList.add("hidden");
+    }
+    return true;
+  }
+}
 
   updateCardsLayout = (container) => {
     const cards = Array.from(container.children)
