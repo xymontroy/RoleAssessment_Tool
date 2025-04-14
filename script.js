@@ -4,62 +4,61 @@ document.addEventListener("DOMContentLoaded", () => {
     "https://script.google.com/macros/s/AKfycbxzQpzLXkBMDTZI7CUlTQeQGv5oYwCD9K0KcTGZzIC07EziLM746tD-2lWnIwjBs_om/exec"
 
   // Entry-Level Positions
-const entryLevelPositions = [
-  "Finance Associate",
-  "Lead Generator",
-  "Social Media Specialist",
-  "Web Developer",
-  "SEO Specialist",
-  "Sales Development Representative",
-  "Social Media Marketer",
-  "Researcher",
-  "Data Analyst",
-  "Data Profiler",
-  "Email Marketing Specialist/Associate",
-  "Digital Designer",
-  "Content Writer",
-  "LinkedIn Champion",
-  "Recruitment Associate",
-  "Recruitment Branding Specialist",
-  "Recruitment Database Specialist",
-  "Network Administrator",
-  "Tech Support",
-  "Non-Voice Tech Support",
-  "Software Developer",
-]
+  const entryLevelPositions = [
+    "Finance Associate",
+    "Lead Generator",
+    "Social Media Specialist",
+    "Web Developer",
+    "SEO Specialist",
+    "Sales Development Representative",
+    "Social Media Marketer",
+    "Researcher",
+    "Data Analyst",
+    "Data Profiler",
+    "Email Marketing Specialist/Associate",
+    "Digital Designer",
+    "Content Writer",
+    "LinkedIn Champion",
+    "Recruitment Associate",
+    "Recruitment Branding Specialist",
+    "Recruitment Database Specialist",
+    "Network Administrator",
+    "Tech Support",
+    "Non-Voice Tech Support",
+    "Software Developer",
+  ]
 
-// Mid-Level Positions
-const midLevelPositions = [
-  "Quality Assurance Analyst",
-  "HR/Admin Specialist",
-  "Business Development Representative",
-  "Quality Assurance Analyst (SEO)",
-  "Production Specialist",
-]
+  // Mid-Level Positions
+  const midLevelPositions = [
+    "Quality Assurance Analyst",
+    "HR/Admin Specialist",
+    "Business Development Representative",
+    "Quality Assurance Analyst (SEO)",
+    "Production Specialist",
+  ]
 
-// Managerial Positions
-const managerialPositions = [
-  "CRM Manager",
-  "Sales Performance and QA Coordinator – Training",
-  "HR/Admin Manager",
-  "HR/Admin and Finance Director",
-  "Finance Manager (Coordinator)",
-  "Operations Manager",
-  "Client Success Manager",
-  "Production Manager",
-  "Business Development Manager",
-  "Marketing Manager",
-  "SEO Program Manager",
-  "Database Coordinator",
-  "Digital Marketing Manager",
-  "Recruitment Coordinator",
-  "Learning and Development Coordinator",
-  "Project Manager",
-  "Business Process Manager",
-  "IT Manager",
-  "IT Security Manager",
-]
-
+  // Managerial Positions
+  const managerialPositions = [
+    "CRM Manager",
+    "Sales Performance and QA Coordinator – Training",
+    "HR/Admin Manager",
+    "HR/Admin and Finance Director",
+    "Finance Manager (Coordinator)",
+    "Operations Manager",
+    "Client Success Manager",
+    "Production Manager",
+    "Business Development Manager",
+    "Marketing Manager",
+    "SEO Program Manager",
+    "Database Coordinator",
+    "Digital Marketing Manager",
+    "Recruitment Coordinator",
+    "Learning and Development Coordinator",
+    "Project Manager",
+    "Business Process Manager",
+    "IT Manager",
+    "IT Security Manager",
+  ]
 
   // Helper function to check if a role is managerial
   function isManagerialRole(role) {
@@ -199,6 +198,8 @@ const managerialPositions = [
     "IT, Security, and Software": [
       "IT Infrastructure Management",
       "Cybersecurity",
+      "Team Leadership",
+      "Project Management",
       "Threat Detection",
       "Compliance & Risk Management",
       "Network & Security Management",
@@ -214,8 +215,7 @@ const managerialPositions = [
 
   // Technical skills categories and items
   const technicalCategories = {
-    "CRM & Quality Assurance": [
-      "CRM platforms (Salesforce, HubSpot)",
+    "CRM & Quality Assurance": ["CRM Developer (Salesforce, HubSpot, Zendesk)",
       "Data Reporting Tools (Power BI, Tableau)",
       "QA Software (Call Listening Tools, QA Scorecards)",
       "Google Sheets/Excel (Pivot Tables, Data Validation)",
@@ -239,7 +239,7 @@ const managerialPositions = [
     "Client Success & Operations and People Management": [
       "Project Management Tools (Asana, Monday.com)",
       "ERP Systems (SAP, NetSuite)",
-      "CRM (Salesforce, Zendesk)",
+      "CRM End-User (Salesforce, HubSpot, Zendesk)",
       "Customer Support Tools (Intercom, Freshdesk)",
       "Workflow Management (ClickUp, Wrike)",
       "QA Tools (ISO Compliance Software)",
@@ -258,13 +258,14 @@ const managerialPositions = [
     ],
     "Creative & Digital Marketing": [
       "Social Media Management Tools (Hootsuite, Sprout Social)",
-      "Canva/Adobe Photoshop",
+      "Design Software (Canva, Adobe Photoshop)",
       "Programming Languages (HTML, CSS, JavaScript)",
       "CMS (WordPress, Shopify)",
       "SEO Tools (Ahrefs, SEMrush)",
       "Google Docs",
       "Adobe Creative Suite (Photoshop, Illustrator, InDesign)",
       "Figma",
+      "Google Analytics",
       "Google Search Console",
       "Keyword Research Tools (Moz, SEMrush)",
       "Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)",
@@ -470,11 +471,7 @@ const managerialPositions = [
     "Operations Manager": ["Process Optimization", "Project Management", "Team Leadership"],
     "Client Success Manager": ["Customer Retention Strategies", "Account Management"],
     "Production Manager": ["Workflow Management", "Project Management", "Team Leadership"],
-    "Business Development Manager": [
-      "Lead Generation Strategy",
-      "Sales Pipeline Management",
-      "B2B Sales & Negotiation",
-    ],
+    "Business Development Manager": ["Lead Generation Strategy","Sales Pipeline Management","B2B Sales & Negotiation"],
     "Business Development Representative": ["Lead Qualification", "Prospecting"],
     "Marketing Manager": ["Performance Analytics", "PPC Management", "Project Management"],
     "Lead Generator": ["Prospecting", "CRM Management", "List Building"],
@@ -513,7 +510,7 @@ const managerialPositions = [
 
   // Technical skills for each role
   const roleTechnicalSkills = {
-    "CRM Manager": ["CRM platforms (Salesforce, HubSpot)", "Data Reporting Tools (Power BI, Tableau)"],
+    "CRM Manager": ["CRM Developer (Salesforce, HubSpot, Zendesk)", "Data Reporting Tools (Power BI, Tableau)"],
     "Quality Assurance Analyst": [
       "QA Software (Call Listening Tools, QA Scorecards)",
       "Google Sheets/Excel (Pivot Tables, Data Validation)",
@@ -540,66 +537,38 @@ const managerialPositions = [
     "HR/Admin Manager": ["Compliance Software (HRIS, OSHA Compliance Tools)", "ATS (Greenhouse, Lever)"],
     "HR/Admin and Finance Director": ["ERP Systems", "Financial Planning Software (NetSuite, QuickBooks)"],
     "Finance Associate": ["Accounting Software (Xero, QuickBooks)", "Excel (Financial Modeling, Macros)"],
-    "Finance Manager (Coordinator)": [
-      "Budgeting Tools (SAP, NetSuite)",
-      "Financial Reporting Software (Power BI, Tableau)",
-    ],
+    "Finance Manager (Coordinator)": ["Budgeting Tools (SAP, NetSuite)","Financial Reporting Software (Power BI, Tableau)",],
     "Operations Manager": ["Project Management Tools (Asana, Monday.com)", "ERP Systems (SAP, NetSuite)"],
-    "Client Success Manager": ["CRM (Salesforce, Zendesk)", "Customer Support Tools (Intercom, Freshdesk)"],
+    "Client Success Manager": ["CRM End-User (Salesforce, HubSpot, Zendesk)", "Customer Support Tools (Intercom, Freshdesk)"],
+    "Key Account Manager" : ["CRM End-User (Salesforce, HubSpot, Zendesk) "],
     "Production Manager": ["Workflow Management (ClickUp, Wrike)", "QA Tools (ISO Compliance Software)"],
-    "Business Development Manager": ["CRM (Pipedrive, Salesforce)", "Email Outreach Platforms (Apollo, Outreach.io)"],
-    "Business Development Representative": ["CRM (Pipedrive, Salesforce)", "Dialer Software (RingCentral, Aircall)"],
+    "Business Development Manager": ["CRM End-User (Salesforce, HubSpot, Zendesk)", "Email Outreach Platforms (Apollo, Outreach.io)"],
+    "Business Development Representative": ["CRM End-User (Salesforce, HubSpot, Zendesk)", "Dialer Software (RingCentral, Aircall)"],
     "Marketing Manager": ["Marketing Automation Tools (Marketo, HubSpot)", "Google Analytics"],
-    "Lead Generator": ["Lead Enrichment Tools (LinkedIn Sales Navigator, ZoomInfo)", "CRM (Salesforce, Pipedrive)"],
-    "Social Media Specialist": ["Social Media Management Tools (Hootsuite, Sprout Social)", "Canva/Adobe Photoshop"],
+    "Lead Generator": ["Lead Enrichment Tools (LinkedIn Sales Navigator, ZoomInfo)", "CRM End-User (Salesforce, HubSpot, Zendesk)"],
+    "Social Media Specialist": ["Social Media Management Tools (Hootsuite, Sprout Social)", "Design Software (Canva, Adobe Photoshop)"],
     "Web Developer": ["Programming Languages (HTML, CSS, JavaScript)", "CMS (WordPress, Shopify)"],
     "SEO Program Manager": ["Google Search Console", "Keyword Research Tools (Moz, SEMrush)"],
     "SEO Specialist": ["Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)", "Google Analytics"],
-    "Quality Assurance Analyst (SEO)": [
-      "A/B Testing Tools (Google Optimize, VWO)",
-      "SEO Audit Tools (SEMrush, Ahrefs)",
-    ],
-    "Quality Assurance Analyst (SEO)": [
-      "A/B Testing Tools (Google Optimize, VWO)",
-      "SEO Audit Tools (SEMrush, Ahrefs)",
-      "Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)",
-    ],
-    "Sales Development Representative": ["CRM (Salesforce, HubSpot)", "Dialer Software (Five9, Aircall)"],
-    "Social Media Marketer": [
-      "Social Listening Tools (Brandwatch, Sprout Social)",
-      "Content Scheduling Tools (Buffer, Later)",
-    ],
+    "Quality Assurance Analyst (SEO)": ["A/B Testing Tools (Google Optimize, VWO)","SEO Audit Tools (SEMrush, Ahrefs)"],
+    "Quality Assurance Analyst (SEO)": ["A/B Testing Tools (Google Optimize, VWO)","SEO Audit Tools (SEMrush, Ahrefs)","Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)",],
+    "Sales Development Representative": ["CRM End-User (Salesforce, HubSpot, Zendesk)", "Dialer Software (Five9, Aircall)"],
+    "Social Media Marketer": ["Social Listening Tools (Brandwatch, Sprout Social)","Content Scheduling Tools (Buffer, Later)"],
     "Database Coordinator": ["Database Management (MySQL, PostgreSQL)", "Data Processing (Excel, Google Sheets)"],
     "DB Researcher": ["Market Research Platforms (Statista, IBISWorld)", "Survey Tools (Google Forms, Typeform)"],
     "Data Analyst": ["Data Visualization Tools (Power BI, Tableau)", "SQL (Intermediate Queries)"],
-    "Data Profiler": ["Database Cleaning Tools (OpenRefine, Trifacta)", "CRM Enrichment (Clearbit, ZoomInfo)"],
-    "Digital Marketing Manager": [
-      "PPC Tools (Google Ads, Facebook Ads Manager)",
-      "Marketing Analytics (Google Data Studio, HubSpot)",
-    ],
-    "Email Marketing Specialist/Associate": [
-      "Email Platforms (Mailchimp, Klaviyo)",
-      "A/B Testing Software (Litmus, Optimizely)",
-    ],
+    "Data Profiler": ["Database Cleaning Tools (OpenRefine, Trifacta)", "CRM End-User (Salesforce, HubSpot, Zendesk)"],
+    "Digital Marketing Manager": ["PPC Tools (Google Ads, Facebook Ads Manager)","Marketing Analytics (Google Data Studio, HubSpot)"],
+    "Email Marketing Specialist/Associate": ["Email Platforms (Mailchimp, Klaviyo)","A/B Testing Software (Litmus, Optimizely)"],
     "Digital Designer": ["UI/UX Design Tools (Figma, Adobe XD)", "HTML/CSS (Basic for Web Design)"],
     "Content Writer": ["CMS (WordPress, Ghost)", "Copywriting Tools (Grammarly, Hemingway Editor)"],
     "LinkedIn Champion": ["LinkedIn Sales Navigator", "LinkedIn Analytics"],
     "Recruitment Coordinator": ["ATS", "LinkedIn Recruiter"],
     "Recruitment Associate": ["Job Boards", "ATS"],
-    "Recruitment Branding Specialist": [
-      "Social Media Ads (Meta Business Suite, LinkedIn Ads)",
-      "Design Software",
-      "Job Boards",
-    ],
+    "Recruitment Branding Specialist": ["Social Media Ads (Meta Business Suite, LinkedIn Ads)","Design Software(Canva, Adobe Photoshop)","Job Boards"],
     "Recruitment Database Specialist": ["Applicant Database Management (Google Sheets, SQL)", "ATS"],
-    "Learning and Development Coordinator": [
-      "LMS Platforms (Moodle, TalentLMS)",
-      "E-learning Tools (Articulate, Captivate)",
-    ],
-    "Production Specialist": [
-      "Video Editing Software (Adobe Premiere Pro, Camtasia)",
-      "Audio Recording Tools (Audacity, GarageBand)",
-    ],
+    "Learning and Development Coordinator": ["LMS Platforms (Moodle, TalentLMS)","E-learning Tools (Articulate, Captivate)"],
+    "Production Specialist": ["Video Editing Software (Adobe Premiere Pro, Camtasia)","Audio Recording Tools (Audacity, GarageBand)"],
     "Project Manager": ["Project Management Tools (Trello, Jira)", "Risk Assessment Software (Lucidchart, Asana)"],
     "Software Developer": ["Programming Languages (Python, Java, C#)", "Version Control (Git, GitHub)"],
     "Business Process Manager": ["Process Mapping Tools (Bizagi, Microsoft Visio)", "ERP Systems"],
@@ -607,10 +576,7 @@ const managerialPositions = [
     "IT Security Manager": ["SIEM Tools (Splunk, IBM QRadar)", "Endpoint Security (CrowdStrike, Symantec)"],
     "Network Administrator": ["Network Monitoring (Wireshark, Nagios)", "Firewall Configurations (Cisco, Fortinet)"],
     "Tech Support": ["Help Desk Software (Zendesk, Freshdesk)", "Remote Desktop Tools (TeamViewer, AnyDesk)"],
-    "Non-Voice Tech Support": [
-      "Ticketing Systems (Jira Service Desk, Zoho Desk)",
-      "Knowledge Base Software (Confluence, Notion)",
-    ],
+    "Non-Voice Tech Support": ["Ticketing Systems (Jira Service Desk, Zoho Desk)","Knowledge Base Software (Confluence, Notion)"],
   }
 
   // Role data for matching
@@ -685,6 +651,9 @@ const managerialPositions = [
       industries: ["Digital Marketing & Advertising", "Media & Publishing"],
     },
     "Sales Development Representative": {
+      industries: ["B2B Sales & Marketing", "Call Center / BPO"],
+    },
+    "Social": {
       industries: ["B2B Sales & Marketing", "Call Center / BPO"],
     },
     "Social Media Marketer": {
@@ -797,7 +766,7 @@ const managerialPositions = [
       "Economics",
     ],
     "Finance Associate": ["Accounting or Finance", "Economics"],
-    "Finance Manager": ["Accounting or Finance", "Economics", "Business Administration & Marketing"],
+    "Finance Manager (Coordinator)": ["Accounting or Finance", "Economics", "Business Administration & Marketing"],
 
     // Operations & Client Success
     "Operations Manager": [
@@ -1346,31 +1315,178 @@ const managerialPositions = [
         completedTabs.education = isValid
         break
 
-        case "qualifications":
-          const qualificationCheckboxes = document.querySelectorAll('input[type="checkbox"][name^="qualification-"]:checked')
-          const qualificationsSelected = qualificationCheckboxes.length > 0
-      
-          formData.qualifications = {}
-          qualificationCheckboxes.forEach((checkbox) => {
-              formData.qualifications[checkbox.value] = true
-          })
-      
-          if (!qualificationsSelected) {
-              if (errorElement) {
-                  errorElement.textContent = "Please select at least one qualification."
-                  errorElement.classList.remove("hidden")
-              }
-              isValid = false
-          } else {
-              if (errorElement) {
-                  errorElement.classList.add("hidden")
-              }
+      case "qualifications":
+        // Add CSS for the qualifications heading
+        const style = document.createElement("style")
+        style.textContent = `
+          .qualifications-heading {
+            margin-bottom: 16px;
+            padding: 0 8px;
           }
-      
-          completedTabs.qualifications = isValid
-          break
+          .qualifications-heading h3 {
+            font-size: 1.1rem;
+            color: #334155;
+            font-weight: 600;
+          }
+        `
+        document.head.appendChild(style)
 
-      
+        function initializeQualifications() {
+          const qualificationsContainer = document.getElementById("qualifications-container")
+          qualificationsContainer.innerHTML = ""
+
+          // Remove the heading with maximum 6 qualifications instruction
+          // (Heading removed as requested)
+
+          // Add a function to count total selected qualifications across all categories
+          function countTotalSelectedQualifications() {
+            return document.querySelectorAll('input[type="checkbox"][name^="qualification-"]:checked').length
+          }
+
+          // Function to update qualification selection status
+          function updateQualificationStatus() {
+            const totalSelected = countTotalSelectedQualifications()
+            const errorElement = document.getElementById("qualifications-error")
+
+            // Show message when exactly 6 qualifications are selected
+            if (totalSelected === 6) {
+              if (errorElement) {
+                errorElement.textContent = "Maximum of 6 qualifications selected. Deselect one to choose another."
+                errorElement.classList.remove("hidden")
+
+                // Make the message red instead of blue
+                errorElement.style.backgroundColor = "#fef2f2"
+                errorElement.style.color = "#b91c1c"
+                errorElement.style.border = "1px solid #ef4444"
+              }
+            } else if (totalSelected > 6) {
+              if (errorElement) {
+                errorElement.textContent = "Please select a maximum of 6 qualifications."
+                errorElement.classList.remove("hidden")
+
+                // Make the message red
+                errorElement.style.backgroundColor = "#fef2f2"
+                errorElement.style.color = "#b91c1c"
+                errorElement.style.border = "1px solid #ef4444"
+
+                // Scroll to the error message
+                errorElement.scrollIntoView({ behavior: "smooth", block: "center" })
+              }
+            } else {
+              if (errorElement) {
+                errorElement.classList.add("hidden")
+              }
+            }
+          }
+
+          Object.entries(qualificationCategories).forEach(([category, qualifications]) => {
+            const categoryDiv = document.createElement("div")
+            categoryDiv.className = "category"
+
+            const categoryTitle = document.createElement("h3")
+            categoryTitle.className = "category-title"
+            categoryTitle.textContent = category
+
+            const categoryItems = document.createElement("div")
+            categoryItems.className = "category-items"
+
+            qualifications.forEach((qualification, index) => {
+              const checkboxItem = document.createElement("div")
+              checkboxItem.className = "checkbox-item"
+
+              // Create unique ID by combining category and qualification (with index for duplicates)
+              const uniqueId = `qualification-${category.replace(/\s+/g, "-")}-${qualification.replace(/\s+/g, "-")}-${index}`
+
+              const input = document.createElement("input")
+              input.type = "checkbox"
+              input.id = uniqueId
+              input.name = uniqueId // Make name unique as well
+              input.value = qualification
+
+              const label = document.createElement("label")
+              label.htmlFor = uniqueId
+              label.textContent = qualification
+
+              // Border change logic for .checkbox-item and qualification count check
+              input.addEventListener("change", () => {
+                const totalSelected = countTotalSelectedQualifications()
+
+                // If trying to select more than 6 qualifications
+                if (totalSelected > 6 && input.checked) {
+                  input.checked = false
+                  checkboxItem.style.border = "2px solid #e2e8f0"
+
+                  // Show error message and scroll to it
+                  const errorElement = document.getElementById("qualifications-error")
+                  if (errorElement) {
+                    errorElement.textContent = "Please select a maximum of 6 qualifications."
+                    errorElement.classList.remove("hidden")
+
+                    // Make the message red
+                    errorElement.style.backgroundColor = "#fef2f2"
+                    errorElement.style.color = "#b91c1c"
+                    errorElement.style.border = "1px solid #ef4444"
+
+                    errorElement.scrollIntoView({ behavior: "smooth", block: "center" })
+                  }
+                } else {
+                  checkboxItem.style.border = input.checked ? "2px solid #014e89" : "2px solid #e2e8f0"
+                }
+
+                // Update qualification status message
+                updateQualificationStatus()
+              })
+
+              checkboxItem.appendChild(input)
+              checkboxItem.appendChild(label)
+              categoryItems.appendChild(checkboxItem)
+            })
+
+            categoryTitle.addEventListener("click", () => {
+              categoryDiv.classList.toggle("active")
+            })
+
+            categoryDiv.appendChild(categoryTitle)
+            categoryDiv.appendChild(categoryItems)
+
+            qualificationsContainer.appendChild(categoryDiv)
+          })
+
+          // Initialize status on page load
+          updateQualificationStatus()
+        }
+        const qualificationCheckboxes = document.querySelectorAll(
+          'input[type="checkbox"][name^="qualification-"]:checked',
+        )
+        const qualificationsSelected = qualificationCheckboxes.length > 0
+        const qualificationsCount = qualificationCheckboxes.length
+
+        formData.qualifications = {}
+        qualificationCheckboxes.forEach((checkbox) => {
+          formData.qualifications[checkbox.value] = true
+        })
+
+        if (!qualificationsSelected) {
+          if (errorElement) {
+            errorElement.textContent = "Please select at least one qualification."
+            errorElement.classList.remove("hidden")
+          }
+          isValid = false
+        } else if (qualificationsCount > 6) {
+          if (errorElement) {
+            errorElement.textContent = "Please select a maximum of 6 qualifications."
+            errorElement.classList.remove("hidden")
+          }
+          isValid = false
+        } else {
+          if (errorElement) {
+            errorElement.classList.add("hidden")
+          }
+        }
+
+        completedTabs.qualifications = isValid
+        break
+
       case "technical":
         const technicalCheckboxes = document.querySelectorAll('input[name^="technical-"]:checked')
         const technicalSelected = technicalCheckboxes.length > 0
@@ -1425,7 +1541,7 @@ const managerialPositions = [
             errorMessages.push("Education: Please select your education level and field(s) of study")
             break
           case "qualifications":
-            errorMessages.push("Qualifications: Please select at least one qualification")
+            errorMessages.push("Qualifications: Please select at least one qualification (maximum 6)")
             break
           case "technical":
             errorMessages.push("Technical Skills: Please select at least one technical skill")
@@ -1555,28 +1671,28 @@ const managerialPositions = [
       const roleInfo = roleData[role]
       let totalPoints = 0
       let maxPoints = 0
-      
+
       // Calculate qualifications score - INCREASED WEIGHT
       if (roleQualifications[role]) {
         roleQualifications[role].forEach((qualification) => {
           if (formData.qualifications[qualification]) {
-            totalPoints += 4 // Increased from 3 to 4 points for qualifications
+            totalPoints += 5 // Increased from 4 to 5 points for qualifications to make it highest weighted
           }
-          maxPoints += 4 // Maximum possible points for this qualification
+          maxPoints += 5 // Maximum possible points for this qualification
         })
       }
 
-      // Calculate technical skills score - INCREASED WEIGHT
+      // Calculate technical skills score
       if (roleTechnicalSkills[role]) {
         roleTechnicalSkills[role].forEach((tech) => {
           if (formData.technical[tech]) {
-            totalPoints += 3 // Increased from 2 to 3 points for technical skills
+            totalPoints += 3 // Keep at 3 points for technical skills
           }
           maxPoints += 3 // Maximum possible points for this technical skill
         })
       }
 
-      // Calculate industry experience score - REDUCED WEIGHT
+      // Calculate industry experience score
       if (roleInfo.industries) {
         roleInfo.industries.forEach((ind) => {
           // Check all three experience types
@@ -1585,7 +1701,7 @@ const managerialPositions = [
             formData.industryExperience.midLevel[ind] ||
             formData.industryExperience.managerial[ind]
           ) {
-            totalPoints += 1 // Reduced from 2 to 1 point for industry experience
+            totalPoints += 1 // Keep at 1 point for industry experience
           }
           maxPoints += 1 // Maximum possible points for this industry
         })
@@ -1605,52 +1721,52 @@ const managerialPositions = [
         isEntryLevel: isEntryLevelRole(role), // Add flag to identify entry-level roles
       }
 
-      // Check for strict education field compliance - INCREASED IMPORTANCE
+      // Check for strict education field compliance
       if (requiredEducationFields[role] && formData.educationFields) {
         // Check if the candidate has at least one of the required education fields for this role
-        const hasRequiredField = requiredEducationFields[role].some((field) =>
-          formData.educationFields.includes(field)
-        )
+        const hasRequiredField = requiredEducationFields[role].some((field) => formData.educationFields.includes(field))
 
         // If the candidate doesn't have any required fields, significantly reduce score
         if (!hasRequiredField) {
-          result.rawScore = result.rawScore * 0.3 // Reduce score by 70% if education doesn't match
+          result.rawScore = 0 // Completely disqualify for roles with education requirements
           result.educationPenalty = true
+          result.disqualified = true // Add a flag to indicate disqualification
+          result.disqualificationReason = "Missing required education"
         }
       }
 
-      // Add education points if available - INCREASED WEIGHT
+      // Add education points if available
       if (formData.education) {
         const educationInfo = educationData.find((edu) => edu.level === formData.education)
         if (educationInfo) {
-          // Add education points with increased weight
-          const educationPoints = educationInfo.points * 1.5 // Increased weight for education
+          // Add education points
+          const educationPoints = educationInfo.points * 1.5
           result.rawScore += educationPoints
           result.educationPoints = educationPoints
         }
       }
 
-      // Add experience points from all experience types - REDUCED WEIGHT
+      // Add experience points from all experience types
       result.experiencePoints = 0
 
-      // Process all industry experiences and add points with reduced weight
+      // Process all industry experiences and add points
       Object.entries(formData.industryExperience.rankFile || {}).forEach(([industry, expLevel]) => {
         if (expLevel) {
           const experienceInfo = experienceData.find((exp) => exp.level === expLevel)
           if (experienceInfo) {
-            const points = experienceInfo.points * 0.7 // Reduced weight for experience
+            const points = experienceInfo.points * 0.7
             result.rawScore += points
             result.experiencePoints += points
           }
         }
       })
 
-      // Process mid-level experiences with reduced weight
+      // Process mid-level experiences
       Object.entries(formData.industryExperience.midLevel || {}).forEach(([industry, expLevel]) => {
         if (expLevel) {
           const midLevelInfo = midLevelExp.find((exp) => exp.level === expLevel)
           if (midLevelInfo) {
-            const points = midLevelInfo.points * 0.7 // Reduced weight for experience
+            const points = midLevelInfo.points * 0.7
             result.rawScore += points
             result.experiencePoints += points
           }
@@ -1661,7 +1777,7 @@ const managerialPositions = [
         if (expLevel) {
           const managerialInfo = managerialExp.find((exp) => exp.level === expLevel)
           if (managerialInfo) {
-            const points = managerialInfo.points * 0.7 // Reduced weight for experience
+            const points = managerialInfo.points * 0.7
             result.rawScore += points
             result.experiencePoints += points
           }
@@ -1696,8 +1812,11 @@ const managerialPositions = [
       eligibleRoles = roleScores
     }
 
+    // Filter out disqualified roles
+    const qualifiedRoles = eligibleRoles.filter(role => !role.disqualified)
+
     // Sort roles by score
-    const sortedRoles = eligibleRoles.sort((a, b) => b.rawScore - a.rawScore)
+    const sortedRoles = qualifiedRoles.sort((a, b) => b.rawScore - a.rawScore)
 
     // Get top 3 roles
     const top3Matches = sortedRoles.slice(0, 3)
@@ -2129,54 +2248,126 @@ const managerialPositions = [
     const qualificationsContainer = document.getElementById("qualifications-container")
     qualificationsContainer.innerHTML = ""
 
+    // Remove the heading with maximum 6 qualifications instruction
+    // (Heading removed as requested)
+
+    // Add a function to count total selected qualifications across all categories
+    function countTotalSelectedQualifications() {
+      return document.querySelectorAll('input[type="checkbox"][name^="qualification-"]:checked').length
+    }
+
+    // Function to update qualification selection status
+    function updateQualificationStatus() {
+      const totalSelected = countTotalSelectedQualifications()
+      const errorElement = document.getElementById("qualifications-error")
+
+      // Show message when exactly 6 qualifications are selected
+      if (totalSelected === 6) {
+        if (errorElement) {
+          errorElement.textContent = "Maximum of 6 qualifications selected. Deselect one to choose another."
+          errorElement.classList.remove("hidden")
+
+          // Make the message red instead of blue
+          errorElement.style.backgroundColor = "#fef2f2"
+          errorElement.style.color = "#b91c1c"
+          errorElement.style.border = "1px solid #ef4444"
+        }
+      } else if (totalSelected > 6) {
+        if (errorElement) {
+          errorElement.textContent = "Please select a maximum of 6 qualifications."
+          errorElement.classList.remove("hidden")
+
+          // Make the message red
+          errorElement.style.backgroundColor = "#fef2f2"
+          errorElement.style.color = "#b91c1c"
+          errorElement.style.border = "1px solid #ef4444"
+
+          // Scroll to the error message
+          errorElement.scrollIntoView({ behavior: "smooth", block: "center" })
+        }
+      } else {
+        if (errorElement) {
+          errorElement.classList.add("hidden")
+        }
+      }
+    }
+
     Object.entries(qualificationCategories).forEach(([category, qualifications]) => {
-        const categoryDiv = document.createElement("div")
-        categoryDiv.className = "category"
+      const categoryDiv = document.createElement("div")
+      categoryDiv.className = "category"
 
-        const categoryTitle = document.createElement("h3")
-        categoryTitle.className = "category-title"
-        categoryTitle.textContent = category
+      const categoryTitle = document.createElement("h3")
+      categoryTitle.className = "category-title"
+      categoryTitle.textContent = category
 
-        const categoryItems = document.createElement("div")
-        categoryItems.className = "category-items"
+      const categoryItems = document.createElement("div")
+      categoryItems.className = "category-items"
 
-        qualifications.forEach((qualification, index) => {
-            const checkboxItem = document.createElement("div")
-            checkboxItem.className = "checkbox-item"
+      qualifications.forEach((qualification, index) => {
+        const checkboxItem = document.createElement("div")
+        checkboxItem.className = "checkbox-item"
 
-            // Create unique ID by combining category and qualification (with index for duplicates)
-            const uniqueId = `qualification-${category.replace(/\s+/g, '-')}-${qualification.replace(/\s+/g, '-')}-${index}`
-            
-            const input = document.createElement("input")
-            input.type = "checkbox"
-            input.id = uniqueId
-            input.name = uniqueId  // Make name unique as well
-            input.value = qualification
+        // Create unique ID by combining category and qualification (with index for duplicates)
+        const uniqueId = `qualification-${category.replace(/\s+/g, "-")}-${qualification.replace(/\s+/g, "-")}-${index}`
 
-            const label = document.createElement("label")
-            label.htmlFor = uniqueId
-            label.textContent = qualification
+        const input = document.createElement("input")
+        input.type = "checkbox"
+        input.id = uniqueId
+        input.name = uniqueId // Make name unique as well
+        input.value = qualification
 
-            // Border change logic for .checkbox-item
-            input.addEventListener("change", () => {
-                checkboxItem.style.border = input.checked ? "2px solid #014e89" : "2px solid #e2e8f0"
-            })
+        const label = document.createElement("label")
+        label.htmlFor = uniqueId
+        label.textContent = qualification
 
-            checkboxItem.appendChild(input)
-            checkboxItem.appendChild(label)
-            categoryItems.appendChild(checkboxItem)
+        // Border change logic for .checkbox-item and qualification count check
+        input.addEventListener("change", () => {
+          const totalSelected = countTotalSelectedQualifications()
+
+          // If trying to select more than 6 qualifications
+          if (totalSelected > 6 && input.checked) {
+            input.checked = false
+            checkboxItem.style.border = "2px solid #e2e8f0"
+
+            // Show error message and scroll to it
+            const errorElement = document.getElementById("qualifications-error")
+            if (errorElement) {
+              errorElement.textContent = "Please select a maximum of 6 qualifications."
+              errorElement.classList.remove("hidden")
+
+              // Make the message red
+              errorElement.style.backgroundColor = "#fef2f2"
+              errorElement.style.color = "#b91c1c"
+              errorElement.style.border = "1px solid #ef4444"
+
+              errorElement.scrollIntoView({ behavior: "smooth", block: "center" })
+            }
+          } else {
+            checkboxItem.style.border = input.checked ? "2px solid #014e89" : "2px solid #e2e8f0"
+          }
+
+          // Update qualification status message
+          updateQualificationStatus()
         })
 
-        categoryTitle.addEventListener("click", () => {
-            categoryDiv.classList.toggle("active")
-        })
+        checkboxItem.appendChild(input)
+        checkboxItem.appendChild(label)
+        categoryItems.appendChild(checkboxItem)
+      })
 
-        categoryDiv.appendChild(categoryTitle)
-        categoryDiv.appendChild(categoryItems)
+      categoryTitle.addEventListener("click", () => {
+        categoryDiv.classList.toggle("active")
+      })
 
-        qualificationsContainer.appendChild(categoryDiv)
+      categoryDiv.appendChild(categoryTitle)
+      categoryDiv.appendChild(categoryItems)
+
+      qualificationsContainer.appendChild(categoryDiv)
     })
-}
+
+    // Initialize status on page load
+    updateQualificationStatus()
+  }
 
   function initializeTechnicalSkills() {
     const technicalContainer = document.getElementById("technical-container")
@@ -2297,25 +2488,25 @@ const managerialPositions = [
     sectionTitle.className = "experience-section-title"
 
     // Split title at the first parenthesis
-    const parenIndex = title.indexOf('(')
+    const parenIndex = title.indexOf("(")
     if (parenIndex > -1) {
-        // Text before parenthesis (bold)
-        const boldText = title.substring(0, parenIndex).trim()
-        const boldSpan = document.createElement("span")
-        boldSpan.style.fontWeight = "bold"
-        boldSpan.textContent = boldText + " "
-        sectionTitle.appendChild(boldSpan)
+      // Text before parenthesis (bold)
+      const boldText = title.substring(0, parenIndex).trim()
+      const boldSpan = document.createElement("span")
+      boldSpan.style.fontWeight = "bold"
+      boldSpan.textContent = boldText + " "
+      sectionTitle.appendChild(boldSpan)
 
-        // Text including and after parenthesis (normal)
-        const normalText = title.substring(parenIndex)
-        const normalSpan = document.createElement("span")
-        normalSpan.style.fontWeight = "normal"
-        normalSpan.textContent = normalText
-        sectionTitle.appendChild(normalSpan)
+      // Text including and after parenthesis (normal)
+      const normalText = title.substring(parenIndex)
+      const normalSpan = document.createElement("span")
+      normalSpan.style.fontWeight = "normal"
+      normalSpan.textContent = normalText
+      sectionTitle.appendChild(normalSpan)
     } else {
-        // If no parenthesis, just make it bold
-        sectionTitle.style.fontWeight = "bold"
-        sectionTitle.textContent = title
+      // If no parenthesis, just make it bold
+      sectionTitle.style.fontWeight = "bold"
+      sectionTitle.textContent = title
     }
 
     sectionHeader.appendChild(sectionTitle)
@@ -2445,7 +2636,7 @@ const managerialPositions = [
     })
 
     return section
-}
+  }
 
   // Modify the updateCardsLayout function to handle the empty state message
   let updateCardsLayout = (container) => {
@@ -2646,78 +2837,77 @@ const managerialPositions = [
   }
 
   // In the validateIndustryExperience function, replace it with this improved version
-function validateIndustryExperience() {
-  const errorElement = document.getElementById("industry-experience-error");
-  
-  const rankFileContainer = document.getElementById("rank-file-experience");
-  const midLevelContainer = document.getElementById("mid-level-experience");
-  const managerialContainer = document.getElementById("managerial-experience");
-  
-  const rankFileCards = rankFileContainer ? rankFileContainer.querySelectorAll(".experience-card") : [];
-  const midLevelCards = midLevelContainer ? midLevelContainer.querySelectorAll(".experience-card") : [];
-  const managerialCards = managerialContainer ? managerialContainer.querySelectorAll(".experience-card") : [];
-  
-  if (rankFileCards.length === 0 && midLevelCards.length === 0 && managerialCards.length === 0) {
-    if (errorElement) {
-      errorElement.textContent = "Please select at least one industry.";
-      errorElement.classList.remove("hidden");
+  function validateIndustryExperience() {
+    const errorElement = document.getElementById("industry-experience-error")
+
+    const rankFileContainer = document.getElementById("rank-file-experience")
+    const midLevelContainer = document.getElementById("mid-level-experience")
+    const managerialContainer = document.getElementById("managerial-experience")
+
+    const rankFileCards = rankFileContainer ? rankFileContainer.querySelectorAll(".experience-card") : []
+    const midLevelCards = midLevelContainer ? midLevelContainer.querySelectorAll(".experience-card") : []
+    const managerialCards = managerialContainer ? managerialContainer.querySelectorAll(".experience-card") : []
+
+    if (rankFileCards.length === 0 && midLevelCards.length === 0 && managerialCards.length === 0) {
+      if (errorElement) {
+        errorElement.textContent = "Please select at least one industry."
+        errorElement.classList.remove("hidden")
+      }
+      return false
     }
-    return false;
-  }
-  
-  let missingExperience = false;
-  let firstMissingCard = null;
-  
-  const checkCards = (cards) => {
-    cards.forEach((card) => {
-      const radioChecked = card.querySelector('input[type="radio"]:checked');
-      if (!radioChecked) {
-        if (!firstMissingCard) {
-          firstMissingCard = card;
+
+    let missingExperience = false
+    let firstMissingCard = null
+
+    const checkCards = (cards) => {
+      cards.forEach((card) => {
+        const radioChecked = card.querySelector('input[type="radio"]:checked')
+        if (!radioChecked) {
+          if (!firstMissingCard) {
+            firstMissingCard = card
+          }
+          missingExperience = true
+          card.style.border = "2px solid #ef4444"
+        } else {
+          card.style.border = ""
         }
-        missingExperience = true;
-        card.style.border = "2px solid #ef4444";
-      } else {
-        card.style.border = "";
-      }
-    });
-  };
-  
-  checkCards(rankFileCards);
-  checkCards(midLevelCards);
-  checkCards(managerialCards);
-  
-  if (missingExperience) {
-    if (errorElement) {
-      errorElement.textContent = "Please select experience level for each selected industry.";
-      errorElement.classList.remove("hidden");
+      })
     }
-    
-    // Scroll to the industry experience tab first
-    switchTab("industry-experience");
-    
-    // Then scroll to the first missing card with a slight delay to ensure tab is visible
-    setTimeout(() => {
-      if (firstMissingCard) {
-        firstMissingCard.scrollIntoView({ behavior: "smooth", block: "center" });
-        
-        // Highlight the card more prominently
-        firstMissingCard.style.border = "2px solid #ef4444";
-        
-        
-        // Add animation to draw attention
-        firstMissingCard.style.animation = "pulse 1s 2";
+
+    checkCards(rankFileCards)
+    checkCards(midLevelCards)
+    checkCards(managerialCards)
+
+    if (missingExperience) {
+      if (errorElement) {
+        errorElement.textContent = "Please select experience level for each selected industry."
+        errorElement.classList.remove("hidden")
       }
-    }, 300);
-    
-    return false;
-  } else {
-    if (errorElement) {
-      errorElement.classList.add("hidden");
+
+      // Scroll to the industry experience tab first
+      switchTab("industry-experience")
+
+      // Then scroll to the first missing card with a slight delay to ensure tab is visible
+      setTimeout(() => {
+        if (firstMissingCard) {
+          firstMissingCard.scrollIntoView({ behavior: "smooth", block: "center" })
+
+          // Highlight the card more prominently
+          firstMissingCard.style.border = "2px solid #ef4444"
+
+          // Add animation to draw attention
+          firstMissingCard.style.animation = "pulse 1s 2"
+        }
+      }, 300)
+
+      return false
+    } else {
+      if (errorElement) {
+        errorElement.classList.add("hidden")
+      }
+      return true
     }
-    return true;
   }
-}
 
   updateCardsLayout = (container) => {
     const cards = Array.from(container.children)
