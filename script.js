@@ -215,7 +215,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Technical skills categories and items
   const technicalCategories = {
-    "CRM & Quality Assurance": ["CRM Developer (Salesforce, HubSpot, Zendesk)",
+    "CRM & Quality Assurance": [
+      "CRM Developer (Salesforce, HubSpot, Zendesk)",
       "Data Reporting Tools (Power BI, Tableau)",
       "QA Software (Call Listening Tools, QA Scorecards)",
       "Google Sheets/Excel (Pivot Tables, Data Validation)",
@@ -471,7 +472,11 @@ document.addEventListener("DOMContentLoaded", () => {
     "Operations Manager": ["Process Optimization", "Project Management", "Team Leadership"],
     "Client Success Manager": ["Customer Retention Strategies", "Account Management"],
     "Production Manager": ["Workflow Management", "Project Management", "Team Leadership"],
-    "Business Development Manager": ["Lead Generation Strategy","Sales Pipeline Management","B2B Sales & Negotiation"],
+    "Business Development Manager": [
+      "Lead Generation Strategy",
+      "Sales Pipeline Management",
+      "B2B Sales & Negotiation",
+    ],
     "Business Development Representative": ["Lead Qualification", "Prospecting"],
     "Marketing Manager": ["Performance Analytics", "PPC Management", "Project Management"],
     "Lead Generator": ["Prospecting", "CRM Management", "List Building"],
@@ -495,7 +500,11 @@ document.addEventListener("DOMContentLoaded", () => {
     "Recruitment Associate": ["Talent Sourcing", "Applicant Screening"],
     "Recruitment Branding Specialist": ["Employer Branding", "Social Media Recruitment"],
     "Recruitment Database Specialist": ["Applicant Database Management", "Data Entry"],
-    "Learning and Development Coordinator": ["Training Program Development","Performance Evaluation","Project Management"],
+    "Learning and Development Coordinator": [
+      "Training Program Development",
+      "Performance Evaluation",
+      "Project Management",
+    ],
     "Production Specialist": ["Performance Evaluation", "Content Production"],
     "Production Specialist": ["Performance Evaluation", "Content Production", "Project Management"],
     "Project Manager": ["Agile & Scrum Methodologies", "Risk Management", "Project Management", "Team Leadership"],
@@ -537,38 +546,85 @@ document.addEventListener("DOMContentLoaded", () => {
     "HR/Admin Manager": ["Compliance Software (HRIS, OSHA Compliance Tools)", "ATS (Greenhouse, Lever)"],
     "HR/Admin and Finance Director": ["ERP Systems", "Financial Planning Software (NetSuite, QuickBooks)"],
     "Finance Associate": ["Accounting Software (Xero, QuickBooks)", "Excel (Financial Modeling, Macros)"],
-    "Finance Manager (Coordinator)": ["Budgeting Tools (SAP, NetSuite)","Financial Reporting Software (Power BI, Tableau)",],
+    "Finance Manager (Coordinator)": [
+      "Budgeting Tools (SAP, NetSuite)",
+      "Financial Reporting Software (Power BI, Tableau)",
+    ],
     "Operations Manager": ["Project Management Tools (Asana, Monday.com)", "ERP Systems (SAP, NetSuite)"],
-    "Client Success Manager": ["CRM End-User (Salesforce, HubSpot, Zendesk)", "Customer Support Tools (Intercom, Freshdesk)"],
-    "Key Account Manager" : ["CRM End-User (Salesforce, HubSpot, Zendesk) "],
+    "Client Success Manager": [
+      "CRM End-User (Salesforce, HubSpot, Zendesk)",
+      "Customer Support Tools (Intercom, Freshdesk)",
+    ],
+    "Key Account Manager": ["CRM End-User (Salesforce, HubSpot, Zendesk) "],
     "Production Manager": ["Workflow Management (ClickUp, Wrike)", "QA Tools (ISO Compliance Software)"],
-    "Business Development Manager": ["CRM End-User (Salesforce, HubSpot, Zendesk)", "Email Outreach Platforms (Apollo, Outreach.io)"],
-    "Business Development Representative": ["CRM End-User (Salesforce, HubSpot, Zendesk)", "Dialer Software (RingCentral, Aircall)"],
+    "Business Development Manager": [
+      "CRM End-User (Salesforce, HubSpot, Zendesk)",
+      "Email Outreach Platforms (Apollo, Outreach.io)",
+    ],
+    "Business Development Representative": [
+      "CRM End-User (Salesforce, HubSpot, Zendesk)",
+      "Dialer Software (RingCentral, Aircall)",
+    ],
     "Marketing Manager": ["Marketing Automation Tools (Marketo, HubSpot)", "Google Analytics"],
-    "Lead Generator": ["Lead Enrichment Tools (LinkedIn Sales Navigator, ZoomInfo)", "CRM End-User (Salesforce, HubSpot, Zendesk)"],
-    "Social Media Specialist": ["Social Media Management Tools (Hootsuite, Sprout Social)", "Design Software (Canva, Adobe Photoshop)"],
+    "Lead Generator": [
+      "Lead Enrichment Tools (LinkedIn Sales Navigator, ZoomInfo)",
+      "CRM End-User (Salesforce, HubSpot, Zendesk)",
+    ],
+    "Social Media Specialist": [
+      "Social Media Management Tools (Hootsuite, Sprout Social)",
+      "Design Software (Canva, Adobe Photoshop)",
+    ],
     "Web Developer": ["Programming Languages (HTML, CSS, JavaScript)", "CMS (WordPress, Shopify)"],
     "SEO Program Manager": ["Google Search Console", "Keyword Research Tools (Moz, SEMrush)"],
     "SEO Specialist": ["Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)", "Google Analytics"],
-    "Quality Assurance Analyst (SEO)": ["A/B Testing Tools (Google Optimize, VWO)","SEO Audit Tools (SEMrush, Ahrefs)"],
-    "Quality Assurance Analyst (SEO)": ["A/B Testing Tools (Google Optimize, VWO)","SEO Audit Tools (SEMrush, Ahrefs)","Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)",],
-    "Sales Development Representative": ["CRM End-User (Salesforce, HubSpot, Zendesk)", "Dialer Software (Five9, Aircall)"],
-    "Social Media Marketer": ["Social Listening Tools (Brandwatch, Sprout Social)","Content Scheduling Tools (Buffer, Later)"],
+    "Quality Assurance Analyst (SEO)": [
+      "A/B Testing Tools (Google Optimize, VWO)",
+      "SEO Audit Tools (SEMrush, Ahrefs)",
+    ],
+    "Quality Assurance Analyst (SEO)": [
+      "A/B Testing Tools (Google Optimize, VWO)",
+      "SEO Audit Tools (SEMrush, Ahrefs)",
+      "Technical SEO Tools (Screaming Frog, Google PageSpeed Insights)",
+    ],
+    "Sales Development Representative": [
+      "CRM End-User (Salesforce, HubSpot, Zendesk)",
+      "Dialer Software (Five9, Aircall)",
+    ],
+    "Social Media Marketer": [
+      "Social Listening Tools (Brandwatch, Sprout Social)",
+      "Content Scheduling Tools (Buffer, Later)",
+    ],
     "Database Coordinator": ["Database Management (MySQL, PostgreSQL)", "Data Processing (Excel, Google Sheets)"],
     "DB Researcher": ["Market Research Platforms (Statista, IBISWorld)", "Survey Tools (Google Forms, Typeform)"],
     "Data Analyst": ["Data Visualization Tools (Power BI, Tableau)", "SQL (Intermediate Queries)"],
     "Data Profiler": ["Database Cleaning Tools (OpenRefine, Trifacta)", "CRM End-User (Salesforce, HubSpot, Zendesk)"],
-    "Digital Marketing Manager": ["PPC Tools (Google Ads, Facebook Ads Manager)","Marketing Analytics (Google Data Studio, HubSpot)"],
-    "Email Marketing Specialist/Associate": ["Email Platforms (Mailchimp, Klaviyo)","A/B Testing Software (Litmus, Optimizely)"],
+    "Digital Marketing Manager": [
+      "PPC Tools (Google Ads, Facebook Ads Manager)",
+      "Marketing Analytics (Google Data Studio, HubSpot)",
+    ],
+    "Email Marketing Specialist/Associate": [
+      "Email Platforms (Mailchimp, Klaviyo)",
+      "A/B Testing Software (Litmus, Optimizely)",
+    ],
     "Digital Designer": ["UI/UX Design Tools (Figma, Adobe XD)", "HTML/CSS (Basic for Web Design)"],
     "Content Writer": ["CMS (WordPress, Ghost)", "Copywriting Tools (Grammarly, Hemingway Editor)"],
     "LinkedIn Champion": ["LinkedIn Sales Navigator", "LinkedIn Analytics"],
     "Recruitment Coordinator": ["ATS", "LinkedIn Recruiter"],
     "Recruitment Associate": ["Job Boards", "ATS"],
-    "Recruitment Branding Specialist": ["Social Media Ads (Meta Business Suite, LinkedIn Ads)","Design Software(Canva, Adobe Photoshop)","Job Boards"],
+    "Recruitment Branding Specialist": [
+      "Social Media Ads (Meta Business Suite, LinkedIn Ads)",
+      "Design Software(Canva, Adobe Photoshop)",
+      "Job Boards",
+    ],
     "Recruitment Database Specialist": ["Applicant Database Management (Google Sheets, SQL)", "ATS"],
-    "Learning and Development Coordinator": ["LMS Platforms (Moodle, TalentLMS)","E-learning Tools (Articulate, Captivate)"],
-    "Production Specialist": ["Video Editing Software (Adobe Premiere Pro, Camtasia)","Audio Recording Tools (Audacity, GarageBand)"],
+    "Learning and Development Coordinator": [
+      "LMS Platforms (Moodle, TalentLMS)",
+      "E-learning Tools (Articulate, Captivate)",
+    ],
+    "Production Specialist": [
+      "Video Editing Software (Adobe Premiere Pro, Camtasia)",
+      "Audio Recording Tools (Audacity, GarageBand)",
+    ],
     "Project Manager": ["Project Management Tools (Trello, Jira)", "Risk Assessment Software (Lucidchart, Asana)"],
     "Software Developer": ["Programming Languages (Python, Java, C#)", "Version Control (Git, GitHub)"],
     "Business Process Manager": ["Process Mapping Tools (Bizagi, Microsoft Visio)", "ERP Systems"],
@@ -576,7 +632,10 @@ document.addEventListener("DOMContentLoaded", () => {
     "IT Security Manager": ["SIEM Tools (Splunk, IBM QRadar)", "Endpoint Security (CrowdStrike, Symantec)"],
     "Network Administrator": ["Network Monitoring (Wireshark, Nagios)", "Firewall Configurations (Cisco, Fortinet)"],
     "Tech Support": ["Help Desk Software (Zendesk, Freshdesk)", "Remote Desktop Tools (TeamViewer, AnyDesk)"],
-    "Non-Voice Tech Support": ["Ticketing Systems (Jira Service Desk, Zoho Desk)","Knowledge Base Software (Confluence, Notion)"],
+    "Non-Voice Tech Support": [
+      "Ticketing Systems (Jira Service Desk, Zoho Desk)",
+      "Knowledge Base Software (Confluence, Notion)",
+    ],
   }
 
   // Role data for matching
@@ -653,7 +712,7 @@ document.addEventListener("DOMContentLoaded", () => {
     "Sales Development Representative": {
       industries: ["B2B Sales & Marketing", "Call Center / BPO"],
     },
-    "Social": {
+    Social: {
       industries: ["B2B Sales & Marketing", "Call Center / BPO"],
     },
     "Social Media Marketer": {
@@ -1216,6 +1275,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Update the validateCurrentTab function to check for maximum 6 technical skills
   function validateCurrentTab() {
     const tabName = tabNames[currentTabIndex]
     const errorElement = document.getElementById(`${tabName}-error`)
@@ -1490,6 +1550,7 @@ document.addEventListener("DOMContentLoaded", () => {
       case "technical":
         const technicalCheckboxes = document.querySelectorAll('input[name^="technical-"]:checked')
         const technicalSelected = technicalCheckboxes.length > 0
+        const technicalCount = technicalCheckboxes.length
 
         formData.technical = {}
         technicalCheckboxes.forEach((checkbox) => {
@@ -1499,6 +1560,12 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!technicalSelected) {
           if (errorElement) {
             errorElement.textContent = "Please select at least one technical skill."
+            errorElement.classList.remove("hidden")
+          }
+          isValid = false
+        } else if (technicalCount > 6) {
+          if (errorElement) {
+            errorElement.textContent = "Please select a maximum of 6 technical skills."
             errorElement.classList.remove("hidden")
           }
           isValid = false
@@ -1813,7 +1880,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Filter out disqualified roles
-    const qualifiedRoles = eligibleRoles.filter(role => !role.disqualified)
+    const qualifiedRoles = eligibleRoles.filter((role) => !role.disqualified)
 
     // Sort roles by score
     const sortedRoles = qualifiedRoles.sort((a, b) => b.rawScore - a.rawScore)
@@ -2369,9 +2436,51 @@ document.addEventListener("DOMContentLoaded", () => {
     updateQualificationStatus()
   }
 
+  // Modify the initializeTechnicalSkills function to add the 6-item limit validation
   function initializeTechnicalSkills() {
     const technicalContainer = document.getElementById("technical-container")
     technicalContainer.innerHTML = ""
+
+    // Add a function to count total selected technical skills across all categories
+    function countTotalSelectedTechnicalSkills() {
+      return document.querySelectorAll('input[type="checkbox"][name^="technical-"]:checked').length
+    }
+
+    // Function to update technical skills selection status
+    function updateTechnicalSkillsStatus() {
+      const totalSelected = countTotalSelectedTechnicalSkills()
+      const errorElement = document.getElementById("technical-error")
+
+      // Show message when exactly 6 technical skills are selected
+      if (totalSelected === 6) {
+        if (errorElement) {
+          errorElement.textContent = "Maximum of 6 technical skills selected. Deselect one to choose another."
+          errorElement.classList.remove("hidden")
+
+          // Make the message red instead of blue
+          errorElement.style.backgroundColor = "#fef2f2"
+          errorElement.style.color = "#b91c1c"
+          errorElement.style.border = "1px solid #ef4444"
+        }
+      } else if (totalSelected > 6) {
+        if (errorElement) {
+          errorElement.textContent = "Please select a maximum of 6 technical skills."
+          errorElement.classList.remove("hidden")
+
+          // Make the message red
+          errorElement.style.backgroundColor = "#fef2f2"
+          errorElement.style.color = "#b91c1c"
+          errorElement.style.border = "1px solid #ef4444"
+
+          // Scroll to the error message
+          errorElement.scrollIntoView({ behavior: "smooth", block: "center" })
+        }
+      } else {
+        if (errorElement) {
+          errorElement.classList.add("hidden")
+        }
+      }
+    }
 
     Object.entries(technicalCategories).forEach(([category, skills]) => {
       const categoryDiv = document.createElement("div")
@@ -2398,9 +2507,34 @@ document.addEventListener("DOMContentLoaded", () => {
         label.htmlFor = `technical-${skill}`
         label.textContent = skill
 
-        // Border change logic for .checkbox-item
+        // Border change logic for .checkbox-item and technical skills count check
         input.addEventListener("change", () => {
-          checkboxItem.style.border = input.checked ? "2px solid #014e89" : "2px solid #e2e8f0"
+          const totalSelected = countTotalSelectedTechnicalSkills()
+
+          // If trying to select more than 6 technical skills
+          if (totalSelected > 6 && input.checked) {
+            input.checked = false
+            checkboxItem.style.border = "2px solid #e2e8f0"
+
+            // Show error message and scroll to it
+            const errorElement = document.getElementById("technical-error")
+            if (errorElement) {
+              errorElement.textContent = "Please select a maximum of 6 technical skills."
+              errorElement.classList.remove("hidden")
+
+              // Make the message red
+              errorElement.style.backgroundColor = "#fef2f2"
+              errorElement.style.color = "#b91c1c"
+              errorElement.style.border = "1px solid #ef4444"
+
+              errorElement.scrollIntoView({ behavior: "smooth", block: "center" })
+            }
+          } else {
+            checkboxItem.style.border = input.checked ? "2px solid #014e89" : "2px solid #e2e8f0"
+          }
+
+          // Update technical skills status message
+          updateTechnicalSkillsStatus()
         })
 
         checkboxItem.appendChild(input)
@@ -2417,6 +2551,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       technicalContainer.appendChild(categoryDiv)
     })
+
+    // Initialize status on page load
+    updateTechnicalSkillsStatus()
   }
 
   // Industry Experience
